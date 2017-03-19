@@ -2,8 +2,11 @@ from os import chdir
 from os.path import abspath, dirname, join, normpath
 from setuptools import find_packages, setup
 
-with open(join(dirname(__file__), 'README.rst')) as readme:
-    README = readme.read()
+
+def read_file(filename):
+    with open(join(dirname(abspath(__file__)), filename)) as f:
+        return f.read()
+
 
 # allow setup.py to be run from any path
 chdir(normpath(abspath(dirname(__file__))))
@@ -17,16 +20,13 @@ setup(
     include_package_data=True,
     license=behave_django.__license__,
     description=behave_django.__doc__,
-    long_description=README,
+    long_description=read_file('README.rst'),
     url='https://github.com/behave/behave-django',
     author='Mitchel Cabuloy',
     author_email='mixxorz@gmail.com',
     maintainer='Mitchel Cabuloy',
     maintainer_email='mixxorz@gmail.com',
-    install_requires=[
-        'behave',
-        'Django>=1.8'
-    ],
+    install_requires=read_file('requirements.txt'),
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
