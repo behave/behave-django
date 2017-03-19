@@ -24,7 +24,7 @@ setup(
     url='https://github.com/behave/behave-django',
     author='Mitchel Cabuloy',
     author_email='mixxorz@gmail.com',
-    maintainer='Mitchel Cabuloy',
+    maintainer='Mitchel Cabuloy, Peter Bittner',
     maintainer_email='mixxorz@gmail.com',
     install_requires=read_file('requirements.txt'),
     classifiers=[
