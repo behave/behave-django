@@ -1,8 +1,5 @@
 language: python
 python: 3.6
-before_install:
-  # as suggested in https://github.com/travis-ci/travis-ci/issues/4990#issuecomment-297863117
-  - if [[ $TOXENV = py35 && -f ~/virtualenv/python3.5/bin/activate ]]; then source ~/virtualenv/python3.5/bin/activate; fi
 env:  # $ tox -l | sort | xargs -I _ echo '  - TOXENV=_'
   - TOXENV=flake8
   - TOXENV=py27-django18
@@ -15,6 +12,9 @@ env:  # $ tox -l | sort | xargs -I _ echo '  - TOXENV=_'
   - TOXENV=py35-django110
   - TOXENV=py35-django111
   - TOXENV=py36-django111
+before_install:
+  # work around https://github.com/travis-ci/travis-ci/issues/8363
+  - pyenv global system 3.5
 install:
   - pip install tox
 script: tox
