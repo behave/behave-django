@@ -1,5 +1,5 @@
 language: python
-python: 3.6
+python: 3.5
 env:  # $ tox -l | sort | xargs -I _ echo '  - TOXENV=_'
   - TOXENV=flake8
   - TOXENV=py27-django18
