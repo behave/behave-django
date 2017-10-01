@@ -16,6 +16,23 @@ def add_command_arguments(parser):
     Additional command line arguments for the behave management command
     """
     parser.add_argument(
+        '--noinput',
+        '--no-input',
+        action='store_const',
+        const=False,
+        dest='interactive',
+        help='Tells Django to NOT prompt the user for input of any kind.',
+    )
+    parser.add_argument(
+        '--failfast', action='store_const', const=True, dest='failfast',
+        help=('Tells Django to stop running the '
+              'test suite after first failed test.'),
+    )
+    parser.add_argument(
+        '-r', '--reverse', action='store_const', const=True, dest='reverse',
+        help='Reverses test cases order.',
+    )
+    parser.add_argument(
         '--use-existing-database',
         action='store_true',
         default=False,
@@ -23,8 +40,8 @@ def add_command_arguments(parser):
     )
     parser.add_argument(
         '-k', '--keepdb',
-        action='store_true',
-        default=False,
+        action='store_const',
+        const=True,
         help="Preserves the test DB between runs.",
     )
     parser.add_argument(
@@ -108,17 +125,22 @@ class Command(BaseCommand):
             ))
 
         # Configure django environment
+        passthru_args = ('failfast',
+                         'interactive',
+                         'keepdb',
+                         'reverse')
+        runner_args = {k: v for
+                       k, v in
+                       options.items() if k in passthru_args and v is not None}
+
         if options['dry_run'] or options['use_existing_database']:
-            django_test_runner = ExistingDatabaseTestRunner()
+            django_test_runner = ExistingDatabaseTestRunner(**runner_args)
         elif options['simple']:
-            django_test_runner = SimpleTestRunner()
+            django_test_runner = SimpleTestRunner(**runner_args)
         else:
-            django_test_runner = BehaviorDrivenTestRunner()
+            django_test_runner = BehaviorDrivenTestRunner(**runner_args)
 
         django_test_runner.setup_test_environment()
-
-        if options['keepdb']:
-            django_test_runner.keepdb = True
 
         old_config = django_test_runner.setup_databases()
 

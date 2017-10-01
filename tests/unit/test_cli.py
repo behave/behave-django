@@ -15,6 +15,9 @@ class TestCommandLine(DjangoSetupMixin):
                 os.linesep) in output
         assert (os.linesep + '  -k, --keepdb') in output
         assert (os.linesep + '  -S, --simple') in output
+        assert (os.linesep + '  --noinput, --no-input') in output
+        assert (os.linesep + '  --failfast') in output
+        assert (os.linesep + '  -r, --reverse') in output
 
     def test_should_accept_behave_arguments(self):
         from behave_django.management.commands.behave import Command
