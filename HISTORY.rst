@@ -1,6 +1,14 @@
 Release History
 ---------------
 
+x.x.x (2017-xx-xx)
+++++++++++++++++++
+
+**Features and Improvements**
+
+- Added decorator to load fixtures
+
+
 0.5.0 (2017-03-19)
 ++++++++++++++++++
 
