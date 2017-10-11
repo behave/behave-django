@@ -1,6 +1,20 @@
-from behave import then
+from behave import then, given
 
+from behave_django.decorators import fixtures
 from test_app.models import BehaveTestModel
+
+
+@fixtures('behave-fixtures.json')
+@given(u'a step with a fixture decorator')
+def check_decorator_fixtures(context):
+    pass
+
+
+@fixtures('behave-fixtures.json', 'behave-second-fixture.json',
+          'test_app.fixtures.callable.my_callable')
+@given(u'a step with multiple fixtures and a callable')
+def check_decorator_multiple(context):
+    pass
 
 
 @then(u'the fixture should be loaded')

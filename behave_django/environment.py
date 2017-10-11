@@ -1,3 +1,4 @@
+from behave import step_registry
 from behave.runner import ModelRunner, Context
 from django.shortcuts import resolve_url
 
@@ -49,6 +50,17 @@ class BehaveHooksMixin(object):
 
         if getattr(context, 'reset_sequences', None):
             context.test.reset_sequences = context.reset_sequences
+
+        for step in context.scenario.all_steps:
+            match = step_registry.registry.find_match(step)
+            if match and hasattr(match.func, 'fixtures'):
+                if not hasattr(context, 'fixtures'):
+                    context.fixtures = []
+
+                # Load callables, and set fixture-strings to the context.
+                context.fixtures.extend(
+                    match.func.fixtures.setup(context=context) or []
+                )
 
         context.test._pre_setup(run=True)
         context.test.setUpClass()
