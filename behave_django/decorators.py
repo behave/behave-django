@@ -24,7 +24,7 @@ class FixtureRegister:
 
 def fixtures(*fixture_or_callable):
     """
-    Provide fixtures for given step_imp. Fixtures will be loaded in
+    Provide fixtures for given step_impl. Fixtures will be loaded in
     environment.py#before_scenario, as this is the appropriate hook before
     the TestCase is loaded.
 
