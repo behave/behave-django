@@ -51,12 +51,8 @@ class BehaveHooksMixin(object):
         if getattr(context, 'reset_sequences', None):
             context.test.reset_sequences = context.reset_sequences
 
-        for step in context.scenario.all_steps:
-            match = step_registry.registry.find_match(step)
-            if match and hasattr(match.func, 'registered_fixtures'):
-                if not context.test.fixtures:
-                    context.test.fixtures = []
-                context.test.fixtures.extend(match.func.registered_fixtures)
+        if hasattr(context, 'scenario'):
+            self.load_registered_fixtures(context=context)
 
         context.test._pre_setup(run=True)
         context.test.setUpClass()
@@ -69,6 +65,17 @@ class BehaveHooksMixin(object):
         context.test.tearDownClass()
         context.test._post_teardown(run=True)
         del context.test
+
+    def load_registered_fixtures(self, context):
+        """
+        Apply fixtures that are registered with the @fixtures decorator.
+        """
+        for step in context.scenario.all_steps:
+            match = step_registry.registry.find_match(step)
+            if match and hasattr(match.func, 'registered_fixtures'):
+                if not context.test.fixtures:
+                    context.test.fixtures = []
+                context.test.fixtures.extend(match.func.registered_fixtures)
 
 
 def monkey_patch_behave(django_test_runner):

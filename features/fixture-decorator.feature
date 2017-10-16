@@ -1,3 +1,4 @@
+@requires-live-http
 Feature: Fixture loading with decorator
     In order to have sample data during my behave tests
     As a developer
