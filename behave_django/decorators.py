@@ -8,7 +8,7 @@ def fixtures(*fixture_files):
     def step_impl(context):
         pass
 
-    :param fixture_files: list of fixture-files
+    :param fixture_files: list of fixture files
     """
 
     def wrapper(step_impl):
