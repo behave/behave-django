@@ -53,14 +53,10 @@ class BehaveHooksMixin(object):
 
         for step in context.scenario.all_steps:
             match = step_registry.registry.find_match(step)
-            if match and hasattr(match.func, 'fixtures'):
-                if not hasattr(context, 'fixtures'):
-                    context.fixtures = []
-
-                # Load callables, and set fixture-strings to the context.
-                context.fixtures.extend(
-                    match.func.fixtures.setup(context=context) or []
-                )
+            if match and hasattr(match.func, 'registered_fixtures'):
+                if not context.test.fixtures:
+                    context.test.fixtures = []
+                context.test.fixtures.extend(match.func.registered_fixtures)
 
         context.test._pre_setup(run=True)
         context.test.setUpClass()

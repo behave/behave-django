@@ -160,32 +160,18 @@ mutate it however you want, it will only be processed upon leaving the
 Fixtures using a decorator
 **************************
 
-You can define `django fixtures`_ or a path to a callable for any step, using
-a method decorator. The decorator will load the fixture in the
-``before_scenario``, as documented above. It is merely a convenient way to keep
-fixtures close to your steps. The decorator also accepts a string, containing
-the full path to a callable.
+You can define `Django fixtures`_ using a method decorator. The decorator will
+load the fixtures in the ``before_scenario``, as documented above. It is merely
+a convenient way to keep fixtures close to your steps.
 
 .. code-block::  python
 
     from behave_django.decorators import fixtures
 
-    @fixtures('users.json', 'path.to.my_callable')
+    @fixtures('users.json')
     @when('someone does something')
     def step_impl(context):
-        # context.school_of is available
         pass
-
-
-This will append ``users.json`` to ``context.fixtures`` in ``before_scenario``.
-The callable is executed and receives ``context`` as single argument, which is
-also available in the decorated step.
-
-.. code-block:: python
-
-    def my_callable(context):
-        silly_walks = '_/\_, _/|_, _|\_'
-        context.school_of = silly_walks
 
 
 Command line options
@@ -251,4 +237,4 @@ Behave should now look for your features in those folders.
 .. |keepdb docs| replace:: More information about ``--keepdb``
 .. _keepdb docs: https://docs.djangoproject.com/en/stable/topics/testing/overview/#the-test-database
 .. _using the ORM: https://docs.djangoproject.com/en/stable/topics/testing/tools/#fixture-loading
-.. _django fixtures: https://docs.djangoproject.com/en/stable/howto/initial-data/#providing-initial-data-with-fixtures
+.. _Django fixtures: https://docs.djangoproject.com/en/stable/howto/initial-data/#providing-initial-data-with-fixtures

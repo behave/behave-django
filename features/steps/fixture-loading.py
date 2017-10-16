@@ -10,9 +10,8 @@ def check_decorator_fixtures(context):
     pass
 
 
-@fixtures('behave-fixtures.json', 'behave-second-fixture.json',
-          'test_app.fixtures.callable.my_callable')
-@given(u'a step with multiple fixtures and a callable')
+@fixtures('behave-fixtures.json', 'behave-second-fixture.json')
+@given(u'a step with multiple fixtures')
 def check_decorator_multiple(context):
     pass
 
