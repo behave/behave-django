@@ -52,14 +52,6 @@ details of this very example.  See the folder also for `more useful examples`_.
    The `behave docs`_ provide additional helpful information on using *behave*
    with Django and various test automation libraries.
 
-.. note::
-
-   Starting with version ``0.2.0``, you no longer need to insert the
-   ``environment.before_scenario()`` and ``environment.after_scenario()``
-   functions in your ``environment.py`` file. The hooks are now included via
-   monkey patching.
-
-
 .. _environment.py: https://github.com/behave/behave-django/blob/master/features/environment.py
 .. _running-tests.feature: https://github.com/behave/behave-django/blob/master/features/running-tests.feature
 .. _steps/running_tests.py: https://github.com/behave/behave-django/blob/master/features/steps/running_tests.py
