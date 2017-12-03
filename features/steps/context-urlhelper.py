@@ -1,5 +1,8 @@
 from behave import when, then
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except ImportError:  # Django < 1.10
+    from django.core.urlresolvers import reverse
 
 from test_app.models import BehaveTestModel
 
