@@ -56,4 +56,4 @@ details of this very example.  See the folder also for `more useful examples`_.
 .. _running-tests.feature: https://github.com/behave/behave-django/blob/master/features/running-tests.feature
 .. _steps/running_tests.py: https://github.com/behave/behave-django/blob/master/features/steps/running_tests.py
 .. _more useful examples: https://github.com/behave/behave-django/tree/master/features
-.. _behave docs: https://behave.readthedocs.io/en/latest/django.html#automation-libraries
+.. _behave docs: https://behave.readthedocs.io/en/latest/practical_tips.html
