@@ -88,10 +88,10 @@ def monkey_patch_behave(django_test_runner):
         if name == 'before_all':
             django_test_runner.patch_context(context)
 
-        behave_run_hook(self, name, context, *args)
-
         if name == 'before_scenario':
             django_test_runner.before_scenario(context)
+
+        behave_run_hook(self, name, context, *args)
 
         if name == 'after_scenario':
             django_test_runner.after_scenario(context)
