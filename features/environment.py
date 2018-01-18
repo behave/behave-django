@@ -9,9 +9,5 @@ def before_feature(context, feature):
 
 
 def before_scenario(context, scenario):
-    if scenario.name == 'Load fixtures for this scenario and feature':
-        context.fixtures.append('behave-second-fixture.json')
-
     if scenario.name == 'Load fixtures then reset sequences':
-        context.fixtures.append('behave-second-fixture.json')
         context.reset_sequences = True
