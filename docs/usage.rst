@@ -123,18 +123,6 @@ In ``environment.py`` we can load our context with the fixtures array.
     def before_scenario(context, scenario):
         context.fixtures = ['user-data.json']
 
-This fixture would then be loaded before every scenario.
-
-If you wanted different fixtures for different scenarios:
-
-.. code-block:: python
-
-    def before_scenario(context, scenario):
-        if scenario.name == 'User login with valid credentials':
-            context.fixtures = ['user-data.json']
-        elif scenario.name == 'Check out cart':
-            context.fixtures = ['user-data.json', 'store.json', 'cart.json']
-
 You could also have fixtures per Feature too
 
 .. code-block:: python
@@ -147,7 +135,9 @@ You could also have fixtures per Feature too
 
 Of course, since ``context.fixtures`` is really just a list, you can
 mutate it however you want, it will only be processed upon leaving the
-``before_scenario()`` function of your ``environment.py`` file.
+``before_feature()`` function of your ``environment.py`` file.
+``context.fixtures`` should not be mutated by ``before_scenario()``,
+or ``before_steps()``. Mutate will impact all subsequent scenarios.
 
 .. note::
 
