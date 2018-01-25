@@ -13,3 +13,6 @@ Feature: Fixture loading
     @failing
     Scenario: Load fixtures then reset sequences
         Then the sequences should be reset
+
+    Scenario: Load fixtures with multi_db option
+        Then multi_db should be enabled

@@ -189,6 +189,22 @@ a convenient way to keep fixtures close to your steps.
         pass
 
 
+Support for multiple databases
+******************************
+
+By default Django only loads fixtures into the ``default`` database.
+
+Use ``before_scenario`` to load the fixtures in all of the databases you have
+configured, if your tests rely on the fixtures being loaded in all of them.
+
+.. code-block:: python
+
+    def before_scenario(context, scenario):
+        context.multi_db = True
+
+You can read more about it in the `Multiple database docs`_.
+
+
 Command line options
 --------------------
 
@@ -253,3 +269,4 @@ Behave should now look for your features in those folders.
 .. _keepdb docs: https://docs.djangoproject.com/en/stable/topics/testing/overview/#the-test-database
 .. _using the ORM: https://docs.djangoproject.com/en/stable/topics/testing/tools/#fixture-loading
 .. _Django fixtures: https://docs.djangoproject.com/en/stable/howto/initial-data/#providing-initial-data-with-fixtures
+.. _Multiple database docs: https://docs.djangoproject.com/en/stable/topics/testing/tools/#multi-database-support

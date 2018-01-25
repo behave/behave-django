@@ -27,6 +27,11 @@ def check_second_fixtures(context):
 
 
 @then(u'the sequences should be reset')
-def check_reset_seqeunces(context):
+def check_reset_sequences(context):
     context.test.assertEqual(BehaveTestModel.objects.first().pk, 1)
     context.test.assertEqual(BehaveTestModel.objects.last().pk, 2)
+
+
+@then(u'multi_db should be enabled')
+def check_multi_db(context):
+    context.test.assertTrue(context.test.multi_db)
