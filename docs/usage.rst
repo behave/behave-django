@@ -6,7 +6,7 @@ Web browser automation
 
 You can access the test HTTP server from your preferred web automation
 library via ``context.base_url`` (normally, this would be set to
-``http://localhost:8081``).  Alternatively, you can use
+``http://localhost:8000``).  Alternatively, you can use
 ``context.get_url()``, which is a helper function for absolute paths and
 reversing URLs in your Django project.  It takes an absolute path, a view
 name, or a model as an argument, similar to `django.shortcuts.redirect`_.
@@ -16,9 +16,9 @@ Examples:
 .. code-block:: python
 
     # Using Splinter
-    @when(u'I visit "{url}"')
-    def visit(context, url):
-        context.browser.visit(context.base_url + url)
+    @when(u'I visit "{page}"')
+    def visit(context, page):
+        context.browser.visit(context.get_url(page))
 
 .. code-block:: python
 
