@@ -11,12 +11,10 @@ class TestCommandLine(DjangoSetupMixin):
             'python tests/manage.py behave --help')
         assert exit_status == 0, \
             show_run_error(exit_status, output)
-        assert (
-            os.linesep + '  --use-existing-database' + os.linesep) in output
-        assert (
-            os.linesep + '  -k, --keepdb') in output
-        assert (
-            os.linesep + '  -S, --simple') in output
+        assert (os.linesep + '  --use-existing-database' +
+                os.linesep) in output
+        assert (os.linesep + '  -k, --keepdb') in output
+        assert (os.linesep + '  -S, --simple') in output
 
     def test_should_accept_behave_arguments(self):
         from behave_django.management.commands.behave import Command
@@ -103,6 +101,6 @@ class TestCommandLine(DjangoSetupMixin):
             show_run_error(exit_status, output)
         assert (
             os.linesep +
-            '--simple flag has no effect ' +
-            'together with --use-existing-database' +
+            '--simple flag has no effect together with '
+            '--use-existing-database' +
             os.linesep) in output
