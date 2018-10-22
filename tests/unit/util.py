@@ -2,6 +2,7 @@ import os
 
 import django
 from django.core.management import call_command
+from subprocess import PIPE, Popen
 
 
 class DjangoSetupMixin(object):
@@ -16,3 +17,20 @@ class DjangoSetupMixin(object):
     def run_management_command(self, command, *args, **kwargs):
         django.setup()
         call_command(command, *args, **kwargs)
+
+
+def run_silently(command):
+    """Run a shell command and return both exit_status and console output."""
+    command_args = command.split()
+    process = Popen(command_args, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+    stdout, stderr = process.communicate()
+    output = (stdout.decode('UTF-8') + os.linesep +
+              stderr.decode('UTF-8')).strip() + os.linesep
+    return process.returncode, output
+
+
+def show_run_error(exit_status, output):
+    """An easy-to-read error message for assert"""
+    return 'Failed with exit status %s\n' \
+           '--------------\n' \
+           '%s' % (exit_status, output)
