@@ -1,5 +1,5 @@
-from imp import reload
 import os
+from imp import reload
 from subprocess import PIPE, Popen
 
 from .util import DjangoSetupMixin
@@ -8,19 +8,27 @@ from .util import DjangoSetupMixin
 def run_silently(command):
     """Run a shell command and return both exit_status and console output."""
     command_args = command.split()
-    process = Popen(
-        command_args, stdout=PIPE, stderr=PIPE, stdin=PIPE)
+    process = Popen(command_args, stdout=PIPE, stderr=PIPE, stdin=PIPE)
     stdout, stderr = process.communicate()
     output = (stdout.decode('UTF-8') + os.linesep +
               stderr.decode('UTF-8')).strip() + os.linesep
     return process.returncode, output
 
 
+def show_run_error(exit_status, output):
+    """An easy-to-read error message for assert"""
+    return 'Failed with exit status %s\n' \
+           '--------------\n' \
+           '%s' % (exit_status, output)
+
+
 class TestCommandLine(DjangoSetupMixin):
 
     def test_additional_management_command_options(self):
-        exit_status, output = run_silently('python manage.py behave --help')
-        assert exit_status == 0
+        exit_status, output = run_silently(
+            'python tests/manage.py behave --help')
+        assert exit_status == 0, \
+            show_run_error(exit_status, output)
         assert (
             os.linesep + '  --use-existing-database' + os.linesep) in output
         assert (
@@ -76,8 +84,10 @@ class TestCommandLine(DjangoSetupMixin):
 
     def test_positional_args_should_work(self):
         exit_status, output = run_silently(
-            'python manage.py behave features/running-tests.feature')
-        assert exit_status == 0
+            'python tests/manage.py behave'
+            '    tests/acceptance/features/running-tests.feature')
+        assert exit_status == 0, \
+            show_run_error(exit_status, output)
 
     def test_command_import_dont_patch_behave_options(self):
         # We reload the tested imports because they
@@ -104,10 +114,11 @@ class TestCommandLine(DjangoSetupMixin):
 
     def test_simple_and_use_existing_database_flags_raise_a_warning(self):
         exit_status, output = run_silently(
-            'python manage.py behave'
+            'python tests/manage.py behave'
             '    --simple --use-existing-database --tags=@skip-all'
         )
-        assert exit_status == 0
+        assert exit_status == 0, \
+            show_run_error(exit_status, output)
         assert (
             os.linesep +
             '--simple flag has no effect ' +
