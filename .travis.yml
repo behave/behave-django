@@ -15,7 +15,7 @@ env:
 matrix:
   exclude:
     # Python/Django combinations that aren't officially supported
-    - { env: DJANGO=1.10, python: 3.7 }
+    - { env: DJANGO=1.11, python: 3.7 }
     - { env: DJANGO=2.0, python: 2.7 }
     - { env: DJANGO=2.1, python: 2.7 }
     - { env: DJANGO=2.1, python: 3.4 }
