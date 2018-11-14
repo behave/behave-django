@@ -1,8 +1,9 @@
 import os
 
+from subprocess import PIPE, Popen
+
 import django
 from django.core.management import call_command
-from subprocess import PIPE, Popen
 
 
 class DjangoSetupMixin(object):

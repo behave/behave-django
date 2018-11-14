@@ -1,13 +1,15 @@
 try:
-    import unittest.mock as mock
+    from unittest import mock
 except ImportError:
     import mock
 
-from .util import DjangoSetupMixin
+import pytest
+
 from behave_django.runner import SimpleTestRunner
 from behave.runner import Context, Runner
 from django.test.testcases import TestCase
-import pytest
+
+from .util import DjangoSetupMixin
 
 
 class TestSimpleTestCase(DjangoSetupMixin):
