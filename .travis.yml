@@ -3,27 +3,35 @@ sudo: true
 
 language: python
 python:
-  - 2.7
-  - 3.4
-  - 3.5
-  - 3.6
-  - 3.7
+- 2.7
+- 3.4
+- 3.5
+- 3.6
+- 3.7
+
 env:
-  - DJANGO=1.11
-  - DJANGO=2.0
-  - DJANGO=2.1
+- DJANGO=1.11
+- DJANGO=2.0
+- DJANGO=2.1
+
 matrix:
   exclude:
-    # Python/Django combinations that aren't officially supported
-    - { env: DJANGO=1.11, python: 3.7 }
-    - { env: DJANGO=2.0, python: 2.7 }
-    - { env: DJANGO=2.1, python: 2.7 }
-    - { env: DJANGO=2.1, python: 3.4 }
-  include:
-    - { env: TOXENV=flake8, python: 3.7 }
-    - { env: TOXENV=readme, python: 3.7 }
+  # Python/Django combinations that aren't officially supported
+  - { env: DJANGO=1.11, python: 3.7 }
+  - { env: DJANGO=2.0, python: 2.7 }
+  - { env: DJANGO=2.1, python: 2.7 }
+  - { env: DJANGO=2.1, python: 3.4 }
 
 install:
-  - pip install tox-travis
+- pip install tox-travis
 script:
-  - tox
+- tox
+
+stages:
+- lint
+- test
+
+jobs:
+  include:
+  - { stage: lint, python: 3.7, env: TOXENV=flake8 }
+  - { stage: lint, python: 3.7, env: TOXENV=readme }
