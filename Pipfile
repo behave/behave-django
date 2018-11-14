@@ -8,12 +8,9 @@ behave = "*"
 Django = ">=1.11"
 
 [dev-packages]
-behave = "*"
 flake8 = "*"
 pytest = "*"
 tox = "*"
-Django = ">=1.11"
 Sphinx = "*"
 
 [requires]
-python_version = "3.6"
