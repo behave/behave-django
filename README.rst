@@ -24,14 +24,9 @@ Version Support
 ---------------
 
 behave-django is `tested against`_ the officially supported combinations of
-Python and Django (Django 1.8, 1.9, 1.10, 1.11, 2.0 on Python 2.7, 3.3, 3.4,
-3.5, 3.6, excluding the aged Python 3.2).
+Python and Django (Django 1.11, 2.0, 2.1 on Python 2.7, 3.4, 3.5, 3.6, 3.7).
 
-The version of `behave`_ is independent from our integration.
-
-**Older versions:** Django versions 1.4 through 1.9 on Python 2.6 through 3.5
-are supported until `version 0.3.0`_ of ``behave-django``.  Please install
-that release for Django 1.7.x and below.  There is no technical disadvantage.
+The version of `behave`_ is not tied our integration (read: "independent").
 
 .. docs-marker
 
@@ -53,7 +48,6 @@ Please, read the `contributing guide`_ in the docs.
 
 .. _tested against: https://travis-ci.org/behave/behave-django
 .. _behave: https://pypi.python.org/pypi/behave
-.. _version 0.3.0: https://pypi.python.org/pypi/behave-django/0.3.0
 .. _behave-django.readthedocs.io: https://behave-django.readthedocs.io/en/latest/
 .. _behave.readthedocs.io: https://behave.readthedocs.io/en/latest/usecase_django.html
 .. _contributing guide: https://behave-django.readthedocs.io/en/latest/contribute.html
