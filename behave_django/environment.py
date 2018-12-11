@@ -1,4 +1,4 @@
-from behave import step_registry
+from behave import step_registry as module_step_registry
 from behave.runner import ModelRunner, Context
 from django.shortcuts import resolve_url
 
@@ -21,8 +21,18 @@ def load_registered_fixtures(context):
     """
     Apply fixtures that are registered with the @fixtures decorator.
     """
+    # -- SELECT STEP REGISTRY:
+    # HINT: Newer behave versions use runner.step_registry
+    #   to be able to support multiple runners, each with its own step_registry.
+    runner = context._runner    # pylint: disable=protected-access
+    step_registry = getattr(runner, 'step_registry', None)
+    if not step_registry:
+        # -- BACKWARD-COMPATIBLE: Use module_step_registry
+        step_registry = module_step_registry.registry
+
+    # -- SETUP SCENARIO FIXTURES:
     for step in context.scenario.all_steps:
-        match = step_registry.registry.find_match(step)
+        match = step_registry.find_match(step)
         if match and hasattr(match.func, 'registered_fixtures'):
             if not context.test.fixtures:
                 context.test.fixtures = []
