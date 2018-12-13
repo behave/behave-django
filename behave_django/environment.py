@@ -23,7 +23,7 @@ def load_registered_fixtures(context):
     """
     # -- SELECT STEP REGISTRY:
     # HINT: Newer behave versions use runner.step_registry
-    #   to be able to support multiple runners, each with its own step_registry.
+    # to be able to support multiple runners, each with its own step_registry.
     runner = context._runner    # pylint: disable=protected-access
     step_registry = getattr(runner, 'step_registry', None)
     if not step_registry:
