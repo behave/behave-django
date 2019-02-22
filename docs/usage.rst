@@ -226,6 +226,18 @@ each scenario instead of flushing the entire database. Tests run much quicker,
 however HTTP server is not started and therefore web browser automation is
 not available.
 
+``--test-runner``
+************
+
+Allows to use custom test runner, provided as dotted path as a value of ``--test-runner``
+option, for instance:
+
+.. code-block:: bash
+
+    $ python manage.py behave --test-runner myapp.runners.CustomTestRunner
+
+
+
 Behave configuration file
 -------------------------
 

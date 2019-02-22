@@ -1,9 +1,11 @@
 from __future__ import absolute_import
+
 import sys
 
 from behave.configuration import options as behave_options
 from behave.__main__ import main as behave_main
 from django.core.management.base import BaseCommand
+from django.utils.module_loading import import_string
 
 from behave_django.environment import monkey_patch_behave
 from behave_django.runner import (BehaviorDrivenTestRunner,
@@ -50,6 +52,14 @@ def add_command_arguments(parser):
         default=False,
         help="Use simple test runner that supports Django's"
         " testing client only (no web browser automation)"
+    )
+
+    parser.add_argument(
+        '--test-runner',
+        default=None,
+        help="Path to custom test runner, e.g. "
+        "project.test.runner.CustomTestRunner. To work properly it "
+        "has to be inherited from behave_django.environment.BehaveHooksMixin"
     )
 
 
@@ -118,10 +128,16 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         # Check the flags
-        if options['use_existing_database'] and options['simple']:
+        if options['use_existing_database'] and (options['simple'] or options['test_runner']):
             self.stderr.write(self.style.WARNING(
-                '--simple flag has no effect'
+                '--simple and --test-runner flags has no effect'
                 ' together with --use-existing-database'
+            ))
+
+        elif options['simple'] and options['test_runner']:
+            self.stderr.write(self.style.WARNING(
+                '--test-runner flag has no effect'
+                ' together with --simple'
             ))
 
         # Configure django environment
@@ -137,6 +153,8 @@ class Command(BaseCommand):
             django_test_runner = ExistingDatabaseTestRunner(**runner_args)
         elif options['simple']:
             django_test_runner = SimpleTestRunner(**runner_args)
+        elif options['test_runner']:
+            django_test_runner = import_string(options['test_runner'])(**runner_args)
         else:
             django_test_runner = BehaviorDrivenTestRunner(**runner_args)
 
