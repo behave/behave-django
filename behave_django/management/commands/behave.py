@@ -128,7 +128,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         # Check the flags
-        if options['use_existing_database'] and (options['simple'] or options['test_runner']):
+        if options['use_existing_database'] and \
+                (options['simple'] or options['test_runner']):
             self.stderr.write(self.style.WARNING(
                 '--simple and --test-runner flags has no effect'
                 ' together with --use-existing-database'
@@ -154,7 +155,8 @@ class Command(BaseCommand):
         elif options['simple']:
             django_test_runner = SimpleTestRunner(**runner_args)
         elif options['test_runner']:
-            django_test_runner = import_string(options['test_runner'])(**runner_args)
+            test_runner_class = import_string(options['test_runner'])
+            django_test_runner = test_runner_class(**runner_args)
         else:
             django_test_runner = BehaviorDrivenTestRunner(**runner_args)
 
