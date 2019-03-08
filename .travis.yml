@@ -32,9 +32,20 @@ script:
 stages:
 - lint
 - test
+- deploy
 
 jobs:
   include:
   - { stage: lint, python: 3.7, env: TOXENV=flake8 }
   - { stage: lint, python: 3.7, env: TOXENV=readme }
   - { stage: test, python: 3.7, env: TOXENV=behave-latest }
+  - stage: deploy
+    script: skip
+    deploy:
+      provider: pypi
+      distributions: sdist bdist_wheel
+      user: bittner
+      password:
+        secure: JPAzjXHD9HwdGnlF9ePqNUK+X7BjGfvIHtT1Ow/TGmHDj4q4/tceoULpOX9lvmlmXEiT5EooxDr/s2yE2XS0xfGYp8FdxmkdHuRWpJUHbQBNgDGMRPFJPdNmpRa5Jn/ol6wzHTu04hI6VOacPiYD0cofhCyx6w0J5kLnqEpKTodpaA4Ih8ZWq/QwcBnDIbo97OUSAcsWsBvUn0ZOGqmb75iFZ6YTL5QSQVhd+JkrahldDqQuqslVE3JOFA3cG2aRJ9cCkrp8DuRjlio8gZAp0RzKFQNfk2gUsmSUToyky7EGh3Y9QYo4+eA0rrlmHipsgWo7XokmIeQPE85D7TOc2GWjAptF/59p1xaAlld39/sPAWq76YGh7hJXzptq/Mv4KmedTb/uLAEo6GNWtxiTnBUg6GgluHemlKRHB9DbkMSwOeSXLxcDnDbijtbL+g3QJn9Z6KFn3mmylqidTS8nondzNc4dQNN9mAg2H0BSvAgiVg7KCAU87evxUHRr7Vt0gNGV9F2mTiy7rdyzlOV1aRgBH6XBxr2pyzoAi5Gee+GpWAGJv0qtsPa+Rh4NjqGRSfrP/h+E1/AQSxWERe+wBwnvhC9rNd60LaS1dFIBDVrBc5bdQEYeeKkXhf2iKN1ghO7SNDyJQzmcHz9jbq5Cwrj6JQXutaogY5aYEro/U/Y=
+      on:
+        tags: true
