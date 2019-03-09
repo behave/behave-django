@@ -1,6 +1,14 @@
 Release History
 ---------------
 
+1.2.0 (2018-03-09)
+++++++++++
+
+**Features and Improvements**
+
+- Added option to set multi_db on TestCase
+
+
 1.1.0 (2017-01-29)
 ++++++++++
 

@@ -16,4 +16,5 @@ Contributors
 * `Karel Hovorka <https://github.com/hovi>`_
 * `Nik Nyby <https://github.com/nikolas>`_
 * `Sebastian Manger <https://github.com/sebastianmanger>`_
+* `Tom Mortimer-Jones <https://github.com/morty>`_
 * `Wojciech Banaś <https://github.com/fizista>`_
