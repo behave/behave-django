@@ -59,8 +59,8 @@ Please, read the `contributing guide`_ in the docs.
 .. |build-status| image:: https://img.shields.io/travis/behave/behave-django/master.svg
     :target: https://travis-ci.org/behave/behave-django
     :alt: Build status
-.. |health| image:: https://landscape.io/github/behave/behave-django/master/landscape.svg?style=flat
-    :target: https://landscape.io/github/behave/behave-django/master
+.. |health| image:: https://api.codacy.com/project/badge/Grade/ffcbf7a0c11445a6b95adf80ac9da029
+    :target: https://www.codacy.com/app/bittner/behave-django
     :alt: Code health
 .. |python-support| image:: https://img.shields.io/pypi/pyversions/behave-django.svg
    :target: https://pypi.python.org/pypi/behave-django
