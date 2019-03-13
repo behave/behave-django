@@ -23,6 +23,7 @@ setup(
     license=package.__license__,
     description=package.__doc__.strip(),
     long_description=read_file('README.rst'),
+    long_description_content_type='text/x-rst',
     packages=find_packages(exclude=['test*']),
     include_package_data=True,
     url=package.__url__,

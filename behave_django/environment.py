@@ -7,9 +7,10 @@ class PatchedContext(Context):
 
     @property
     def base_url(self):
-        assert hasattr(self.test, 'live_server_url'), \
-            'Web browser automation is not available. This ' \
-            'scenario step can not be run with the --simple or -S flag.'
+        if not hasattr(self.test, 'live_server_url'):
+            raise RuntimeError('Web browser automation is not available. '
+                               'This scenario step can not be run with the '
+                               '--simple or -S flag.')
         return self.test.live_server_url
 
     def get_url(self, to=None, *args, **kwargs):

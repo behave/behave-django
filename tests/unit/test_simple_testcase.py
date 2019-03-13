@@ -34,7 +34,7 @@ class TestSimpleTestCase(DjangoSetupMixin):
         runner.context = Context(runner)
         SimpleTestRunner().patch_context(runner.context)
         SimpleTestRunner().setup_testclass(runner.context)
-        with pytest.raises(AssertionError):
+        with pytest.raises(RuntimeError):
             assert runner.context.base_url == 'should raise an exception!'
 
     def test_simple_testcase_fails_when_calling_get_url(self):
@@ -42,5 +42,5 @@ class TestSimpleTestCase(DjangoSetupMixin):
         runner.context = Context(runner)
         SimpleTestRunner().patch_context(runner.context)
         SimpleTestRunner().setup_testclass(runner.context)
-        with pytest.raises(AssertionError):
+        with pytest.raises(RuntimeError):
             runner.context.get_url()
