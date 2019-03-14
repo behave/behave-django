@@ -5,8 +5,7 @@ Web browser automation
 ----------------------
 
 You can access the test HTTP server from your preferred web automation
-library via ``context.base_url`` (normally, this would be set to
-``http://localhost:8000``).  Alternatively, you can use
+library via ``context.base_url``.  Alternatively, you can use
 ``context.get_url()``, which is a helper function for absolute paths and
 reversing URLs in your Django project.  It takes an absolute path, a view
 name, or a model as an argument, similar to `django.shortcuts.redirect`_.

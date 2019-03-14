@@ -14,6 +14,7 @@ Contributors
 * `Jens Engel <https://github.com/jenisys>`_
 * `Jérôme Thiard <https://github.com/jthiard>`_
 * `Karel Hovorka <https://github.com/hovi>`_
+* `Nate Hill <https://github.com/nhill-cpi>`_
 * `Nik Nyby <https://github.com/nikolas>`_
 * `Sebastian Manger <https://github.com/sebastianmanger>`_
 * `Tom Mortimer-Jones <https://github.com/morty>`_
