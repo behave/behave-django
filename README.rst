@@ -63,11 +63,11 @@ Please, read the `contributing guide`_ in the docs.
     :target: https://www.codacy.com/app/behave-contrib/behave-django
     :alt: Code health
 .. |python-support| image:: https://img.shields.io/pypi/pyversions/behave-django.svg
-   :target: https://pypi.python.org/pypi/behave-django
-   :alt: Python versions
+    :target: https://pypi.python.org/pypi/behave-django
+    :alt: Python versions
 .. |license| image:: https://img.shields.io/pypi/l/behave-django.svg
     :target: https://github.com/behave/behave-django/blob/master/LICENSE
     :alt: Software license
 .. |gitter| image:: https://badges.gitter.im/behave/behave-django.svg
-   :alt: Gitter chat room
-   :target: https://gitter.im/behave/behave-django
+    :alt: Gitter chat room
+    :target: https://gitter.im/behave/behave-django
