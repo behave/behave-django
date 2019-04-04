@@ -54,8 +54,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'behave-django'
-copyright = u'2017, Mitchel Cabuloy'
-author = u'Mitchel Cabuloy'
+copyright = u'2019, Mitchel Cabuloy & Peter Bittner'
+author = u'Mitchel Cabuloy and contributors'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

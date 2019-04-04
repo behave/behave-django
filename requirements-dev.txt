@@ -1,8 +1,0 @@
--r requirements.txt
-
-# testing (e.g. `python setup.py -q test -v`)
-pytest
-tox
-
-# docs generation (e.g. `cd docs && make html`)
-Sphinx
