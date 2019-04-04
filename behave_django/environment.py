@@ -1,3 +1,5 @@
+import copy
+
 from behave import step_registry as module_step_registry
 from behave.runner import ModelRunner, Context
 from django.shortcuts import resolve_url
@@ -71,7 +73,7 @@ class BehaveHooksMixin(object):
         Sets up fixtures
         """
         if getattr(context, 'fixtures', None):
-            context.test.fixtures = context.fixtures
+            context.test.fixtures = copy.copy(context.fixtures)
 
         if getattr(context, 'reset_sequences', None):
             context.test.reset_sequences = context.reset_sequences

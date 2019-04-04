@@ -10,6 +10,12 @@ def check_decorator_fixtures(context):
     pass
 
 
+@fixtures('behave-second-fixture.json')
+@given(u'a step with a second fixture decorator')
+def check_decorator_fixtures2(context):
+    pass
+
+
 @fixtures('behave-fixtures.json', 'behave-second-fixture.json')
 @given(u'a step with multiple fixtures')
 def check_decorator_multiple(context):
