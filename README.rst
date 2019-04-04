@@ -24,7 +24,7 @@ Version Support
 ---------------
 
 behave-django is `tested against`_ the officially supported combinations of
-Python and Django (Django 1.11, 2.0, 2.1 on Python 2.7, 3.4, 3.5, 3.6, 3.7).
+Python and Django (Django 1.11, 2.0, 2.1, 2.2 on Python 2.7, 3.4, 3.5, 3.6, 3.7).
 
 The version of `behave`_ is not tied our integration (read: "independent").
 We test against the latest release on PyPI, and run a sample against Behave's

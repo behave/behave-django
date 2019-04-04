@@ -13,6 +13,7 @@ env:
 - DJANGO=1.11
 - DJANGO=2.0
 - DJANGO=2.1
+- DJANGO=2.2
 
 matrix:
   allow_failures:
@@ -23,6 +24,8 @@ matrix:
   - { env: DJANGO=2.0, python: 2.7 }
   - { env: DJANGO=2.1, python: 2.7 }
   - { env: DJANGO=2.1, python: 3.4 }
+  - { env: DJANGO=2.2, python: 2.7 }
+  - { env: DJANGO=2.2, python: 3.4 }
 
 install:
 - pip install tox-travis
