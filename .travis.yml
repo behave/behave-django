@@ -42,6 +42,9 @@ jobs:
   - { stage: lint, python: 3.7, env: TOXENV=readme }
   - { stage: test, python: 3.7, env: TOXENV=behave-latest }
   - stage: deploy
+    python: 3.7
+    env:
+    install: skip
     script: skip
     deploy:
       provider: pypi
