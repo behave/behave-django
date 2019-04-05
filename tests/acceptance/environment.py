@@ -11,10 +11,6 @@ def before_feature(context, feature):
         # Including empty fixture to test that #92 is fixed
         context.fixtures = ['empty-fixture.json']
 
-    elif hasattr(context, 'fixtures'):
-        # Removing fixtures defined above
-        del context.fixtures
-
 
 def before_scenario(context, scenario):
     if scenario.name == 'Load fixtures for this scenario and feature':

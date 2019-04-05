@@ -1,4 +1,4 @@
-import copy
+from copy import copy
 
 from behave import step_registry as module_step_registry
 from behave.runner import ModelRunner, Context
@@ -73,7 +73,7 @@ class BehaveHooksMixin(object):
         Sets up fixtures
         """
         if getattr(context, 'fixtures', None):
-            context.test.fixtures = copy.copy(context.fixtures)
+            context.test.fixtures = copy(context.fixtures)
 
         if getattr(context, 'reset_sequences', None):
             context.test.reset_sequences = context.reset_sequences

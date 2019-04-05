@@ -12,7 +12,7 @@ def check_decorator_fixtures(context):
 
 @fixtures('behave-second-fixture.json')
 @given(u'a step with a second fixture decorator')
-def check_decorator_fixtures2(context):
+def check_decorator_second_fixture(context):
     pass
 
 

@@ -10,6 +10,7 @@ Contributors
 * `薛丞宏 <https://github.com/sih4sing5hong5>`_
 * `Alex Hutton <https://github.com/alex-hutton>`_
 * `David Avsajanishvili <https://github.com/avsd>`_
+* `Dolan Antenucci <https://github.com/pydolan>`_
 * `Ivan Rocha <https://github.com/ivancrneto>`_
 * `Jens Engel <https://github.com/jenisys>`_
 * `Jérôme Thiard <https://github.com/jthiard>`_
