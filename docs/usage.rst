@@ -134,7 +134,7 @@ In ``environment.py`` we can load our context with the fixtures array.
 
 .. code-block:: python
 
-    def before_scenario(context, scenario):
+    def before_all(context):
         context.fixtures = ['user-data.json']
 
 This fixture would then be loaded before every scenario.
@@ -148,6 +148,10 @@ If you wanted different fixtures for different scenarios:
             context.fixtures = ['user-data.json']
         elif scenario.name == 'Check out cart':
             context.fixtures = ['user-data.json', 'store.json', 'cart.json']
+        else:
+            # Resetting fixtures, otherwise previously set fixtures carry
+            # over to subsequent scenarios.
+            context.fixtures = []
 
 You could also have fixtures per Feature too
 
@@ -158,10 +162,16 @@ You could also have fixtures per Feature too
             context.fixtures = ['user-data.json']
             # This works because behave will use the same context for
             # everything below Feature. (Scenarios, Outlines, Backgrounds)
+        else:
+            # Resetting fixtures, otherwise previously set fixtures carry
+            # over to subsequent features.
+            context.fixtures = []
 
 Of course, since ``context.fixtures`` is really just a list, you can mutate it
 however you want, it will only be processed upon leaving the
-``before_scenario()`` function of your ``environment.py`` file.
+``before_scenario()`` function of your ``environment.py`` file. Just keep in
+mind that it does not reset between features or scenarios, unless explicitly
+done so (as shown in the examples above).
 
 .. note::
 
@@ -176,7 +186,9 @@ Fixtures using a decorator
 
 You can define `Django fixtures`_ using a function decorator. The decorator will
 load the fixtures in the ``before_scenario``, as documented above. It is merely
-a convenient way to keep fixtures close to your steps.
+a convenient way to keep fixtures close to your steps. **Caveat:** if *any* step
+in a scenario uses the fixture decorator, **all** steps in the scenario will
+have the fixture loaded.
 
 .. code-block::  python
 
