@@ -186,9 +186,7 @@ Fixtures using a decorator
 
 You can define `Django fixtures`_ using a function decorator. The decorator will
 load the fixtures in the ``before_scenario``, as documented above. It is merely
-a convenient way to keep fixtures close to your steps. **Caveat:** if *any* step
-in a scenario uses the fixture decorator, **all** steps in the scenario will
-have the fixture loaded.
+a convenient way to keep fixtures close to your steps.
 
 .. code-block::  python
 
@@ -198,6 +196,12 @@ have the fixture loaded.
     @when('someone does something')
     def step_impl(context):
         pass
+
+.. note::
+
+     Fixtures included with the decorator will apply to all other steps that
+     they share a scenario with. This is because behave-django needs to provide
+     them to the test environment before processing the particular scenario.
 
 
 Support for multiple databases
