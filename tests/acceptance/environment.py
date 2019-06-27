@@ -24,5 +24,5 @@ def before_scenario(context, scenario):
         context.multi_db = True
 
 
-def django_ready(context):
+def django_ready(context, scenario):
     context.django = True
