@@ -61,7 +61,7 @@ def get_command_line_option(argv, *args, **kwargs):
 
 def remove_option(parser, *arg):
     """Removes duplicate options from inside ArgumentParser.
-    
+
     We have arguments being supplied by the DiscoverRunner and other
     arguments injected by the behave management command, if they conflict
     we want to keep the options from the behave management command and
