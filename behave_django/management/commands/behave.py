@@ -173,7 +173,7 @@ class Command(BaseCommand):
             warn("Please use --testrunner behave_django.runner."
                  "SimpleTestRunner", DeprecationWarning)
             self.stderr.write(self.style.WARNING(
-                '-S/--simple has been depricated, please use: '
+                '-S/--simple has been deprecated, please use: '
                 '"--testrunner behave_django.runner.SimpleTestRunner"'
             ))
             self.test_runner = self.SIMPLE_TEST_RUNNER
@@ -181,7 +181,7 @@ class Command(BaseCommand):
             warn("Please use --testrunner behave_django.runner."
                  "ExistingDatabaseTestRunner", DeprecationWarning)
             self.stderr.write(self.style.WARNING(
-                '--use-existing-database has been depricated, please use: '
+                '--use-existing-database has been deprecated, please use: '
                 '"--testrunner behave_django.runner.'
                 'ExistingDatabaseTestRunner"'
             ))
