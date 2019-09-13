@@ -3,8 +3,8 @@ import sys
 import os
 
 from argparse import ArgumentError
-
 from distutils.version import LooseVersion
+from warnings import warn
 
 from django import VERSION as DJANGO_VERSION
 from django.conf import settings
@@ -52,7 +52,8 @@ def get_command_line_option(argv, *args, **kwargs):
     parser = CommandParser(add_help=False, allow_abbrev=False)
     parser.add_argument(*args, **kwargs)
     try:
-        options, _ = parser.parse_known_args(argv[2:])
+        give_me_a_name = argv[2:]
+        options, _ = parser.parse_known_args(give_me_a_name)
     except CommandError:
         return None
     else:
@@ -169,14 +170,16 @@ class Command(BaseCommand):
             default=False
         )
         if use_simple:
-            # TODO: Delete in upcoming version
+            warn("Please use --testrunner behave_django.runner."
+                 "SimpleTestRunner", DeprecationWarning)
             self.stderr.write(self.style.WARNING(
                 '-S/--simple has been depricated, please use: '
                 '"--testrunner behave_django.runner.SimpleTestRunner"'
             ))
             self.test_runner = self.SIMPLE_TEST_RUNNER
         elif use_existing_database:
-            # TODO: Delete in upcoming version
+            warn("Please use --testrunner behave_django.runner."
+                 "ExistingDatabaseTestRunner", DeprecationWarning)
             self.stderr.write(self.style.WARNING(
                 '--use-existing-database has been depricated, please use: '
                 '"--testrunner behave_django.runner.'
@@ -184,7 +187,8 @@ class Command(BaseCommand):
             ))
             self.test_runner = self.EXISTING_TEST_RUNNER
         elif use_dry_run:
-            # TODO: Delete in upcoming version
+            warn("Please use --testrunner behave_django.runner."
+                 "ExistingDatabaseTestRunner", DeprecationWarning)
             self.test_runner = self.EXISTING_TEST_RUNNER
 
     def add_arguments(self, parser, append_behave=True):
