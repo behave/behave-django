@@ -2,7 +2,6 @@ from __future__ import absolute_import
 import sys
 import os
 
-from argparse import ArgumentError
 from distutils.version import LooseVersion
 from warnings import warn
 
@@ -52,37 +51,12 @@ def get_command_line_option(argv, *args, **kwargs):
     parser = CommandParser(add_help=False, allow_abbrev=False)
     parser.add_argument(*args, **kwargs)
     try:
-        give_me_a_name = argv[2:]
-        options, _ = parser.parse_known_args(give_me_a_name)
+        command_arguments_only = argv[2:]
+        options, _ = parser.parse_known_args(command_arguments_only)
     except CommandError:
         return None
     else:
         return options.value
-
-
-def remove_option(parser, *arg):
-    """Removes duplicate options from inside ArgumentParser.
-
-    We have arguments being supplied by the DiscoverRunner and other
-    arguments injected by the behave management command, if they conflict
-    we want to keep the options from the behave management command and
-    remove the latter.
-    """
-    for action in parser._actions:
-        if any(option in arg for option in action.option_strings):
-            parser._remove_action(action)
-
-    for key, action in list(parser._option_string_actions.items()):
-        if any(option in arg for option in action.option_strings):
-            parser._option_string_actions.pop(key)
-
-    for action in parser._action_groups:
-        vars_action = vars(action)
-        var_group_actions = vars_action['_group_actions']
-
-        for action in var_group_actions:
-            if any(option in arg for option in action.option_strings):
-                var_group_actions.remove(action)
 
 
 def add_behave_arguments(parser):  # noqa
@@ -100,6 +74,9 @@ def add_behave_arguments(parser):  # noqa
         '-S',
         '--simple',
     ]
+
+    # Fix ArgParse conflicts
+    parser._optionals.conflict_handler = 'resolve'
 
     parser.add_argument(
         'paths',
@@ -130,11 +107,7 @@ def add_behave_arguments(parser):  # noqa
             keywords['help'] = keywords['config_help']
             del keywords['config_help']
 
-        try:
-            parser.add_argument(*option_strings, **keywords)
-        except ArgumentError:
-            remove_option(parser, *fixed)
-            parser.add_argument(*option_strings, **keywords)
+        parser.add_argument(*option_strings, **keywords)
 
 
 class Command(BaseCommand):
@@ -210,19 +183,6 @@ class Command(BaseCommand):
             test_runner_class.add_arguments(parser)
 
         parser.add_argument(
-            '--noinput',
-            '--no-input',
-            action='store_const',
-            const=False,
-            dest='interactive',
-            help='Tells Django to NOT prompt the user for input of any kind.',
-        )
-        parser.add_argument(
-            '--failfast', action='store_const', const=True, dest='failfast',
-            help=('Tells Django to stop running the '
-                  'test suite after first failed test.'),
-        )
-        parser.add_argument(
             '--use-existing-database',
             action='store_true',
             default=False,
@@ -240,8 +200,6 @@ class Command(BaseCommand):
             help='Tells Django to use specified test runner class instead of '
                  'the one specified by the TEST_RUNNER setting.',
         )
-
-        parser.parse_args
 
         if append_behave:
             add_behave_arguments(parser)
