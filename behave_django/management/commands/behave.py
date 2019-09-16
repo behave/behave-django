@@ -183,6 +183,14 @@ class Command(BaseCommand):
             test_runner_class.add_arguments(parser)
 
         parser.add_argument(
+            '--noinput',
+            '--no-input',
+            action='store_const',
+            const=False,
+            dest='interactive',
+            help='Tells Django to NOT prompt the user for input of any kind.',
+        )
+        parser.add_argument(
             '--use-existing-database',
             action='store_true',
             default=False,
