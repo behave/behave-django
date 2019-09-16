@@ -191,6 +191,11 @@ class Command(BaseCommand):
             help='Tells Django to NOT prompt the user for input of any kind.',
         )
         parser.add_argument(
+            '--failfast', action='store_const', const=True, dest='failfast',
+            help=('Tells Django to stop running the '
+                  'test suite after first failed test.'),
+        )
+        parser.add_argument(
             '--use-existing-database',
             action='store_true',
             default=False,
