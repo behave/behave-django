@@ -18,6 +18,7 @@ class TestCommandLine(DjangoSetupMixin):
         assert (os.linesep + '  --noinput, --no-input') in output
         assert (os.linesep + '  --failfast') in output
         assert (os.linesep + '  -r, --reverse') in output
+        assert (os.linesep + '  --behave-runner') in output
 
     def test_should_accept_behave_arguments(self):
         from behave_django.management.commands.behave import Command
@@ -107,3 +108,11 @@ class TestCommandLine(DjangoSetupMixin):
             '--simple flag has no effect together with '
             '--use-existing-database' +
             os.linesep) in output
+
+    def test_behave_runner_bad_runner(self):
+        exit_status, output = run_silently(
+            'python tests/manage.py behave '
+            '--behave-runner doesnotexist.Runner --tags=@skip-all'
+        )
+        assert exit_status == 1
+        assert ("No module named 'doesnotexist'") in output

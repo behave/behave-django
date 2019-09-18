@@ -235,8 +235,6 @@ Additional command line options provided by django_behave:
 ``--use-existing-database``
 ***************************
 
-(Deprecated) Please use ``--testrunner behave_django.runner.ExistingDatabaseTestRunner`` instead.
-
 Don't create a test database, and use the database of your default runserver
 instead. USE AT YOUR OWN RISK! Only use this option for testing against a
 *copy* of your production database or other valuable data. Your tests may
@@ -254,24 +252,17 @@ recreating it each time you run the test. This flag enables
 ``--simple``
 ************
 
-(Deprecated) Please use ``--testrunner behave_django.runner.SimpleTestRunner``
-instead.
-
 Use Django's simple ``TestCase`` which rolls back the database transaction after
 each scenario instead of flushing the entire database. Tests run much quicker,
 however HTTP server is not started and therefore web browser automation is
 not available.
 
+``--behave-runner``
+*******************
 
-``--testrunner``
-****************
-
-Use the standard Django ``--testrunner`` to run your custom test runner every
-time. Please make sure that the runner you use inherits from
-``behave_django.runner.BehaviorDrivenTestRunner``. Or you may also chose to
-define a `TEST_RUNNER`_
-inside your settings instead.
-
+Allows the modification of the underlining runner class that Behave uses by
+default. This will allow you to customize where your feature files are located.
+Default: ``behave.runner.Runner``
 
 
 Behave configuration file
@@ -294,7 +285,6 @@ In your .behaverc file, you can put
 Behave should now look for your features in those folders.
 
 
-.. _TEST_RUNNER: https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-TEST_RUNNER
 .. _django.shortcuts.redirect: https://docs.djangoproject.com/en/stable/topics/http/shortcuts/#redirect
 .. _factories: https://factoryboy.readthedocs.io/en/latest/
 .. _behave docs: https://behave.readthedocs.io/en/latest/behave.html#configuration-files

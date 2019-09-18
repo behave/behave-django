@@ -5,39 +5,13 @@ except ImportError:
 
 from .util import DjangoSetupMixin
 
-from behave_django.runner import BehaviorDrivenTestRunner
-
-
-class FakeBehaviorDrivenTestRunner(BehaviorDrivenTestRunner):
-    """Wrapper around BehaviorDrivenTestRunner.
-
-    Without this we would be running a lot of setup/teardown code thats
-    unnecessary for this test.
-    """
-    def setup_test_environment(self, *args, **kargs):
-        pass
-
-    def setup_databases(self, *args, **kargs):
-        pass
-
-    def teardown_databases(self, *args, **kargs):
-        pass
-
-    def teardown_test_environment(self, *args, **kargs):
-        pass
-
-
-mock_test_runner = mock.Mock(wraps=FakeBehaviorDrivenTestRunner)
-
 
 @mock.patch('behave_django.management.commands.behave.behave_main', return_value=0)  # noqa
-@mock.patch('behave_django.runner.BehaviorDrivenTestRunner', mock_test_runner)  # noqa
+@mock.patch('behave_django.management.commands.behave.BehaviorDrivenTestRunner')  # noqa
 class TestPassThruArgs(DjangoSetupMixin):
 
-    def setup_method(self):
-        mock_test_runner.reset_mock()
-
     def test_keepdb_flag(self,
+                         mock_test_runner,
                          mock_behave_main):
         """Test if keepdb is properly set on the test_runner."""
 
@@ -46,6 +20,7 @@ class TestPassThruArgs(DjangoSetupMixin):
         assert kwargs['keepdb'] is True
 
     def test_interactive_flag(self,
+                              mock_test_runner,
                               mock_behave_main):
         """Test if interactive is properly set on the test_runner."""
 
@@ -54,6 +29,7 @@ class TestPassThruArgs(DjangoSetupMixin):
         assert kwargs['interactive'] is False
 
     def test_failfast_flag(self,
+                           mock_test_runner,
                            mock_behave_main):
         """Test if failfast is properly set on the test_runner."""
 
@@ -62,6 +38,7 @@ class TestPassThruArgs(DjangoSetupMixin):
         assert kwargs['failfast'] is True
 
     def test_reverse_flag(self,
+                          mock_test_runner,
                           mock_behave_main):
         """Test if reverse is properly set on the test_runner."""
 
