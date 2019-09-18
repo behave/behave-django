@@ -114,5 +114,5 @@ class TestCommandLine(DjangoSetupMixin):
             'python tests/manage.py behave '
             '--behave-runner doesnotexist.Runner --tags=@skip-all'
         )
-        assert exit_status == 1
-        assert ("No module named 'doesnotexist'") in output
+        assert exit_status == 2
+        assert ("No module named 'doesnotexist.Runner' was found.") in output

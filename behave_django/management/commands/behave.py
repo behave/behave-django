@@ -1,11 +1,12 @@
 from __future__ import absolute_import
-import sys
 
+import sys
+from argparse import ArgumentTypeError
+
+from behave.__main__ import main as behave_main
+from behave.configuration import options as behave_options
 from django.core.management.base import BaseCommand
 from django.utils.module_loading import import_string
-
-from behave.configuration import options as behave_options
-from behave.__main__ import main as behave_main
 
 from behave_django.environment import monkey_patch_behave
 from behave_django.runner import (BehaviorDrivenTestRunner,
@@ -71,9 +72,15 @@ def add_behave_arguments(parser):  # noqa
         '--simple',
     ]
 
+    def validate_runner(value):
+        try:
+            return import_string(value)
+        except ImportError:
+            raise ArgumentTypeError("No module named '%s' was found." % value)
+
     parser.add_argument(
         '--behave-runner', action='store', dest='runner_class',
-        default='behave.runner.Runner', type=import_string,
+        default='behave.runner.Runner', type=validate_runner,
         help='Tells Behave to use a specific runner. (default: %(default)s)',
     )
 

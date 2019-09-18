@@ -1,8 +1,9 @@
 from copy import copy
 from functools import partial
 
-from behave import step_registry as module_step_registry, __main__ as main
-from behave.runner import ModelRunner, Context
+from behave import __main__ as main
+from behave import step_registry as module_step_registry
+from behave.runner import Context, ModelRunner
 from django.shortcuts import resolve_url
 
 
