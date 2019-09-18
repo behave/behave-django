@@ -11,6 +11,7 @@ from django.core.management.base import (BaseCommand, OutputWrapper,
                                          CommandParser)
 from django.core.management.utils import CommandError
 from django.test.utils import get_runner
+from django.utils.module_loading import import_string
 
 from behave.configuration import options as behave_options
 from behave.__main__ import main as behave_main
@@ -75,8 +76,14 @@ def add_behave_arguments(parser):  # noqa
         '--simple',
     ]
 
-    # Fix ArgParse conflicts
+    # Fixes ArgParse conflicts
     parser._optionals.conflict_handler = 'resolve'
+
+    parser.add_argument(
+        '--behave-runner', action='store', dest='runner_class',
+        default='behave.runner.Runner', type=import_string,
+        help='Tells Behave to use a specific runner. (default: %(default)s)',
+    )
 
     parser.add_argument(
         'paths',
@@ -243,7 +250,8 @@ class Command(BaseCommand):
         old_config = django_test_runner.setup_databases()
 
         # Run Behave tests
-        monkey_patch_behave(django_test_runner)
+        monkey_patch_behave(django_test_runner,
+                            behave_runner=options['runner_class'])
         behave_args = self.get_behave_args()
         exit_status = behave_main(args=behave_args)
 
@@ -264,7 +272,15 @@ class Command(BaseCommand):
         args, unknown = parser.parse_known_args(argv[2:])
 
         behave_args = []
-        for option in unknown:
+        while unknown:
+            option = unknown.pop(0)
+            # Remove runner since that was inserted directly into
+            # the run_behave()
+            if option == '--behave-runner':
+                # This option always has a value attached to it, we're also
+                # poping the next element to avoid errors.
+                unknown.pop(0)
+                continue
             # Remove behave prefix
             if option.startswith('--behave-'):
                 option = option.replace('--behave-', '', 1)
