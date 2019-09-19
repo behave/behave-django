@@ -13,6 +13,7 @@ Contributors
 * `Dolan Antenucci <https://github.com/pydolan>`_
 * `Ivan Rocha <https://github.com/ivancrneto>`_
 * `Jens Engel <https://github.com/jenisys>`_
+* `Jerome Caisip <https://github.com/jeromecaisip>`_
 * `Jérôme Thiard <https://github.com/jthiard>`_
 * `Karel Hovorka <https://github.com/hovi>`_
 * `Nate Hill <https://github.com/nhill-cpi>`_

@@ -1,6 +1,29 @@
 Usage
 =====
 
+Generating feature files
+------------------------
+
+
+Add ``BEHAVE_DJANGO_FEATURES_DIR`` to your settings file
+pointing to the directory where you want feature files to live.
+
+.. code-block:: python
+
+    BEHAVE_DJANGO_FEATURES_DIR = "path_to_your_settings_file"
+
+Generate feature file
+
+.. code-block:: bash
+
+    python manage.py create_features foo
+
+Generating multiple feature files
+
+.. code-block:: bash
+
+    python manage.py create_features foo bar
+
 Web browser automation
 ----------------------
 
