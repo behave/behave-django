@@ -72,15 +72,15 @@ def add_behave_arguments(parser):  # noqa
         '--simple',
     ]
 
-    def validate_runner(value):
+    def validate_runner_path(path):
         try:
-            return import_string(value)
+            return import_string(path)
         except ImportError:
-            raise ArgumentTypeError("No module named '%s' was found." % value)
+            raise ArgumentTypeError("No module named '%s' was found." % path)
 
     parser.add_argument(
         '--behave-runner', action='store', dest='runner_class',
-        default='behave.runner.Runner', type=validate_runner,
+        default='behave.runner.Runner', type=validate_runner_path,
         help='Tells Behave to use a specific runner. (default: %(default)s)',
     )
 
