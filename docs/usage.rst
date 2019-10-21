@@ -260,8 +260,8 @@ not available.
 ``--behave-runner``
 *******************
 
-Allows the modification of the underlining runner class that Behave uses by
-default. This will allow you to customize where your feature files are located.
+Allows to override the test runner class that Behave uses by default. e.g.,
+this will allow you to customize where your feature files are located.
 Default: ``behave.runner.Runner``
 
 
