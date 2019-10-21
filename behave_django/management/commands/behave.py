@@ -181,15 +181,7 @@ class Command(BaseCommand):
         args, unknown = parser.parse_known_args(argv[2:])
 
         behave_args = []
-        while unknown:
-            option = unknown.pop(0)
-            # Remove runner since that was inserted directly into
-            # the run_behave()
-            if option == '--behave-runner':
-                # This option always has a value attached to it, we're also
-                # poping the next element to avoid errors.
-                unknown.pop(0)
-                continue
+        for option in unknown:
             # Remove behave prefix
             if option.startswith('--behave-'):
                 option = option.replace('--behave-', '', 1)
@@ -209,3 +201,5 @@ class BehaveArgsHelper(Command):
         be recognized. The unrecognized args will then be for behave! :)
         """
         add_command_arguments(parser)
+        # This is ignored since the runner is inserted directly into run_behave()
+        parser.add_argument('--behave-runner', action='store')
