@@ -110,7 +110,6 @@ def monkey_patch_behave(django_test_runner, behave_runner):
     """
     Integrate behave_django in behave via before/after scenario hooks
     """
-    # Override the run_behave to inject the runner_class
     main.run_behave = partial(main.run_behave, runner_class=behave_runner)
 
     behave_run_hook = ModelRunner.run_hook
