@@ -201,6 +201,6 @@ class BehaveArgsHelper(Command):
         be recognized. The unrecognized args will then be for behave! :)
         """
         add_command_arguments(parser)
-        # This is ignored since the runner is inserted directly into 
+        # This is ignored since the runner is inserted directly into
         # run_behave()
         parser.add_argument('--behave-runner', action='store')
