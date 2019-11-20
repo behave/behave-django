@@ -79,7 +79,7 @@ def add_behave_arguments(parser):  # noqa
             raise ArgumentTypeError("No module named '%s' was found." % path)
 
     parser.add_argument(
-        '--behave-runner', action='store', dest='runner_class',
+        '--runner', action='store', dest='runner_class',
         default='behave.runner.Runner', type=valid_python_module,
         help='Tells Behave to use a specific runner. (default: %(default)s)',
     )
@@ -201,6 +201,3 @@ class BehaveArgsHelper(Command):
         be recognized. The unrecognized args will then be for behave! :)
         """
         add_command_arguments(parser)
-        # This is ignored since the runner is inserted directly into
-        # run_behave()
-        parser.add_argument('--behave-runner', action='store')
