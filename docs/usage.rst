@@ -257,7 +257,7 @@ each scenario instead of flushing the entire database. Tests run much quicker,
 however HTTP server is not started and therefore web browser automation is
 not available.
 
-``--behave-runner``
+``--runner``
 *******************
 
 Allows to override the test runner class that Behave uses by default. e.g.,
