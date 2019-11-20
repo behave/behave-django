@@ -72,7 +72,7 @@ def add_behave_arguments(parser):  # noqa
         '--simple',
     ]
 
-    def validate_runner_path(path):
+    def valid_python_module(path):
         try:
             return import_string(path)
         except ImportError:
@@ -80,7 +80,7 @@ def add_behave_arguments(parser):  # noqa
 
     parser.add_argument(
         '--behave-runner', action='store', dest='runner_class',
-        default='behave.runner.Runner', type=validate_runner_path,
+        default='behave.runner.Runner', type=valid_python_module,
         help='Tells Behave to use a specific runner. (default: %(default)s)',
     )
 
