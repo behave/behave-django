@@ -1,7 +1,7 @@
 from copy import copy
 from functools import partial
 
-from behave.__main__ import main as behave_main
+from behave import __main__ as behave_main
 from behave import step_registry as module_step_registry
 from behave.runner import Context, ModelRunner
 from django.shortcuts import resolve_url
