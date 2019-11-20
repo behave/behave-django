@@ -1,7 +1,7 @@
 from copy import copy
 from functools import partial
 
-from behave import __main__ as main
+from behave.__main__ import main as behave_main
 from behave import step_registry as module_step_registry
 from behave.runner import Context, ModelRunner
 from django.shortcuts import resolve_url
@@ -110,7 +110,7 @@ def monkey_patch_behave(django_test_runner, behave_runner):
     """
     Integrate behave_django in behave via before/after scenario hooks
     """
-    main.run_behave = partial(main.run_behave, runner_class=behave_runner)
+    behave_main.run_behave = partial(behave_main.run_behave, runner_class=behave_runner)
 
     behave_run_hook = ModelRunner.run_hook
 
