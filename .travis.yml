@@ -1,6 +1,4 @@
-dist: xenial
-sudo: true
-
+os: linux
 language: python
 python:
 - 3.4
@@ -14,16 +12,6 @@ env:
 - DJANGO=2.2
 - DJANGO=3.0
 
-matrix:
-  allow_failures:
-  - env: TOXENV=behave-latest
-  exclude:
-  # Python/Django combinations that aren't officially supported
-  - { env: DJANGO=1.11, python: 3.8 }
-  - { env: DJANGO=2.2, python: 3.4 }
-  - { env: DJANGO=3.0, python: 3.4 }
-  - { env: DJANGO=3.0, python: 3.5 }
-
 install:
 - pip install tox-travis
 script:
@@ -35,11 +23,19 @@ stages:
 - deploy
 
 jobs:
+  allow_failures:
+  - env: TOXENV=behave-latest
+  exclude:
+  # Python/Django combinations that aren't officially supported
+  - { python: 3.4, env: DJANGO=2.2 }
+  - { python: 3.4, env: DJANGO=3.0 }
+  - { python: 3.5, env: DJANGO=3.0 }
+  - { python: 3.8, env: DJANGO=1.11 }
   include:
   - { stage: lint, python: 3.7, env: TOXENV=flake8 }
   - { stage: lint, python: 3.7, env: TOXENV=bandit }
   - { stage: lint, python: 3.7, env: TOXENV=readme }
-  - { stage: test, python: 3.7, env: TOXENV=behave-latest }
+  - { stage: test, python: 3.8, env: TOXENV=behave-latest }
   - stage: deploy
     python: 3.7
     env:
