@@ -101,7 +101,7 @@ basis, you can initialize them in ``environment.py`` like this:
     from myapp.main.tests.factories import UserFactory, RandomContentFactory
 
 
-    def django_ready(context, scenario):
+    def django_ready(context):
         # This function is run inside the transaction
         UserFactory(username='user1')
         UserFactory(username='user2')
@@ -114,7 +114,7 @@ Or maybe you want to modify the ``test`` instance:
     from rest_framework.test import APIClient
 
 
-    def django_ready(context, scenario):
+    def django_ready(context):
         context.test.client = APIClient()
 
 Fixture loading
