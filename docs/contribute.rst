@@ -30,7 +30,7 @@ section in ``tox.ini`` for details.
 
 .. code:: console
 
-    $ tox -l                # show all Tox targets
+    $ tox -lv               # show all Tox targets
     $ tox -e py37-django22  # run just a single target
     $ tox                   # run all linting and tests
 
@@ -87,7 +87,7 @@ Other things to note
 --------------------
 
 - Write tests.
-- Your tests don't have to be behave tests. ``:-)``
+- Your tests don't have to be *behave* tests. ``:-)``
 - We're using PEP8 as our code style guide (``flake8`` will run over the code
   on the CI server).
 

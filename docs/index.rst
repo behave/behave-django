@@ -9,6 +9,12 @@ Contents
 
    installation
    usage
+   webbrowser
+   testclient
+   isolation
+   fixtures
+   setup
+   configuration
    contribute
 
 .. include:: ../README.rst
