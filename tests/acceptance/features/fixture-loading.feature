@@ -14,5 +14,5 @@ Feature: Fixture loading
     Scenario: Load fixtures then reset sequences
         Then the sequences should be reset
 
-    Scenario: Load fixtures with multi_db option
-        Then multi_db should be enabled
+    Scenario: Load fixtures with databases option
+        Then databases should be set to all database in the Django settings

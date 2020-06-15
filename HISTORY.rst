@@ -1,6 +1,17 @@
 Release History
 ---------------
 
+unreleased
+++++++++++
+
+**Features and Improvements**
+
+- Cover Python 3.8, drop Python 3.4 and Django 1.11 to 2.1 support
+
+**Bugfixes**
+
+- Replace deprecated `multi_db`_ by suggested ``databases`` attribute
+
 1.3.0 (2019-04-16)
 ++++++++++++++++++
 
@@ -9,7 +20,7 @@ Release History
 - Add Bandit security linter to CI setup
 - Minor refactorings to please linters
 - Update and clarify documentation
-- Cover Django 2.2 with test matrix, remove Django 2.0 
+- Cover Django 2.2 with test matrix, remove Django 2.0
 
 **Bugfixes**
 
@@ -112,13 +123,15 @@ Release History
   :code:`environment.after_scenario()` function calls in your
   :code:`environment.py` file is no longer needed.
 - A new CLI option, :code:`--use-existing-database`, has been added.
-  See the `usage docs
-  <https://behave-django.readthedocs.io/en/latest/usage.html#command-line-options>`__.
+  See the `Configuration docs`_.
 
 **Bugfixes**
 
 - Calling :code:`python manage.py behave --dry-run` does not create a
   test database any longer.
+
+.. _Configuration docs:
+    https://behave-django.readthedocs.io/en/latest/configuration.html
 
 0.1.4 (2015-06-08)
 ++++++++++++++++++
@@ -147,9 +160,11 @@ Release History
 
 - You can now have a :code:`.behaverc` in your project's root directory.
   You can specify where your feature directories are in this file, among
-  other things. See the `behave docs on configuration files
-  <https://pythonhosted.org/behave/behave.html#configuration-files>`__.
+  other things. See the `behave docs on configuration files`_.
 - Removed :code:`BEHAVE\_FEATURES` setting in favor of using behave's configuration file
+
+.. _behave docs on configuration files:
+    https://behave.readthedocs.io/en/latest/behave.html#configuration-files
 
 0.1.1 (2015-04-04)
 ++++++++++++++++++

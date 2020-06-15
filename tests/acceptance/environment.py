@@ -20,8 +20,8 @@ def before_scenario(context, scenario):
         context.fixtures.append('behave-second-fixture.json')
         context.reset_sequences = True
 
-    if scenario.name == 'Load fixtures with multi_db option':
-        context.multi_db = True
+    if scenario.name == 'Load fixtures with databases option':
+        context.databases = '__all__'
 
 
 def django_ready(context):

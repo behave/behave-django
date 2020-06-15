@@ -10,21 +10,21 @@ Behave BDD integration for Django
 Features
 --------
 
--  Web Browser Automation ready
--  Database transactions per scenario
--  Use Django's testing client
--  Use unittest + Django assert library
--  Use behave's command line arguments
--  Use behave's configuration file
--  Fixture loading
+- Web Browser Automation ready
+- Database transactions per scenario
+- Use Django's testing client
+- Use unittest + Django assert library
+- Use behave's command line arguments
+- Use behave's configuration file
+- Fixture loading
 
 .. support-marker
 
 Version Support
 ---------------
 
-behave-django is `tested against`_ the officially supported combinations of
-Python and Django (Django 1.11, 2.2, 3.0 on Python 3.4, 3.5, 3.6, 3.7, 3.8).
+*behave-django* is `tested against`_ the officially supported combinations of
+Python and Django (Django 2.2, 3.0 on Python 3.5, 3.6, 3.7, 3.8).
 
 The version of `behave`_ is not tied to our integration (read: "independent").
 We test against the latest release on PyPI, and run a sample against Behave's
@@ -35,8 +35,8 @@ current ``master`` branch.
 Documentation
 -------------
 
--  Documentation is available from `behave-django.readthedocs.io`_
--  Read more about ``behave`` at `behave.readthedocs.io`_
+- Documentation is available from `behave-django.readthedocs.io`_
+- Read more about *behave* at `behave.readthedocs.io`_
 
 .. contribute-marker
 

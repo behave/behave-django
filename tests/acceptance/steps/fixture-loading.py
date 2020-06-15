@@ -38,6 +38,6 @@ def check_reset_sequences(context):
     context.test.assertEqual(BehaveTestModel.objects.last().pk, 2)
 
 
-@then(u'multi_db should be enabled')
-def check_multi_db(context):
-    context.test.assertTrue(context.test.multi_db)
+@then(u'databases should be set to all database in the Django settings')
+def check_databases_attribute(context):
+    context.test.assertEqual(context.test.databases, frozenset({'default'}))

@@ -78,8 +78,8 @@ class BehaveHooksMixin(object):
         if getattr(context, 'reset_sequences', None):
             context.test.reset_sequences = context.reset_sequences
 
-        if getattr(context, 'multi_db', None):
-            context.test.__class__.multi_db = context.multi_db
+        if getattr(context, 'databases', None):
+            context.test.__class__.databases = context.databases
 
         if hasattr(context, 'scenario'):
             load_registered_fixtures(context)

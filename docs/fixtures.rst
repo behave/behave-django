@@ -79,22 +79,23 @@ a convenient way to keep fixtures close to your steps.
 
 .. note::
 
-     Fixtures included with the decorator will apply to all other steps that
-     they share a scenario with. This is because behave-django needs to provide
-     them to the test environment before processing the particular scenario.
+    Fixtures included with the decorator will apply to all other steps that
+    they share a scenario with. This is because *behave-django* needs to
+    provide them to the test environment before processing the particular
+    scenario.
 
 Support for multiple databases
 ------------------------------
 
-By default Django only loads fixtures into the ``default`` database.
+By default, Django only loads fixtures into the ``default`` database.
 
 Use ``before_scenario`` to load the fixtures in all of the databases you have
-configured, if your tests rely on the fixtures being loaded in all of them.
+configured if your tests rely on the fixtures being loaded in all of them.
 
 .. code-block:: python
 
     def before_scenario(context, scenario):
-        context.multi_db = True
+        context.databases = '__all__'
 
 You can read more about it in the `Multiple database docs`_.
 
