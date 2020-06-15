@@ -1,8 +1,8 @@
 Release History
 ---------------
 
-unreleased
-++++++++++
+1.4.0 (2020-06-15)
+++++++++++++++++++
 
 **Features and Improvements**
 
@@ -12,6 +12,7 @@ unreleased
 **Bugfixes**
 
 - Replace deprecated `multi_db`_ by suggested ``databases`` attribute
+- Remove obsolete Python 2 compatibility code
 
 .. _Page Object pattern: https://www.martinfowler.com/bliki/PageObject.html
 
