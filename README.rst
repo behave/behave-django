@@ -17,6 +17,7 @@ Features
 - Use behave's command line arguments
 - Use behave's configuration file
 - Fixture loading
+- Page objects
 
 .. support-marker
 

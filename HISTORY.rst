@@ -6,11 +6,14 @@ unreleased
 
 **Features and Improvements**
 
+- Add experimental `Page Object pattern`_ helpers
 - Cover Python 3.8, drop Python 3.4 and Django 1.11 to 2.1 support
 
 **Bugfixes**
 
 - Replace deprecated `multi_db`_ by suggested ``databases`` attribute
+
+.. _Page Object pattern: https://www.martinfowler.com/bliki/PageObject.html
 
 1.3.0 (2019-04-16)
 ++++++++++++++++++

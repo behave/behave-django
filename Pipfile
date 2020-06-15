@@ -4,8 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+beautifulsoup4 = "*"
 behave = "*"
-Django = ">=1.11"
+Django = ">=2.2"
 
 [dev-packages]
 bandit = "*"

@@ -13,6 +13,7 @@ Contents
    testclient
    isolation
    fixtures
+   pageobject
    setup
    configuration
    contribute
