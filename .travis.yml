@@ -10,6 +10,7 @@ python:
 env:
 - DJANGO=2.2
 - DJANGO=3.0
+- DJANGO=3.1
 
 install:
 - pip install tox-travis
@@ -27,6 +28,7 @@ jobs:
   exclude:
   # Python/Django combinations that aren't officially supported
   - { python: 3.5, env: DJANGO=3.0 }
+  - { python: 3.5, env: DJANGO=3.1 }
   include:
   - { stage: lint, python: 3.7, env: TOXENV=flake8 }
   - { stage: lint, python: 3.7, env: TOXENV=bandit }
