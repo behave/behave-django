@@ -1,10 +1,10 @@
 Test Coverage
-====================
+=============
 
 You can integrate Coverage.py with behave-django to find out the test coverage of your code.
 
 Dependencies
---------------------
+------------
 
 At First, you should install Coverage.py dependency
 
@@ -13,7 +13,7 @@ At First, you should install Coverage.py dependency
     $ pip install coverage
 
 Environment.py
---------------------
+--------------
 
 In environment.py , write below code on function before_all to start measuring test coverage
 
@@ -45,7 +45,7 @@ You can check the test coverage on the web with the following command.
     $ python -m http.server --directory ./cov
     
 Warning for behave-django
---------------------
+-------------------------
 
 Internally, the time before_all is executed seems to be later than the time when django loads the modules set in each app.
 
