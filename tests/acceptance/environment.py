@@ -24,5 +24,10 @@ def before_scenario(context, scenario):
         context.databases = '__all__'
 
 
+def before_django_ready(context):
+    context.before_django = True
+    context.test_runner.before_django = True
+
+
 def django_ready(context):
     context.django = True

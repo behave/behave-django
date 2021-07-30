@@ -1,12 +1,20 @@
+import os
 from unittest import mock
 
 import pytest
 
-from behave_django.runner import SimpleTestRunner
-from behave.runner import Context, Runner
-from django.test.testcases import TestCase
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "test_project.settings")
 
-from .util import DjangoSetupMixin
+"""
+We need to configure Django settings now because
+the Runner is retrived dynamically by Django!
+"""
+
+from behave_django.runner import SimpleTestRunner  # noqa:
+from behave.runner import Context, Runner  # noqa:
+from django.test.testcases import TestCase  # noqa:
+
+from .util import DjangoSetupMixin  # noqa:
 
 
 class TestSimpleTestCase(DjangoSetupMixin):

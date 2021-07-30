@@ -16,6 +16,12 @@ def is_running(context):
     pass
 
 
+@then(u'before_django_ready should be called')
+def before_django_context(context):
+    assert context.before_django
+    assert context.test_runner.before_django
+
+
 @then(u'django_ready should be called')
 def django_context(context):
     assert context.django
