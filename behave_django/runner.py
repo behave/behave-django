@@ -1,4 +1,5 @@
-from django.test.runner import DiscoverRunner
+from django.conf import settings
+from django.test.utils import get_runner
 
 from behave_django.environment import BehaveHooksMixin
 from behave_django.testcase import (BehaviorDrivenTestCase,
@@ -6,14 +7,25 @@ from behave_django.testcase import (BehaviorDrivenTestCase,
                                     DjangoSimpleTestCase)
 
 
-class BehaviorDrivenTestRunner(DiscoverRunner, BehaveHooksMixin):
+DJANGO_CONFIGURED_RUNNER = get_runner(settings)
+"""
+90% of times DJANGO_CONFIGURED_RUNNER will be DiscoverRunner.
+The other 10% the user will have another django complied runner.
+
+For more info:
+- https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#using-the-django-test-runner-to-test-reusable-applications
+- https://docs.djangoproject.com/en/3.2/ref/settings/#test-runner
+"""
+
+
+class BehaviorDrivenTestRunner(DJANGO_CONFIGURED_RUNNER, BehaveHooksMixin):
     """
     Test runner that uses the BehaviorDrivenTestCase
     """
     testcase_class = BehaviorDrivenTestCase
 
 
-class ExistingDatabaseTestRunner(DiscoverRunner, BehaveHooksMixin):
+class ExistingDatabaseTestRunner(DJANGO_CONFIGURED_RUNNER, BehaveHooksMixin):
     """
     Test runner that uses the ExistingDatabaseTestCase
 
@@ -30,7 +42,7 @@ class ExistingDatabaseTestRunner(DiscoverRunner, BehaveHooksMixin):
         pass
 
 
-class SimpleTestRunner(DiscoverRunner, BehaveHooksMixin):
+class SimpleTestRunner(DJANGO_CONFIGURED_RUNNER, BehaveHooksMixin):
     """
     Test runner that uses DjangoSimpleTestCase with atomic
     transaction management and no support of web browser automation.
