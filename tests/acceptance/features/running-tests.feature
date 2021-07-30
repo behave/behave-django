@@ -8,6 +8,10 @@ Feature: Running tests
         When I run "python manage.py behave"
         Then I should see the behave tests run
 
+    Scenario: Test get_runner dynamically
+        When I run "python manage.py behave"
+        Then the test_runner should be MyCustomTestRunner
+
     Scenario: Test before_django_ready
         When I run "python manage.py behave"
         Then before_django_ready should be called
