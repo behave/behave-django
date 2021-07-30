@@ -96,3 +96,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/stable/howto/static-files/
 
 STATIC_URL = '/static/'
+
+TEST_RUNNER = 'test_app.tests.MyCustomTestRunner'
