@@ -9,7 +9,7 @@ You can add a ``before_django_ready`` function in your ``environment.py`` file i
 you want to make per-scenario changes inside a transaction.
 
 This custom hook runs on the behave `before_scenario` hook.
-It's executed before the TestCase is configured and initialized.
+It's executed before the Django TestCase is configured and initialized.
 
 For example, if you have your own DjangoTestCase implemented and want to use it instead of
 the existing BehaviorDrivenTestCase, ExistingDatabaseTestCase, DjangoSimpleTestCase,
@@ -36,7 +36,7 @@ You can add a ``django_ready`` function in your ``environment.py`` file in case
 you want to make per-scenario changes inside a transaction.
 
 This custom hook runs on the behave `before_scenario` hook.
-It's executed after the TestCase is configured and initialized.
+It's executed after the Django TestCase is configured and initialized.
 
 For example, if you have `factories`_ you want to instantiate on a per-scenario
 basis, you can initialize them in ``environment.py`` like this:
