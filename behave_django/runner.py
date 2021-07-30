@@ -13,7 +13,7 @@ DJANGO_CONFIGURED_RUNNER = get_runner(settings)
 The other 10% the user will have another django complied runner.
 
 For more info:
-- https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#using-the-django-test-runner-to-test-reusable-applications
+- https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#using-the-django-test-runner-to-test-reusable-applications  # noqa
 - https://docs.djangoproject.com/en/3.2/ref/settings/#test-runner
 """
 
