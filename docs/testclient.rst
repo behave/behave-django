@@ -1,5 +1,8 @@
-Django’s Test Client
+Django’s Test Integration
 ====================
+
+Django's TestCase
+-----------------
 
 Internally, Django's TestCase is used to maintain the test environment.
 You can access the TestCase instance via ``context.test``.
@@ -11,6 +14,33 @@ You can access the TestCase instance via ``context.test``.
     def visit(context, url):
         # save response in context for next step
         context.response = context.test.client.get(url)
+
+Django's Test Runner
+--------------------
+
+Internally, Django's default Test Runner is used to start the test suite.
+
+Refer to Django's configuration  for more info: https://docs.djangoproject.com/en/3.2/ref/settings/#test-runner
+
+You can access the Runner instance via ``context.test_runner``.
+
+.. code-block:: python
+
+    from unittest.mock import patch
+
+    from myapp.interfaces import MyRequestInterface
+
+    @when(u'I require a third-party "{url}"')
+    def visit(context, url):
+        # verify some custom configuration
+        should_mock_request = context.test_runner.should_mock_requests
+
+        if should_mock_request:
+            context.requests_patcher = patch('myapp.interfaces.requests')
+            context.mocked_requests = context.requests_patcher.start()
+            context.test.addCleanup(context.requests_patcher.stop)
+
+        MyRequestInterface().require(url)
 
 Simple testing
 --------------
