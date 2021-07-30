@@ -62,6 +62,12 @@ class BehaveHooksMixin(object):
         # because behave.runner.Context.__setattr__ is implemented wrongly.
         object.__setattr__(context, '__class__', PatchedContext)
 
+        context.test_runner = self
+        """
+        We need the runner exposed on context to allow
+        monkey patching on it in the hook `before_django_ready`!
+        """
+
     def setup_testclass(self, context):
         """
         Adds the test instance to context
@@ -117,6 +123,7 @@ def monkey_patch_behave(django_test_runner):
         behave_run_hook(self, name, context, *args)
 
         if name == 'before_scenario':
+            behave_run_hook(self, 'before_django_ready', context)
             django_test_runner.setup_testclass(context)
             django_test_runner.setup_fixtures(context)
             django_test_runner.setup_test(context)
