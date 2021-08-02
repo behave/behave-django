@@ -28,6 +28,15 @@ def before_django_ready(context):
     context.before_django = True
     context.test_runner.before_django = True
 
+    from behave_django.testcase import BehaviorDrivenTestMixin
+
+    from tests.test_app.tests import MyCustomTestCase
+
+    class MyCustomBehaveTestCase(BehaviorDrivenTestMixin, MyCustomTestCase):
+        pass
+
+    context.test_runner.testcase_class = MyCustomBehaveTestCase
+
 
 def django_ready(context):
     context.django = True
