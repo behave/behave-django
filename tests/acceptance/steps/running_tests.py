@@ -26,10 +26,11 @@ def get_runner_dynamically(context):
 
 @then(u'before_django_ready should be called')
 def before_django_context(context):
-    assert context.before_django, "custom hook should be called"
-    assert context.test_runner.before_django, "runner should have custom hook flag"
-    assert MyCustomTestCase in context.test_runner.testcase_class.mro(), "test case sould be created from MyCustomTestCase"
-    assert context.test_runner.testcase_class.is_custom, "test case should be the custom one"
+    assert context.before_django
+    assert context.test_runner.before_django
+    assert MyCustomTestRunner in context.test_runner.__class__.mro()
+    assert MyCustomTestCase in context.test_runner.testcase_class.mro()
+    assert context.test_runner.testcase_class.is_custom
 
 
 @then(u'django_ready should be called')
