@@ -1,6 +1,9 @@
+from django.conf import settings
+from django.test.utils import get_runner
+
 from behave import given, when, then
 
-from tests.test_app.tests import MyCustomTestCase, MyCustomTestRunner
+from tests.test_app.tests import MyCustomTestCase
 
 
 @given(u'this step exists')
@@ -20,17 +23,17 @@ def is_running(context):
 
 @then(u'the test_runner should be MyCustomTestRunner')
 def get_runner_dynamically(context):
-
     assert context.test_runner.is_custom
+    DJANGO_CONFIGURED_RUNNER = get_runner(settings)
+    assert isinstance(context.test_runner, DJANGO_CONFIGURED_RUNNER), "test runner should be created from MyCustomTestRunner"  # noqa: E501
 
 
 @then(u'before_django_ready should be called')
 def before_django_context(context):
     assert context.before_django
-    assert context.test_runner.before_django
-    assert MyCustomTestRunner in context.test_runner.__class__.mro()
-    assert MyCustomTestCase in context.test_runner.testcase_class.mro()
-    assert context.test_runner.testcase_class.is_custom
+    assert context.test_runner.before_django, "runner should have custom hook flag"  # noqa: E501
+    assert issubclass(context.test_runner.testcase_class, MyCustomTestCase), "test case should be created from MyCustomTestCase"  # noqa: E501
+    assert context.test_runner.testcase_class.is_custom, "test case should be the custom one"  # noqa: E501
 
 
 @then(u'django_ready should be called')
