@@ -25,7 +25,7 @@ def is_running(context):
 def get_runner_dynamically(context):
     assert context.test_runner.is_custom
     DJANGO_CONFIGURED_RUNNER = get_runner(settings)
-    assert isinstance(context.test_runner, DJANGO_CONFIGURED_RUNNER), "test runner should be created from MyCustomTestRunner"  # noqa: E501
+    assert isinstance(context.test_runner, DJANGO_CONFIGURED_RUNNER), "test runner should be created from Django's get_runner"  # noqa: E501
 
 
 @then(u'before_django_ready should be called')
