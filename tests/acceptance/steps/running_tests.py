@@ -1,6 +1,6 @@
 from behave import given, when, then
 
-# from tests.test_app.tests import MyCustomTestCase
+from tests.test_app.tests import MyCustomTestCase, MyCustomTestRunner
 
 
 @given(u'this step exists')
@@ -20,15 +20,16 @@ def is_running(context):
 
 @then(u'the test_runner should be MyCustomTestRunner')
 def get_runner_dynamically(context):
-    # assert context.test_runner.is_custom
-    pass
+
+    assert context.test_runner.is_custom
+
 
 @then(u'before_django_ready should be called')
 def before_django_context(context):
     assert context.before_django
     assert context.test_runner.before_django
-    # assert MyCustomTestCase in context.test_runner.testcase_class.mro()
-    # assert context.test_runner.testcase_class.is_custom
+    assert MyCustomTestCase in context.test_runner.testcase_class.mro()
+    assert context.test_runner.testcase_class.is_custom
 
 
 @then(u'django_ready should be called')
