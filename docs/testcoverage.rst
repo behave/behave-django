@@ -15,7 +15,7 @@ At First, you should install Coverage.py dependency
 Environment.py
 --------------
 
-In environment.py , write below code on function before_all to start measuring test coverage
+In ``environment.py``, add the code snippet below in the ``before_all`` function to start measuring test coverage:
 
 .. code-block:: python
 
