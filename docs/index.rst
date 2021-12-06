@@ -11,6 +11,7 @@ Contents
    usage
    webbrowser
    testclient
+   testcoverage
    isolation
    fixtures
    pageobject
