@@ -1,6 +1,13 @@
 Release History
 ---------------
 
+1.4.1 (unreleased)
+++++++++++++++++++
+
+**Features and Improvements**
+
+- Cover Python 3.9 and 3.10 and Django 3.2, drop Python 3.5 and Django 3.0 support
+
 1.4.0 (2020-06-15)
 ++++++++++++++++++
 

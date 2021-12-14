@@ -17,6 +17,7 @@ Contributors
 * `Karel Hovorka <https://github.com/hovi>`_
 * `Nate Hill <https://github.com/nhill-cpi>`_
 * `Nik Nyby <https://github.com/nikolas>`_
+* `Paolo Melchiorre <https://github.com/pauloxnet>`_
 * `Sebastian Manger <https://github.com/sebastianmanger>`_
 * `Tom Mortimer-Jones <https://github.com/morty>`_
 * `Wojciech Banaś <https://github.com/fizista>`_
