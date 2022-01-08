@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import sys
 
+from behave.configuration import options as behave_options, valid_python_module
 from behave.__main__ import main as behave_main
 from behave.configuration import options as behave_options
 from django.core.management.base import BaseCommand
@@ -54,6 +55,12 @@ def add_command_arguments(parser):
         help="Use simple test runner that supports Django's"
         " testing client only (no web browser automation)"
     )
+    parser.add_argument(
+        '--runner-class',
+        action='store',
+        type=valid_python_module,
+        help=""
+    )
 
 
 def add_behave_arguments(parser):  # noqa
@@ -70,6 +77,7 @@ def add_behave_arguments(parser):  # noqa
         '-v',
         '-S',
         '--simple',
+        '--runner-class',
     ]
 
     parser.add_argument(
@@ -127,6 +135,12 @@ class Command(BaseCommand):
                 ' together with --use-existing-database'
             ))
 
+        if options['runner_class'] and (options['use_existing_database'] or options['simple']):
+            self.stderr.write(self.style.WARNING(
+                '--use-existing-database or --simple has no effect'
+                ' together with --runner-class'
+            ))
+
         # Configure django environment
         passthru_args = ('failfast',
                          'interactive',
@@ -136,7 +150,9 @@ class Command(BaseCommand):
                        k, v in
                        options.items() if k in passthru_args and v is not None}
 
-        if options['dry_run'] or options['use_existing_database']:
+        if options['runner_class']:
+            django_test_runner = options['runner_class'](**runner_args)
+        elif options['dry_run'] or options['use_existing_database']:
             django_test_runner = ExistingDatabaseTestRunner(**runner_args)
         elif options['simple']:
             django_test_runner = SimpleTestRunner(**runner_args)
