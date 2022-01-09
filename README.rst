@@ -1,7 +1,7 @@
 behave-django |latest-version|
 ==============================
 
-|test-status| |check-status| |health| |python-support| |license| |docs-status| |gitter|
+|check-status| |test-status| |python-support| |license| |docs-status| |gitter|
 
 Behave BDD integration for Django
 
@@ -57,15 +57,12 @@ Please, read the `contributing guide`_ in the docs.
 .. |latest-version| image:: https://img.shields.io/pypi/v/behave-django.svg
     :target: https://pypi.org/project/behave-django/
     :alt: Latest version
-.. |test-status| image:: https://github.com/behave/behave-django/actions/workflows/check.yml/badge.svg
+.. |check-status| image:: https://github.com/behave/behave-django/actions/workflows/check.yml/badge.svg
     :target: https://github.com/behave/behave-django/actions/workflows/check.yml
-    :alt: Build status
-.. |check-status| image:: https://github.com/behave/behave-django/actions/workflows/test.yml/badge.svg
+    :alt: Code checks status
+.. |test-status| image:: https://github.com/behave/behave-django/actions/workflows/test.yml/badge.svg
     :target: https://github.com/behave/behave-django/actions/workflows/test.yml
-    :alt: Build status
-.. |health| image:: https://img.shields.io/codacy/grade/ffcbf7a0c11445a6b95adf80ac9da029/master.svg
-    :target: https://www.codacy.com/app/behave-contrib/behave-django
-    :alt: Code health
+    :alt: Test suite status
 .. |python-support| image:: https://img.shields.io/pypi/pyversions/behave-django.svg
     :target: https://pypi.org/project/behave-django/
     :alt: Python versions
