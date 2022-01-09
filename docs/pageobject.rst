@@ -98,7 +98,7 @@ Helpers to access your page object's elements:
 .. _Page Object pattern: https://www.martinfowler.com/bliki/PageObject.html
 .. _Beautiful Soup: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 .. _PageObject:
-    https://github.com/behave/behave-django/blob/master/behave_django/pageobject.py
+    https://github.com/behave/behave-django/blob/main/behave_django/pageobject.py
 .. _page-object: https://pypi.org/project/page-object/
 .. _page-objects: https://pypi.org/project/page-objects/
 .. _selenium-page-factory: https://pypi.org/project/selenium-page-factory/

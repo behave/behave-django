@@ -29,7 +29,7 @@ Python and Django (Django 2.2, 3.2, 4.0 on Python 3.6, 3.7, 3.8, 3.9, 3.10).
 
 The version of `behave`_ is not tied to our integration (read: "independent").
 We test against the latest release on PyPI, and run a sample against Behave's
-current ``master`` branch.
+current ``main`` branch.
 
 .. docs-marker
 
@@ -67,7 +67,7 @@ Please, read the `contributing guide`_ in the docs.
     :target: https://pypi.org/project/behave-django/
     :alt: Python versions
 .. |license| image:: https://img.shields.io/pypi/l/behave-django.svg
-    :target: https://github.com/behave/behave-django/blob/master/LICENSE
+    :target: https://github.com/behave/behave-django/blob/main/LICENSE
     :alt: Software license
 .. |docs-status| image:: https://img.shields.io/readthedocs/behave-django/stable.svg
     :target: https://readthedocs.org/projects/behave-django/
