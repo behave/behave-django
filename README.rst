@@ -1,7 +1,7 @@
 behave-django |latest-version|
 ==============================
 
-|build-status| |health| |python-support| |license| |docs-status| |gitter|
+|test-status| |check-status| |health| |python-support| |license| |docs-status| |gitter|
 
 Behave BDD integration for Django
 
@@ -25,7 +25,7 @@ Version Support
 ---------------
 
 *behave-django* is `tested against`_ the officially supported combinations of
-Python and Django (Django 2.2, 3.1, 3.2 on Python 3.6, 3.7, 3.8, 3.9, 3.10).
+Python and Django (Django 2.2, 3.2, 4.0 on Python 3.6, 3.7, 3.8, 3.9, 3.10).
 
 The version of `behave`_ is not tied to our integration (read: "independent").
 We test against the latest release on PyPI, and run a sample against Behave's
@@ -49,7 +49,7 @@ Please, read the `contributing guide`_ in the docs.
 .. references-marker
 
 
-.. _tested against: https://travis-ci.org/behave/behave-django
+.. _tested against: https://github.com/behave/behave-django/actions/workflows/test.yml
 .. _behave: https://pypi.org/project/behave/
 .. _behave-django.readthedocs.io: https://behave-django.readthedocs.io/en/latest/
 .. _behave.readthedocs.io: https://behave.readthedocs.io/en/latest/usecase_django.html
@@ -57,8 +57,11 @@ Please, read the `contributing guide`_ in the docs.
 .. |latest-version| image:: https://img.shields.io/pypi/v/behave-django.svg
     :target: https://pypi.org/project/behave-django/
     :alt: Latest version
-.. |build-status| image:: https://img.shields.io/travis/behave/behave-django/master.svg
-    :target: https://travis-ci.org/behave/behave-django
+.. |test-status| image:: https://github.com/behave/behave-django/actions/workflows/check.yml/badge.svg
+    :target: https://github.com/behave/behave-django/actions/workflows/check.yml
+    :alt: Build status
+.. |check-status| image:: https://github.com/behave/behave-django/actions/workflows/test.yml/badge.svg
+    :target: https://github.com/behave/behave-django/actions/workflows/test.yml
     :alt: Build status
 .. |health| image:: https://img.shields.io/codacy/grade/ffcbf7a0c11445a6b95adf80ac9da029/master.svg
     :target: https://www.codacy.com/app/behave-contrib/behave-django

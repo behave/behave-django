@@ -1,0 +1,54 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+    - master
+  push:
+    branches:
+    - master
+
+jobs:
+  python-django:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+        - '3.6'
+        - '3.7'
+        - '3.8'
+        - '3.9'
+        - '3.10'
+        django-version:
+        - '2.2'
+        - '3.2'
+        - '4.0'
+        exclude:
+        - { django-version: '2.2', python-version: '3.10' }
+        - { django-version: '4.0', python-version: '3.6' }
+        - { django-version: '4.0', python-version: '3.7' }
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install prerequisites
+      run: python -m pip install --upgrade pip setuptools tox-gh-actions
+    - name: Run tests (Python ${{ matrix.python-version }}, Django ${{ matrix.django-version }})
+      run: tox
+      env:
+        DJANGO: ${{ matrix.django-version }}
+  behave-latest:
+    runs-on: ubuntu-latest
+    env:
+      TOXENV: behave-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+    - name: Install prerequisites
+      run: python -m pip install --upgrade pip setuptools tox
+    - name: Run tests (${{ env.TOXENV }})
+      run: tox
