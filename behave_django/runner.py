@@ -1,9 +1,11 @@
 from django.test.runner import DiscoverRunner
 
 from behave_django.environment import BehaveHooksMixin
-from behave_django.testcase import (BehaviorDrivenTestCase,
-                                    ExistingDatabaseTestCase,
-                                    DjangoSimpleTestCase)
+from behave_django.testcase import (
+    BehaviorDrivenTestCase,
+    DjangoSimpleTestCase,
+    ExistingDatabaseTestCase,
+)
 
 
 class BehaviorDrivenTestRunner(DiscoverRunner, BehaveHooksMixin):

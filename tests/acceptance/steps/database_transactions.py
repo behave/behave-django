@@ -1,5 +1,4 @@
-from behave import when, then
-
+from behave import then, when
 from test_app.models import BehaveTestModel
 
 

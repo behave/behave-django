@@ -1,7 +1,7 @@
 from copy import copy
 
 from behave import step_registry as module_step_registry
-from behave.runner import ModelRunner, Context
+from behave.runner import Context, ModelRunner
 from django.shortcuts import resolve_url
 
 

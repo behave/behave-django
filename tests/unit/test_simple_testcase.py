@@ -1,10 +1,10 @@
 from unittest import mock
 
 import pytest
-
-from behave_django.runner import SimpleTestRunner
 from behave.runner import Context, Runner
 from django.test.testcases import TestCase
+
+from behave_django.runner import SimpleTestRunner
 
 from .util import DjangoSetupMixin
 

@@ -1,6 +1,5 @@
-from behave import when, then
+from behave import then, when
 from django.urls import reverse
-
 from test_app.models import BehaveTestModel
 
 

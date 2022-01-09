@@ -4,7 +4,6 @@ A headless Page Object pattern implementation.
 Background reading: https://www.martinfowler.com/bliki/PageObject.html
 """
 import django.shortcuts
-
 from bs4 import BeautifulSoup
 
 
@@ -14,7 +13,7 @@ class WrongElementError(RuntimeError):
     ```elements`` dictionary.
     """
     def __init__(self, element, expected):
-        message = "Expected %s, found %s" % (element.__class__, expected)
+        message = "Expected %s, found %s" % (expected, element.__class__)
         super(WrongElementError, self).__init__(message)
 
 

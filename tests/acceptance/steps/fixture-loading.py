@@ -1,7 +1,7 @@
-from behave import then, given
+from behave import given, then
+from test_app.models import BehaveTestModel
 
 from behave_django.decorators import fixtures
-from test_app.models import BehaveTestModel
 
 
 @fixtures('behave-fixtures.json')

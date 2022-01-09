@@ -1,4 +1,4 @@
-from behave_django.pageobject import PageObject, Link
+from behave_django.pageobject import Link, PageObject
 
 
 class Welcome(PageObject):
