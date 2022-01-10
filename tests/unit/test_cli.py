@@ -1,5 +1,6 @@
 import os
 from imp import reload
+
 import pytest
 
 from .util import DjangoSetupMixin, run_silently, show_run_error
@@ -117,7 +118,10 @@ class TestCommandLine(DjangoSetupMixin):
             os.linesep) in output
 
     @pytest.mark.parametrize('arguments, expect_error', [
-        ('--runner-class behave_django.runner.BehaviorDrivenTestRunner', False),
+        (
+            '--runner-class behave_django.runner.BehaviorDrivenTestRunner',
+            False
+        ),
         (
             (
                 '--runner-class behave_django.runner.BehaviorDrivenTestRunner '

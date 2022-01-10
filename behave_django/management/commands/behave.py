@@ -3,7 +3,8 @@ from __future__ import absolute_import
 import sys
 
 from behave.__main__ import main as behave_main
-from behave.configuration import options as behave_options, valid_python_module
+from behave.configuration import options as behave_options
+from behave.configuration import valid_python_module
 from django.core.management.base import BaseCommand
 
 from behave_django.environment import monkey_patch_behave

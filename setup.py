@@ -4,6 +4,7 @@ Packaging setup of Django integration for behave.
 """
 from os import chdir
 from os.path import abspath, dirname, normpath
+
 from setuptools import find_packages, setup
 
 # allow setup.py to be run from any path
