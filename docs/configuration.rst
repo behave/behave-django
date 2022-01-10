@@ -29,7 +29,7 @@ Full Python dotted path to a package, module, Django TestRunner.
 
 Not to be confused with `--behave-runner-class` that handles the internal
 `TestRunner` inside `behave`. You can read more about it in the
-`_behave docs`_.
+`behave docs <https://behave.readthedocs.io/en/latest/behave.html#cmdoption-runner-class>`__.
 
 ``--simple``
 ************
@@ -69,5 +69,4 @@ In your ``.behaverc`` file, you can put
 
 .. |keepdb docs| replace:: More information about ``--keepdb``
 .. _keepdb docs: https://docs.djangoproject.com/en/stable/topics/testing/overview/#the-test-database
-.. __behave docs: https://behave.readthedocs.io/en/latest/behave.html#cmdoption-runner-class
 .. _behave docs: https://behave.readthedocs.io/en/latest/behave.html#configuration-files
