@@ -25,11 +25,18 @@ recreating it each time you run the test. This flag enables
 ``--runner-class``
 ******************
 
-Full Python dotted path to a package, module, Django TestRunner. 
+Full Python dotted path to the `Django test runner`_ module used for your
+BDD test suite.  Default: |BehaviorDrivenTestRunner|_
 
-Not to be confused with `--behave-runner-class` that handles the internal
-`TestRunner` inside `behave`. You can read more about it in the
-`behave docs <https://behave.readthedocs.io/en/latest/behave.html#cmdoption-runner-class>`__.
+You can use this option if you require custom behavior that deviates from
+`Django's default test runner`_ and is hard or impossible to configure.
+
+.. note::
+
+    Not to be confused with ``--behave-runner-class`` that handles the
+    internal `test runner inside behave`_.  You would use that to override
+    *behave*'s feature/step file discovery and similar behavior.  Read more
+    about it in the |behave docs (runner class)|_.
 
 ``--simple``
 ************
@@ -50,10 +57,10 @@ destroy your data irrecoverably.
 Behave configuration file
 -------------------------
 
-You can use *behave*’s configuration file.  Just create a ``behave.ini``,
-``.behaverc``, ``setup.cfg`` or ``tox.ini`` file in your project’s root
+You can use *behave*'s configuration file.  Just create a ``behave.ini``,
+``.behaverc``, ``setup.cfg`` or ``tox.ini`` file in your project's root
 directory and behave will pick it up.  You can read more about it in the
-`behave docs`_.
+|behave docs (config files)|_.
 
 For example, if you want to have your features directory somewhere else.
 In your ``.behaverc`` file, you can put
@@ -69,4 +76,12 @@ In your ``.behaverc`` file, you can put
 
 .. |keepdb docs| replace:: More information about ``--keepdb``
 .. _keepdb docs: https://docs.djangoproject.com/en/stable/topics/testing/overview/#the-test-database
-.. _behave docs: https://behave.readthedocs.io/en/latest/behave.html#configuration-files
+.. _Django test runner: https://docs.djangoproject.com/en/stable/ref/settings/#test-runner
+.. _Django's default test runner: https://github.com/django/django/blob/stable/4.0.x/django/test/runner.py#L555-L582
+.. |BehaviorDrivenTestRunner| replace:: ``behave_django.runner.BehaviorDrivenTestRunner``
+.. _BehaviorDrivenTestRunner: https://github.com/behave/behave-django/blob/main/behave_django/runner.py#L11-L15
+.. _test runner inside behave: https://github.com/behave/behave/blob/master/behave/runner.py#L728-L736
+.. |behave docs (runner class)| replace:: behave docs
+.. _behave docs (runner class): https://behave.readthedocs.io/en/latest/behave.html#cmdoption-runner-class
+.. |behave docs (config files)| replace:: behave docs
+.. _behave docs (config files): https://behave.readthedocs.io/en/latest/behave.html#configuration-files
