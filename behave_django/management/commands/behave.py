@@ -59,9 +59,9 @@ def add_command_arguments(parser):
         '--runner-class',
         action='store',
         type=valid_python_module,
+        default='behave_django.runner.BehaviorDrivenTestRunner',
         help=('Full Python dotted path to a package, module, Django '
-              'TestRunner.  Defaults to '
-              '"behave_django.runner.BehaviorDrivenTestRunner".')
+              'TestRunner.  Defaults to "%(default)s)".')
     )
 
 
@@ -153,15 +153,14 @@ class Command(BaseCommand):
                        k, v in
                        options.items() if k in passthru_args and v is not None}
 
-        if options['runner_class']:
-            django_test_runner = options['runner_class'](**runner_args)
-        elif options['dry_run'] or options['use_existing_database']:
-            django_test_runner = ExistingDatabaseTestRunner(**runner_args)
-        elif options['simple']:
-            django_test_runner = SimpleTestRunner(**runner_args)
-        else:
-            django_test_runner = BehaviorDrivenTestRunner(**runner_args)
+        django_runner_class = options['runner_class']
+        if django_runner_class is BehaviorDrivenTestRunner:
+            if options['dry_run'] or options['use_existing_database']:
+                django_runner_class = ExistingDatabaseTestRunner
+            elif options['simple']:
+                django_runner_class = SimpleTestRunner
 
+        django_test_runner = django_runner_class(**runner_args)
         django_test_runner.setup_test_environment()
 
         old_config = django_test_runner.setup_databases()
