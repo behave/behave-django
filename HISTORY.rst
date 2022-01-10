@@ -8,7 +8,7 @@ Release History
 
 - Cover Python 3.9 and 3.10 and Django 3.2, drop Python 3.5 and Django 3.0 support
 - Bump Behave requirement to 1.2.7 (allows option to change the Behave TestCase)
-- New option to change the Django TestCase
+- New option to change the Django TestRunner
 
 1.4.0 (2020-06-15)
 ++++++++++++++++++
