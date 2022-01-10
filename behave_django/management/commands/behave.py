@@ -59,8 +59,9 @@ def add_command_arguments(parser):
         '--runner-class',
         action='store',
         type=valid_python_module,
-        help=('Full Python dotted path to a package, module, Django TestCase. '
-              ' Defaults to "behave_django.runner.BehaviorDrivenTestRunner".')
+        help=('Full Python dotted path to a package, module, Django '
+              'TestRunner.  Defaults to '
+              '"behave_django.runner.BehaviorDrivenTestRunner".')
     )
 
 

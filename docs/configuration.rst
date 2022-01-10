@@ -38,6 +38,14 @@ after each scenario instead of flushing the entire database. Tests run much
 quicker, however HTTP server is not started and therefore web browser
 automation is not available.
 
+``--runner-class``
+******************
+
+Full Python dotted path to a package, module, Django TestRunner.
+
+_Not to be confused with `--behave-runner-class` that handles the internal
+`TestRunner` inside `behave`._
+
 Behave configuration file
 -------------------------
 
