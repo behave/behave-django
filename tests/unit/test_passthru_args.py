@@ -4,7 +4,7 @@ from .util import DjangoSetupMixin
 
 
 @mock.patch('behave_django.management.commands.behave.behave_main', return_value=0)  # noqa
-@mock.patch('behave_django.management.commands.behave.BehaviorDrivenTestRunner')  # noqa
+@mock.patch('behave_django.runner.BehaviorDrivenTestRunner')
 class TestPassThruArgs(DjangoSetupMixin):
 
     def test_keepdb_flag(self,
