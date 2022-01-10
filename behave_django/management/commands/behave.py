@@ -130,6 +130,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        django_runner_class = options['runner_class']
+        is_default_runner = django_runner_class is BehaviorDrivenTestRunner
+
         # Check the flags
         if options['use_existing_database'] and options['simple']:
             self.stderr.write(self.style.WARNING(
@@ -137,8 +140,8 @@ class Command(BaseCommand):
                 ' together with --use-existing-database'
             ))
 
-        both_active = options['use_existing_database'] or options['simple']
-        if options['runner_class'] and both_active:
+        active_flags = options['use_existing_database'] or options['simple']
+        if not is_default_runner and active_flags:
             self.stderr.write(self.style.WARNING(
                 '--use-existing-database or --simple has no effect'
                 ' together with --runner-class'
@@ -153,8 +156,7 @@ class Command(BaseCommand):
                        k, v in
                        options.items() if k in passthru_args and v is not None}
 
-        django_runner_class = options['runner_class']
-        if django_runner_class is BehaviorDrivenTestRunner:
+        if is_default_runner:
             if options['dry_run'] or options['use_existing_database']:
                 django_runner_class = ExistingDatabaseTestRunner
             elif options['simple']:

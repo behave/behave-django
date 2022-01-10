@@ -124,7 +124,7 @@ class TestCommandLine(DjangoSetupMixin):
         ),
         (
             (
-                '--runner-class behave_django.runner.BehaviorDrivenTestRunner '
+                '--runner-class behave_django.runner.SimpleTestRunner '
                 '--simple'
             ),
             True
@@ -132,6 +132,21 @@ class TestCommandLine(DjangoSetupMixin):
         (
             (
                 '--runner-class behave_django.runner.BehaviorDrivenTestRunner '
+                '--simple'
+            ),
+            False
+        ),
+        (
+            (
+                '--behave-runner-class behave.runner.Runner '
+                '--runner-class behave_django.runner.SimpleTestRunner '
+                '--simple'
+            ),
+            True
+        ),
+        (
+            (
+                '--runner-class behave_django.runner.SimpleTestRunner '
                 '--use-existing-database'
             ),
             True
