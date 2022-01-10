@@ -30,14 +30,6 @@ recreating it each time you run the test. This flag enables
 ``manage.py behave --keepdb`` to take advantage of that feature.
 |keepdb docs|_.
 
-``--simple``
-************
-
-Use Django's simple ``TestCase`` which rolls back the database transaction
-after each scenario instead of flushing the entire database. Tests run much
-quicker, however HTTP server is not started and therefore web browser
-automation is not available.
-
 ``--runner-class``
 ******************
 
@@ -45,6 +37,14 @@ Full Python dotted path to a package, module, Django TestRunner.
 
 _Not to be confused with `--behave-runner-class` that handles the internal
 `TestRunner` inside `behave`._
+
+``--simple``
+************
+
+Use Django's simple ``TestCase`` which rolls back the database transaction
+after each scenario instead of flushing the entire database. Tests run much
+quicker, however HTTP server is not started and therefore web browser
+automation is not available.
 
 Behave configuration file
 -------------------------
