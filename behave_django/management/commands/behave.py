@@ -2,9 +2,8 @@ from __future__ import absolute_import
 
 import sys
 
-from behave.configuration import options as behave_options, valid_python_module
 from behave.__main__ import main as behave_main
-from behave.configuration import options as behave_options
+from behave.configuration import options as behave_options, valid_python_module
 from django.core.management.base import BaseCommand
 
 from behave_django.environment import monkey_patch_behave
@@ -59,7 +58,8 @@ def add_command_arguments(parser):
         '--runner-class',
         action='store',
         type=valid_python_module,
-        help=""
+        help=('Full Python dotted path to a package, module, Django TestCase. '
+              ' Defaults to "behave_django.runner.BehaviorDrivenTestRunner".')
     )
 
 
@@ -135,7 +135,8 @@ class Command(BaseCommand):
                 ' together with --use-existing-database'
             ))
 
-        if options['runner_class'] and (options['use_existing_database'] or options['simple']):
+        both_active = options['use_existing_database'] or options['simple']
+        if options['runner_class'] and both_active:
             self.stderr.write(self.style.WARNING(
                 '--use-existing-database or --simple has no effect'
                 ' together with --runner-class'
