@@ -40,7 +40,8 @@ coverage.xml
 nosetests.xml
 .pytest_cache/
 .tox/
-tests/reports/
+tests/TESTS-features.*.xml
+tests/*-report.xml
 
 # Translations
 *.mo

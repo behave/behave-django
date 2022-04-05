@@ -1,11 +1,14 @@
 [tool.bandit]
-# Exclude/ignore of files is currently broken in Bandit.
+exclude_dirs = [".git",".github",".tox","tests"]
 
 [tool.black]
 color = true
 
-[tool.coverage.xml]
-output = "tests/reports/coverage.xml"
+[tool.coverage.run]
+source = ["behave_django"]
+
+[tool.coverage.report]
+show_missing = true
 
 [tool.isort]
 color_output = true
@@ -15,7 +18,7 @@ profile = "black"
 output-format = "colorized"
 
 [tool.pytest.ini_options]
-addopts = "--junitxml=tests/reports/unittests.xml --color=yes --verbose"
+addopts = "--color=yes --junitxml=tests/unittests-report.xml --verbose"
 testpaths = [
     "tests/unit",
 ]

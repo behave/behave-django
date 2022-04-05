@@ -1,5 +1,5 @@
 import os
-from imp import reload
+from importlib import reload
 
 import pytest
 
