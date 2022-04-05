@@ -1,5 +1,10 @@
 [tool.bandit]
-exclude_dirs = [".git",".github",".tox","tests"]
+exclude_dirs = [
+    ".git",
+    ".github",
+    ".tox",
+    "tests",
+]
 
 [tool.black]
 color = true
@@ -15,7 +20,17 @@ color_output = true
 profile = "black"
 
 [tool.pylint.master]
+django-settings-module = "test_project.settings"
+init-hook = "import sys; sys.path.append('tests')"
+load-plugins = ["pylint_django"]
 output-format = "colorized"
+
+[tool.pylint.messages_control]
+disable = [
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "missing-module-docstring",
+]
 
 [tool.pytest.ini_options]
 addopts = "--color=yes --junitxml=tests/unittests-report.xml --verbose"
