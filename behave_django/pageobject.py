@@ -13,8 +13,8 @@ class WrongElementError(RuntimeError):
     ```elements`` dictionary.
     """
     def __init__(self, element, expected):
-        message = "Expected %s, found %s" % (expected, element.__class__)
-        super(WrongElementError, self).__init__(message)
+        message = f"Expected {expected}, found {element.__class__}"
+        super().__init__(message)
 
 
 class PageObject:
@@ -28,7 +28,7 @@ class PageObject:
         Dictionary of elements accessible by helper methods
     """
     page = None
-    elements = dict()
+    elements = {}
 
     def __init__(self, context):
         """
@@ -122,6 +122,3 @@ class Element:
 
 class Link(Element):
     """A HTML anchor element representing a hyperlink"""
-
-    def __init__(self, css):
-        super(Link, self).__init__(css)

@@ -11,10 +11,10 @@ class PatchedContext(Context):
     def base_url(self):
         try:
             return self.test.live_server_url
-        except AttributeError:
+        except AttributeError as err:
             raise RuntimeError('Web browser automation is not available. '
                                'This scenario step can not be run with the '
-                               '--simple or -S flag.')
+                               '--simple or -S flag.') from err
 
     def get_url(self, to=None, *args, **kwargs):
         return self.base_url + (
@@ -43,7 +43,7 @@ def load_registered_fixtures(context):
             context.test.fixtures.extend(match.func.registered_fixtures)
 
 
-class BehaveHooksMixin(object):
+class BehaveHooksMixin:
     """
     Provides methods that run during test execution
 
@@ -66,7 +66,7 @@ class BehaveHooksMixin(object):
         """
         Adds the test instance to context
         """
-        context.test = self.testcase_class()
+        context.test = self.testcase_class()  # pylint: disable=not-callable
 
     def setup_fixtures(self, context):
         """

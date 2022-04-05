@@ -2,7 +2,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test.testcases import TestCase
 
 
-class BehaviorDrivenTestMixin(object):
+class BehaviorDrivenTestMixin:
     """
     Mixin to prevent the TestCase from executing its setup and teardown methods
 
@@ -13,13 +13,13 @@ class BehaviorDrivenTestMixin(object):
 
     def _pre_setup(self, run=False):
         if run:
-            super(BehaviorDrivenTestMixin, self)._pre_setup()
+            super()._pre_setup()
 
     def _post_teardown(self, run=False):
         if run:
-            super(BehaviorDrivenTestMixin, self)._post_teardown()
+            super()._post_teardown()
 
-    def runTest(self):
+    def runTest(self):  # pylint: disable=invalid-name
         pass
 
 

@@ -2,20 +2,18 @@
 """
 Packaging setup of Django integration for behave.
 """
-from os import chdir
-from os.path import abspath, dirname, normpath
+from pathlib import Path
 
 from setuptools import find_packages, setup
 
-# allow setup.py to be run from any path
-chdir(normpath(abspath(dirname(__file__))))
-
-import behave_django as package  # noqa
+import behave_django as package
 
 
 def read_file(filename):
-    with open(filename) as file:
-        return file.read()
+    """Read a text file and return its contents."""
+    project_home = Path(__file__).parent.resolve()
+    file_path = project_home / filename
+    return file_path.read_text(encoding="utf-8")
 
 
 setup(
