@@ -6,7 +6,8 @@ Release History
 
 **Features and Improvements**
 
-- Cover Python 3.9 and 3.10 and Django 3.2, drop Python 3.5 and Django 3.0 support
+- Add instructions to measure test coverage to the documentation
+- Cover Python 3.9 and 3.10 and Django 3.2 and 4.0, drop Python 3.5 and Django 2.2 and 3.0 support
 - Bump Behave requirement to 1.2.7 (allows option to change the Behave TestRunner)
 - New option to change the Django TestRunner
 
