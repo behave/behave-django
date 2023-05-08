@@ -18,11 +18,14 @@ from behave_django.runner import (
 
 def valid_python_module(path):
     try:
-        module_path, class_name = path.rsplit('.', 1)
+        module_path, class_name = path.rsplit(':', 1)
         module = import_module(module_path)
         return getattr(module, class_name)
-    except (ValueError, AttributeError, ImportError):
-        msg = f"No module named '{path}' was found."
+    except (ValueError, ImportError):
+        msg = f"Failed to import module '{module_path}'."
+        raise ArgumentTypeError(msg)
+    except AttributeError:
+        msg = f"No class '{class_name}' found in '{module_path}'."
         raise ArgumentTypeError(msg)
 
 
@@ -70,7 +73,7 @@ def add_command_arguments(parser):
         '--runner',
         action='store',
         type=valid_python_module,
-        default='behave_django.runner.BehaviorDrivenTestRunner',
+        default='behave_django.runner:BehaviorDrivenTestRunner',
         help=('Full Python dotted path to a package, module, Django '
               'TestRunner.  Defaults to "%(default)s".')
     )
@@ -143,20 +146,30 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         django_runner_class = options['runner']
+
+        # FIXME: This check should be unnecessary. BUG: if no `--runner`
+        # option is specified the value of `--behave-runner`` is provided.
+        if isinstance(django_runner_class, str):
+            django_runner_class = BehaviorDrivenTestRunner
+
         is_default_runner = django_runner_class is BehaviorDrivenTestRunner
 
-        # Check the flags
+        if is_default_runner:
+            if options['dry_run'] or options['use_existing_database']:
+                django_runner_class = ExistingDatabaseTestRunner
+            elif options['simple']:
+                django_runner_class = SimpleTestRunner
+
+        elif options['use_existing_database'] or options['simple']:
+            self.stderr.write(self.style.WARNING(
+                '--use-existing-database or --simple has no effect'
+                ' together with --runner'
+            ))
+
         if options['use_existing_database'] and options['simple']:
             self.stderr.write(self.style.WARNING(
                 '--simple flag has no effect'
                 ' together with --use-existing-database'
-            ))
-
-        active_flags = options['use_existing_database'] or options['simple']
-        if not is_default_runner and active_flags:
-            self.stderr.write(self.style.WARNING(
-                '--use-existing-database or --simple has no effect'
-                ' together with --runner'
             ))
 
         # Configure django environment
@@ -167,12 +180,6 @@ class Command(BaseCommand):
         runner_args = {k: v for
                        k, v in
                        options.items() if k in passthru_args and v is not None}
-
-        if is_default_runner:
-            if options['dry_run'] or options['use_existing_database']:
-                django_runner_class = ExistingDatabaseTestRunner
-            elif options['simple']:
-                django_runner_class = SimpleTestRunner
 
         django_test_runner = django_runner_class(**runner_args)
         django_test_runner.setup_test_environment()

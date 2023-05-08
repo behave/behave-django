@@ -78,7 +78,7 @@ In your ``.behaverc`` file, you can put
 .. _keepdb docs: https://docs.djangoproject.com/en/stable/topics/testing/overview/#the-test-database
 .. _Django test runner: https://docs.djangoproject.com/en/stable/ref/settings/#test-runner
 .. _Django's default test runner: https://github.com/django/django/blob/stable/4.0.x/django/test/runner.py#L555-L582
-.. |BehaviorDrivenTestRunner| replace:: ``behave_django.runner.BehaviorDrivenTestRunner``
+.. |BehaviorDrivenTestRunner| replace:: ``behave_django.runner:BehaviorDrivenTestRunner``
 .. _BehaviorDrivenTestRunner: https://github.com/behave/behave-django/blob/1.4.0/behave_django/runner.py#L9-L13
 .. _test runner inside behave: https://github.com/behave/behave/blob/v1.2.7.dev2/behave/runner.py#L728-L736
 .. |behave docs (runner opt)| replace:: behave docs

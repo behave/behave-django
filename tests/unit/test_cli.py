@@ -31,7 +31,7 @@ class TestCommandLine(DjangoSetupMixin):
             'manage.py', 'behave',
             '--format', 'progress',
             '--behave-runner', 'behave.runner:Runner',
-            '--runner', 'behave_django.runner.BehaviorDrivenTestRunner',
+            '--runner', 'behave_django.runner:BehaviorDrivenTestRunner',
             '--settings', 'test_project.settings',
             '-i', 'some-pattern',
             'features/running-tests.feature'
@@ -121,19 +121,19 @@ class TestCommandLine(DjangoSetupMixin):
 
     @pytest.mark.parametrize('arguments, expect_error', [
         (
-            '--runner behave_django.runner.BehaviorDrivenTestRunner',
+            '--runner behave_django.runner:BehaviorDrivenTestRunner',
             False
         ),
         (
             (
-                '--runner behave_django.runner.SimpleTestRunner '
+                '--runner behave_django.runner:SimpleTestRunner '
                 '--simple'
             ),
             True
         ),
         (
             (
-                '--runner behave_django.runner.BehaviorDrivenTestRunner '
+                '--runner behave_django.runner:BehaviorDrivenTestRunner '
                 '--simple'
             ),
             False
@@ -141,14 +141,14 @@ class TestCommandLine(DjangoSetupMixin):
         (
             (
                 '--behave-runner behave.runner:Runner '
-                '--runner behave_django.runner.SimpleTestRunner '
+                '--runner behave_django.runner:SimpleTestRunner '
                 '--simple'
             ),
             True
         ),
         (
             (
-                '--runner behave_django.runner.SimpleTestRunner '
+                '--runner behave_django.runner:SimpleTestRunner '
                 '--use-existing-database'
             ),
             True
@@ -157,7 +157,7 @@ class TestCommandLine(DjangoSetupMixin):
         (
             (
                 '--behave-runner behave.runner:Runner '
-                '--runner behave_django.runner.BehaviorDrivenTestRunner'
+                '--runner behave_django.runner:BehaviorDrivenTestRunner'
             ),
             False
         ),
