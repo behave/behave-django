@@ -14,7 +14,7 @@ env:
 
 jobs:
   python-django:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
@@ -24,15 +24,20 @@ jobs:
         - '3.8'
         - '3.9'
         - '3.10'
+        - '3.11'
         django-version:
         - '3.2'
-        - '4.0'
+        - '4.1'
+        - '4.2'
         exclude:
-        - { django-version: '4.0', python-version: '3.6' }
-        - { django-version: '4.0', python-version: '3.7' }
+        - { django-version: '3.2', python-version: '3.11' }
+        - { django-version: '4.1', python-version: '3.6' }
+        - { django-version: '4.1', python-version: '3.7' }
+        - { django-version: '4.2', python-version: '3.6' }
+        - { django-version: '4.2', python-version: '3.7' }
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install prerequisites
@@ -46,8 +51,8 @@ jobs:
     env:
       TOXENV: behave-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
       with:
         python-version: '3.10'
     - name: Install prerequisites
