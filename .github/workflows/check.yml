@@ -23,7 +23,7 @@ jobs:
         - flake8
         - isort
         - pylint
-        - readme
+        - package
         - docs
     steps:
     - uses: actions/checkout@v2
