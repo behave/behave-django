@@ -1,10 +1,11 @@
 from __future__ import absolute_import
 
 import sys
+from argparse import ArgumentTypeError
+from importlib import import_module
 
 from behave.__main__ import main as behave_main
 from behave.configuration import options as behave_options
-from behave.configuration import valid_python_module
 from django.core.management.base import BaseCommand
 
 from behave_django.environment import monkey_patch_behave
@@ -13,6 +14,15 @@ from behave_django.runner import (
     ExistingDatabaseTestRunner,
     SimpleTestRunner,
 )
+
+
+def valid_python_module(path):
+    try:
+        module_path, class_name = path.rsplit('.', 1)
+        module = import_module(module_path)
+        return getattr(module, class_name)
+    except (ValueError, AttributeError, ImportError):
+        raise ArgumentTypeError("No module named '{path}' was found.")
 
 
 def add_command_arguments(parser):
