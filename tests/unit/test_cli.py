@@ -17,7 +17,9 @@ class TestCommandLine(DjangoSetupMixin):
                 os.linesep) in output
         assert (os.linesep + '  -k, --keepdb') in output
         assert (os.linesep + '  -S, --simple') in output
-        assert (os.linesep + '  --runner-class') in output
+        assert (os.linesep + '  --runner ') in output
+        assert (os.linesep + '  --behave-r RUNNER_CLASS,'
+                ' --behave-runner RUNNER_CLASS') in output
         assert (os.linesep + '  --noinput, --no-input') in output
         assert (os.linesep + '  --failfast') in output
         assert (os.linesep + '  -r, --reverse') in output
@@ -28,8 +30,8 @@ class TestCommandLine(DjangoSetupMixin):
         argv = [
             'manage.py', 'behave',
             '--format', 'progress',
-            '--behave-runner-class', 'behave.runner.Runner',
-            '--runner-class', 'behave_django.runner.BehaviorDrivenTestRunner',
+            '--behave-runner', 'behave.runner:Runner',
+            '--runner', 'behave_django.runner.BehaviorDrivenTestRunner',
             '--settings', 'test_project.settings',
             '-i', 'some-pattern',
             'features/running-tests.feature'
@@ -37,8 +39,8 @@ class TestCommandLine(DjangoSetupMixin):
         args = command.get_behave_args(argv=argv)
 
         assert '--format' in args
-        assert '--runner-class' in args
-        assert args[args.index('--runner-class') + 1] == 'behave.runner.Runner'
+        assert '--runner' in args
+        assert args[args.index('--runner') + 1] == 'behave.runner:Runner'
         assert 'progress' in args
         assert '-i' in args
         assert 'some-pattern' in args
@@ -119,49 +121,50 @@ class TestCommandLine(DjangoSetupMixin):
 
     @pytest.mark.parametrize('arguments, expect_error', [
         (
-            '--runner-class behave_django.runner.BehaviorDrivenTestRunner',
+            '--runner behave_django.runner.BehaviorDrivenTestRunner',
             False
         ),
         (
             (
-                '--runner-class behave_django.runner.SimpleTestRunner '
+                '--runner behave_django.runner.SimpleTestRunner '
                 '--simple'
             ),
             True
         ),
         (
             (
-                '--runner-class behave_django.runner.BehaviorDrivenTestRunner '
+                '--runner behave_django.runner.BehaviorDrivenTestRunner '
                 '--simple'
             ),
             False
         ),
         (
             (
-                '--behave-runner-class behave.runner.Runner '
-                '--runner-class behave_django.runner.SimpleTestRunner '
+                '--behave-runner behave.runner:Runner '
+                '--runner behave_django.runner.SimpleTestRunner '
                 '--simple'
             ),
             True
         ),
         (
             (
-                '--runner-class behave_django.runner.SimpleTestRunner '
+                '--runner behave_django.runner.SimpleTestRunner '
                 '--use-existing-database'
             ),
             True
         ),
-        ('--behave-runner-class behave.runner.Runner --simple', False),
+        ('--behave-runner behave.runner:Runner --simple', False),
         (
             (
-                '--behave-runner-class behave.runner.Runner '
-                '--runner-class behave_django.runner.BehaviorDrivenTestRunner'
+                '--behave-runner behave.runner:Runner '
+                '--runner behave_django.runner.BehaviorDrivenTestRunner'
             ),
             False
         ),
     ])
-    def test_runner_class_and_others_flags_raise_a_warning(self, arguments,
-                                                           expect_error):
+    def test_runner_and_others_flags_raise_a_warning(
+        self, arguments, expect_error
+    ):
         exit_status, output = run_silently(
             'python tests/manage.py behave'
             '    %s --tags=@skip-all' % arguments
@@ -172,7 +175,7 @@ class TestCommandLine(DjangoSetupMixin):
         warning_message = (
             os.linesep +
             '--use-existing-database or --simple has no effect'
-            ' together with --runner-class' +
+            ' together with --runner' +
             os.linesep)
         if expect_error:
             assert warning_message in output

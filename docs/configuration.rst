@@ -22,8 +22,8 @@ recreating it each time you run the test.  This flag enables
 ``manage.py behave --keepdb`` to take advantage of that feature.
 |keepdb docs|_.
 
-``--runner-class``
-******************
+``--runner``
+************
 
 Full Python dotted path to the `Django test runner`_ module used for your
 BDD test suite.  Default: |BehaviorDrivenTestRunner|_
@@ -33,10 +33,10 @@ You can use this option if you require custom behavior that deviates from
 
 .. note::
 
-    Not to be confused with ``--behave-runner-class`` that handles the
-    internal `test runner inside behave`_.  You would use that to override
-    *behave*'s feature/step file discovery and similar behavior.  Read more
-    about it in the |behave docs (runner class)|_.
+    Not to be confused with ``--behave-runner`` that handles the internal
+    `test runner inside behave`_.  You would use that to override *behave*'s
+    feature/step file discovery and similar behavior.  Read more about it
+    in the |behave docs (runner opt)|_.
 
 ``--simple``
 ************
@@ -81,7 +81,7 @@ In your ``.behaverc`` file, you can put
 .. |BehaviorDrivenTestRunner| replace:: ``behave_django.runner.BehaviorDrivenTestRunner``
 .. _BehaviorDrivenTestRunner: https://github.com/behave/behave-django/blob/1.4.0/behave_django/runner.py#L9-L13
 .. _test runner inside behave: https://github.com/behave/behave/blob/v1.2.7.dev2/behave/runner.py#L728-L736
-.. |behave docs (runner class)| replace:: behave docs
-.. _behave docs (runner class): https://behave.readthedocs.io/en/latest/behave.html#cmdoption-runner-class
+.. |behave docs (runner opt)| replace:: behave docs
+.. _behave docs (runner opt): https://behave.readthedocs.io/en/latest/behave.html#cmdoption-r
 .. |behave docs (config files)| replace:: behave docs
 .. _behave docs (config files): https://behave.readthedocs.io/en/latest/behave.html#configuration-files

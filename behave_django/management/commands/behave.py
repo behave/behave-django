@@ -22,7 +22,8 @@ def valid_python_module(path):
         module = import_module(module_path)
         return getattr(module, class_name)
     except (ValueError, AttributeError, ImportError):
-        raise ArgumentTypeError("No module named '{path}' was found.")
+        msg = f"No module named '{path}' was found."
+        raise ArgumentTypeError(msg)
 
 
 def add_command_arguments(parser):
@@ -66,12 +67,12 @@ def add_command_arguments(parser):
         " testing client only (no web browser automation)"
     )
     parser.add_argument(
-        '--runner-class',
+        '--runner',
         action='store',
         type=valid_python_module,
         default='behave_django.runner.BehaviorDrivenTestRunner',
         help=('Full Python dotted path to a package, module, Django '
-              'TestRunner.  Defaults to "%(default)s)".')
+              'TestRunner.  Defaults to "%(default)s".')
     )
 
 
@@ -82,14 +83,15 @@ def add_behave_arguments(parser):  # noqa
 
     # Option strings that conflict with Django
     conflicts = [
-        '--no-color',
-        '--version',
         '-c',
         '-k',
-        '-v',
+        '-r',
         '-S',
+        '-v',
+        '--no-color',
+        '--runner',
         '--simple',
-        '--runner-class',
+        '--version',
     ]
 
     parser.add_argument(
@@ -140,7 +142,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        django_runner_class = options['runner_class']
+        django_runner_class = options['runner']
         is_default_runner = django_runner_class is BehaviorDrivenTestRunner
 
         # Check the flags
@@ -154,7 +156,7 @@ class Command(BaseCommand):
         if not is_default_runner and active_flags:
             self.stderr.write(self.style.WARNING(
                 '--use-existing-database or --simple has no effect'
-                ' together with --runner-class'
+                ' together with --runner'
             ))
 
         # Configure django environment
