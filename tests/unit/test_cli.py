@@ -90,13 +90,13 @@ class TestCommandLine(DjangoSetupMixin):
         reload(behave.configuration)
         behave_options_backup = [
             (first, second.copy())
-            for (first, second) in behave.configuration.options
+            for (first, second) in behave.configuration.OPTIONS
         ]
 
         import behave_django.management.commands.behave
         reload(behave_django.management.commands.behave)
 
-        assert behave.configuration.options == behave_options_backup
+        assert behave.configuration.OPTIONS == behave_options_backup
 
     def test_conflicting_options_should_get_prefixed(self):
         from behave_django.management.commands.behave import Command
