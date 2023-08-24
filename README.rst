@@ -51,7 +51,7 @@ Please, read the `contributing guide`_ in the docs.
 .. _tested against: https://github.com/behave/behave-django/actions/workflows/test.yml
 .. _behave: https://pypi.org/project/behave/
 .. _behave-django.readthedocs.io: https://behave-django.readthedocs.io/en/latest/
-.. _behave.readthedocs.io: https://behave.readthedocs.io/en/latest/usecase_django.html
+.. _behave.readthedocs.io: https://behave.readthedocs.io/en/latest/usecase_django/
 .. _contributing guide: https://behave-django.readthedocs.io/en/latest/contribute.html
 .. |latest-version| image:: https://img.shields.io/pypi/v/behave-django.svg
     :target: https://pypi.org/project/behave-django/
