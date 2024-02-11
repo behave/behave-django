@@ -25,7 +25,7 @@ Version Support
 ---------------
 
 *behave-django* is `tested against`_ the officially supported combinations of
-Python and Django (Django 3.2, 4.1, 4.2, 5.0 on Python 3.6, 3.7, 3.8, 3.9, 3.10, 3.11, 3.12).
+Python and Django (Django 3.2, 4.1, 4.2, 5.0 on Python 3.7, 3.8, 3.9, 3.10, 3.11, 3.12).
 
 *behave-django* requires a few newer features of *behave* and hence installs
 a recent unreleased version of `behave`_ as a dependency.
