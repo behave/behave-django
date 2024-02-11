@@ -1,3 +1,64 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=64"]
+
+[project]
+name = "behave-django"
+dynamic = ["version"]
+description = "Behave BDD integration for Django"
+readme = "README.rst"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Mitchel Cabuloy", email = "mixxorz@gmail.com"},
+  {name = "Peter Bittner", email = "django@bittner.it"},
+]
+maintainers = [
+  {name = "Peter Bittner", email = "django@bittner.it"},
+  {name = "Javier Buzzi", email = "buzzi.javier@gmail.com"},
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Environment :: Plugins",
+  "Environment :: Web Environment",
+  "Framework :: Django",
+  "Framework :: Django :: 3.2",
+  "Framework :: Django :: 4.1",
+  "Framework :: Django :: 4.2",
+  "Framework :: Django :: 5.0",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+  "Topic :: Software Development :: Testing",
+]
+keywords = [
+  "bdd",
+  "behave",
+  "django",
+  "testing",
+]
+requires-python = ">=3.6"
+dependencies = [
+  "behave[toml]@git+http://github.com/behave/behave.git@v1.2.7.dev4",  # behave>=1.2.7.dev3
+  "django>=3.2",
+  "beautifulsoup4",
+]
+
+[project.urls]
+Source = "https://github.com/behave/behave-django"
+Documentation = "https://behave-django.readthedocs.io/"
+
 [tool.bandit]
 exclude_dirs = [
     ".git",
@@ -5,6 +66,15 @@ exclude_dirs = [
     ".tox",
     "tests",
 ]
+
+[tool.behave]
+junit = true
+junit_directory = "tests"
+paths = [
+  "tests/acceptance",
+  "tests/test_app",
+]
+show_skipped = false
 
 [tool.black]
 color = true
@@ -37,3 +107,9 @@ addopts = "--color=yes --junitxml=tests/unittests-report.xml --verbose"
 testpaths = [
     "tests/unit",
 ]
+
+[tool.setuptools.dynamic]
+version = {attr = "behave_django.__version__"}
+
+[tool.setuptools.packages.find]
+namespaces = false
