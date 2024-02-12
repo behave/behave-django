@@ -19,10 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         env:
-        - bandit
-        - flake8
-        - isort
-        - pylint
+        - lint
+        - format
         - package
         - docs
     steps:

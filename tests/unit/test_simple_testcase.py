@@ -10,12 +10,9 @@ from .util import DjangoSetupMixin
 
 
 class TestSimpleTestCase(DjangoSetupMixin):
-
-    @mock.patch('behave_django.management.commands.behave.behave_main', return_value=0)  # noqa
-    @mock.patch('behave_django.management.commands.behave.SimpleTestRunner')  # noqa
-    def test_use_simple_test_runner(self,
-                                    mock_simple_test_runner,
-                                    mock_behave_main):
+    @mock.patch('behave_django.management.commands.behave.behave_main', return_value=0)
+    @mock.patch('behave_django.management.commands.behave.SimpleTestRunner')
+    def test_use_simple_test_runner(self, mock_simple_test_runner, mock_behave_main):
         self.run_management_command('behave', simple=True)
         mock_behave_main.assert_called_once_with(args=[])
         mock_simple_test_runner.assert_called_once_with()

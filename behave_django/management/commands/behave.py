@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+"""Main entry point, the ``behave`` management command for Django."""
 
 import sys
 from argparse import ArgumentTypeError
@@ -21,18 +21,17 @@ def valid_python_module(path):
         module_path, class_name = path.rsplit(':', 1)
         module = import_module(module_path)
         return getattr(module, class_name)
-    except (ValueError, ImportError):
+    except (ValueError, ImportError) as err:
         msg = f"Failed to import module '{module_path}'."
-        raise ArgumentTypeError(msg)
-    except AttributeError:
+        raise ArgumentTypeError(msg) from err
+    except AttributeError as err:
         msg = f"No class '{class_name}' found in '{module_path}'."
-        raise ArgumentTypeError(msg)
+        raise ArgumentTypeError(msg) from err
 
 
 def add_command_arguments(parser):
-    """
-    Additional command line arguments for the behave management command
-    """
+    """Command line arguments for the behave management command."""
+
     parser.add_argument(
         '--noinput',
         '--no-input',
@@ -42,12 +41,18 @@ def add_command_arguments(parser):
         help='Tells Django to NOT prompt the user for input of any kind.',
     )
     parser.add_argument(
-        '--failfast', action='store_const', const=True, dest='failfast',
-        help=('Tells Django to stop running the '
-              'test suite after first failed test.'),
+        '--failfast',
+        action='store_const',
+        const=True,
+        dest='failfast',
+        help='Tells Django to stop running the test suite after first failed test.',
     )
     parser.add_argument(
-        '-r', '--reverse', action='store_const', const=True, dest='reverse',
+        '-r',
+        '--reverse',
+        action='store_const',
+        const=True,
+        dest='reverse',
         help='Reverses test cases order.',
     )
     parser.add_argument(
@@ -57,32 +62,32 @@ def add_command_arguments(parser):
         help="Don't create a test database. USE AT YOUR OWN RISK!",
     )
     parser.add_argument(
-        '-k', '--keepdb',
+        '-k',
+        '--keepdb',
         action='store_const',
         const=True,
-        help="Preserves the test DB between runs.",
+        help='Preserves the test DB between runs.',
     )
     parser.add_argument(
-        '-S', '--simple',
+        '-S',
+        '--simple',
         action='store_true',
         default=False,
-        help="Use simple test runner that supports Django's"
-        " testing client only (no web browser automation)"
+        help="Use simple test runner that supports Django's testing client only"
+        ' (no web browser automation)',
     )
     parser.add_argument(
         '--runner',
         action='store',
         type=valid_python_module,
         default='behave_django.runner:BehaviorDrivenTestRunner',
-        help=('Full Python dotted path to a package, module, Django '
-              'TestRunner.  Defaults to "%(default)s".')
+        help='Full Python dotted path to a package, module, Django TestRunner.'
+        '  Defaults to "%(default)s".',
     )
 
 
-def add_behave_arguments(parser):  # noqa
-    """
-    Additional command line arguments extracted directly from behave
-    """
+def add_behave_arguments(parser):
+    """Additional command line arguments extracted from upstream behave."""
 
     # Option strings that conflict with Django
     conflicts = [
@@ -101,7 +106,7 @@ def add_behave_arguments(parser):  # noqa
         'paths',
         action='store',
         nargs='*',
-        help="Feature directory, file or file location (FILE:LINE)."
+        help='Feature directory, file or file location (FILE:LINE).',
     )
 
     for fixed, keywords in behave_options:
@@ -133,10 +138,9 @@ class Command(BaseCommand):
     help = 'Runs behave tests'
 
     def add_arguments(self, parser):
-        """
-        Add behave's and our command line arguments to the command
-        """
-        parser.usage = "%(prog)s [options] [ [DIR|FILE|FILE:LINE] ]+"
+        """Add behave's and our command line arguments to the command."""
+
+        parser.usage = '%(prog)s [options] [ [DIR|FILE|FILE:LINE] ]+'
         parser.description = """\
         Run a number of feature tests with behave."""
 
@@ -144,6 +148,7 @@ class Command(BaseCommand):
         add_behave_arguments(parser)
 
     def handle(self, *args, **options):
+        """Main entry point when django-behave executes."""
 
         django_runner_class = options['runner']
 
@@ -161,25 +166,26 @@ class Command(BaseCommand):
                 django_runner_class = SimpleTestRunner
 
         elif options['use_existing_database'] or options['simple']:
-            self.stderr.write(self.style.WARNING(
-                '--use-existing-database or --simple has no effect'
-                ' together with --runner'
-            ))
+            self.stderr.write(
+                self.style.WARNING(
+                    '--use-existing-database or --simple has no effect'
+                    ' together with --runner'
+                )
+            )
 
         if options['use_existing_database'] and options['simple']:
-            self.stderr.write(self.style.WARNING(
-                '--simple flag has no effect'
-                ' together with --use-existing-database'
-            ))
+            self.stderr.write(
+                self.style.WARNING(
+                    '--simple flag has no effect'
+                    ' together with --use-existing-database'
+                )
+            )
 
         # Configure django environment
-        passthru_args = ('failfast',
-                         'interactive',
-                         'keepdb',
-                         'reverse')
-        runner_args = {k: v for
-                       k, v in
-                       options.items() if k in passthru_args and v is not None}
+        passthru_args = ['failfast', 'interactive', 'keepdb', 'reverse']
+        runner_args = {
+            k: v for k, v in options.items() if k in passthru_args and v is not None
+        }
 
         django_test_runner = django_runner_class(**runner_args)
         django_test_runner.setup_test_environment()
@@ -220,6 +226,7 @@ class Command(BaseCommand):
 
 
 class BehaveArgsHelper(Command):
+    """Command line parser for passing arguments down to behave."""
 
     def add_arguments(self, parser):
         """

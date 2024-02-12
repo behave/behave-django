@@ -3,12 +3,11 @@ from django.test.testcases import TestCase
 
 
 class BehaviorDrivenTestMixin:
-    """
-    Mixin to prevent the TestCase from executing its setup and teardown methods
+    """Prevents the TestCase from executing its setup and teardown methods.
 
-    This mixin overrides the test case's _pre_setup and _post_teardown methods
-    in order to prevent them from executing when the test case is instantiated.
-    We do this to have total control over the test execution.
+    This mixin overrides the test case's ``_pre_setup`` and ``_post_teardown``
+    methods in order to prevent them from executing when the test case is
+    instantiated.  We do this to have total control over the test execution.
     """
 
     def _pre_setup(self, run=False):
@@ -19,22 +18,19 @@ class BehaviorDrivenTestMixin:
         if run:
             super()._post_teardown()
 
-    def runTest(self):  # pylint: disable=invalid-name
+    def runTest(self):
         pass
 
 
-class BehaviorDrivenTestCase(BehaviorDrivenTestMixin,
-                             StaticLiveServerTestCase):
-    """
-    Test case attached to the context during behave execution
+class BehaviorDrivenTestCase(BehaviorDrivenTestMixin, StaticLiveServerTestCase):
+    """Test case attached to the context during behave execution.
 
     This test case prevents the regular tests from running.
     """
 
 
 class ExistingDatabaseTestCase(BehaviorDrivenTestCase):
-    """
-    Test case used for the --use-existing-database setup
+    """Test case used for the --use-existing-database setup.
 
     This test case prevents fixtures from being loaded to the database in use.
     """
@@ -47,8 +43,7 @@ class ExistingDatabaseTestCase(BehaviorDrivenTestCase):
 
 
 class DjangoSimpleTestCase(BehaviorDrivenTestMixin, TestCase):
-    """
-    Test case attached to the context during behave execution
+    """Test case attached to the context during behave execution.
 
     This test case uses `transaction.atomic()` to achieve test isolation
     instead of flushing the entire database. As a result, tests run much

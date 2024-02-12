@@ -5,8 +5,7 @@ import django
 from django.core.management import call_command
 
 
-class DjangoSetupMixin(object):
-
+class DjangoSetupMixin:
     @classmethod
     def setup_class(cls):
         # NOTE: this may potentially have side-effects, making tests pass
@@ -24,13 +23,12 @@ def run_silently(command):
     command_args = command.split()
     process = Popen(command_args, stdout=PIPE, stderr=PIPE, stdin=PIPE)
     stdout, stderr = process.communicate()
-    output = (stdout.decode('UTF-8') + os.linesep +
-              stderr.decode('UTF-8')).strip() + os.linesep
+    output = (
+        stdout.decode('UTF-8') + os.linesep + stderr.decode('UTF-8')
+    ).strip() + os.linesep
     return process.returncode, output
 
 
 def show_run_error(exit_status, output):
     """An easy-to-read error message for assert"""
-    return 'Failed with exit status %s\n' \
-           '--------------\n' \
-           '%s' % (exit_status, output)
+    return f'Failed with exit status {exit_status}\n--------------\n{output}'

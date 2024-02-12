@@ -37,14 +37,14 @@ def baseurl_plus_path(context, url_path):
 @then(u'the result is the base_url with reverse("{view_name}") appended')
 def baseurl_plus_reverse(context, view_name):
     path = reverse(view_name)
-    assert len(path) > 0, "Non-empty path expected"
+    assert len(path) > 0, 'Non-empty path expected'
     context.test.assertEqual(context.result, context.base_url + path)
 
 
 @then(u'the result is the base_url with model.get_absolute_url() appended')
 def baseurl_plus_absolute_url(context):
     path = context.model.get_absolute_url()
-    assert len(path) > 0, "Non-empty path expected"
+    assert len(path) > 0, 'Non-empty path expected'
     context.test.assertEqual(context.result, context.base_url + path)
 
 

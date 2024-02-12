@@ -12,8 +12,9 @@ class WrongElementError(RuntimeError):
     A different PageObject element was expected by the getter from the
     ```elements`` dictionary.
     """
+
     def __init__(self, element, expected):
-        message = f"Expected {expected}, found {element.__class__}"
+        message = f'Expected {expected}, found {element.__class__}'
         super().__init__(message)
 
 
@@ -27,6 +28,7 @@ class PageObject:
     :elements:
         Dictionary of elements accessible by helper methods
     """
+
     page = None
     elements = {}
 
@@ -51,11 +53,13 @@ class PageObject:
         Instead of page we compare the request URL path, which is the
         resolved value and should always match for equal pages.
         """
-        return isinstance(other, PageObject) and \
-            self.elements == other.elements and \
-            self.document.string == other.document.string and \
-            self.request == other.request and \
-            self.response.status_code == other.response.status_code
+        return (
+            isinstance(other, PageObject)
+            and self.elements == other.elements
+            and self.document.string == other.document.string
+            and self.request == other.request
+            and self.response.status_code == other.response.status_code
+        )
 
     def _get_element_ensure(self, name, ensure):
         """
@@ -100,7 +104,9 @@ class PageObject:
         current_context = self.context
         element = self._get_element_ensure(name, Link)
         links = self.document.select(element.selector)
+
         for link in links:
+
             def click():
                 """Visit a link, load related URL, return a PageObject"""
                 href = link.get('href')
@@ -109,6 +115,7 @@ class PageObject:
                     page = href
 
                 return NewPageObject(current_context)
+
             link.click = click
         return links
 

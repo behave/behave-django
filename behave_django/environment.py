@@ -6,19 +6,21 @@ from django.shortcuts import resolve_url
 
 
 class PatchedContext(Context):
+    """Provides methods for Behave's ``context`` variable."""
 
     @property
     def base_url(self):
         try:
             return self.test.live_server_url
         except AttributeError as err:
-            raise RuntimeError('Web browser automation is not available. '
-                               'This scenario step can not be run with the '
-                               '--simple or -S flag.') from err
+            msg = (
+                'Web browser automation is not available. '
+                'This scenario step can not be run with the --simple or -S flag.'
+            )
+            raise RuntimeError(msg) from err
 
     def get_url(self, to=None, *args, **kwargs):
-        return self.base_url + (
-            resolve_url(to, *args, **kwargs) if to else '')
+        return self.base_url + (resolve_url(to, *args, **kwargs) if to else '')
 
 
 def load_registered_fixtures(context):
@@ -28,7 +30,7 @@ def load_registered_fixtures(context):
     # -- SELECT STEP REGISTRY:
     # HINT: Newer behave versions use runner.step_registry
     # to be able to support multiple runners, each with its own step_registry.
-    runner = context._runner    # pylint: disable=protected-access
+    runner = context._runner
     step_registry = getattr(runner, 'step_registry', None)
     if not step_registry:
         # -- BACKWARD-COMPATIBLE: Use module_step_registry
@@ -45,10 +47,11 @@ def load_registered_fixtures(context):
 
 class BehaveHooksMixin:
     """
-    Provides methods that run during test execution
+    Provides methods that run during test execution.
 
     These methods are attached to behave via monkey patching.
     """
+
     testcase_class = None
 
     def patch_context(self, context):
@@ -66,7 +69,7 @@ class BehaveHooksMixin:
         """
         Adds the test instance to context
         """
-        context.test = self.testcase_class()  # pylint: disable=not-callable
+        context.test = self.testcase_class()
 
     def setup_fixtures(self, context):
         """

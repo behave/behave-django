@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from behave import then, when
 
 
@@ -8,4 +10,4 @@ def use_django_client(context, url):
 
 @then(u'it should return a successful response')
 def it_should_be_successful(context):
-    assert context.response.status_code == 200
+    assert context.response.status_code == HTTPStatus.OK

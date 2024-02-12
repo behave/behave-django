@@ -58,14 +58,6 @@ dependencies = [
 Source = "https://github.com/behave/behave-django"
 Documentation = "https://behave-django.readthedocs.io/"
 
-[tool.bandit]
-exclude_dirs = [
-    ".git",
-    ".github",
-    ".tox",
-    "tests",
-]
-
 [tool.behave]
 junit = true
 junit_directory = "tests"
@@ -75,37 +67,41 @@ paths = [
 ]
 show_skipped = false
 
-[tool.black]
-color = true
-
 [tool.coverage.run]
 source = ["behave_django"]
 
 [tool.coverage.report]
 show_missing = true
 
-[tool.isort]
-color_output = true
-profile = "black"
-
-[tool.pylint.master]
-django-settings-module = "test_project.settings"
-init-hook = "import sys; sys.path.append('tests')"
-load-plugins = ["pylint_django"]
-output-format = "colorized"
-
-[tool.pylint.messages_control]
-disable = [
-    "missing-class-docstring",
-    "missing-function-docstring",
-    "missing-module-docstring",
-]
-
 [tool.pytest.ini_options]
 addopts = "--color=yes --junitxml=tests/unittests-report.xml --verbose"
 testpaths = [
     "tests/unit",
 ]
+
+[tool.ruff]
+extend-exclude = ["docs/conf.py"]
+
+[tool.ruff.format]
+quote-style = "single"
+exclude = ["tests/test_app/migrations/*.py"]
+
+[tool.ruff.lint]
+extend-select = ["ALL"]
+extend-ignore = ["ANN", "COM812", "D", "FIX", "Q000", "RUF012", "TD"]
+
+[tool.ruff.lint.per-file-ignores]
+"behave_django/decorators.py" = ["B010"]
+"behave_django/environment.py" = ["SLF001"]
+"behave_django/management/commands/behave.py" = ["ARG002", "N811", "PLW2901"]
+"behave_django/pageobject.py" = ["B023"]
+"behave_django/testcase.py" = ["FBT002", "N802"]
+"tests/acceptance/steps/live_test_server.py" = ["S310"]
+"tests/test_app/*.py" = ["ERA001"]
+"tests/test_app/models.py" = ["DJ008"]
+"tests/test_project/settings.py" = ["S105"]
+"tests/unit/util.py" = ["S603"]
+"tests/**/*.py" = ["ARG001", "ARG002", "INP001", "PT009", "S101", "UP025"]
 
 [tool.setuptools.dynamic]
 version = {attr = "behave_django.__version__"}
