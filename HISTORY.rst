@@ -9,7 +9,7 @@ Release History
 - Use ruff for linting and code style; reformat code base
 - Migrate packaging from ``setup.py`` to pure ``pyproject.toml``.
 - Add instructions to measure test coverage to the documentation
-- Cover Python 3.9 to 3.12 and Django 3.2, 4.x and 5.0, drop Python 3.5, 3.6 and Django 2.2 and 3.0 support
+- Cover Python 3.9 to 3.12 and Django 3.2, 4.2 and 5.0, drop Python 3.5, 3.6 and Django 2.2 and 3.0 support
 - Bump Behave requirement to 1.2.7.dev3/4/5 (allows TOML support and option to change the Behave TestRunner)
 - New option to change the Django TestRunner
 
