@@ -3,12 +3,12 @@ from urllib.request import urlopen
 from behave import then, when
 
 
-@when(u'I visit "{url}"')
+@when('I visit "{url}"')
 def visit(context, url):
     page = urlopen(context.base_url + url)
     context.response = str(page.read())
 
 
-@then(u'I should see "{text}"')
+@then('I should see "{text}"')
 def i_should_see(context, text):
     assert text in context.response

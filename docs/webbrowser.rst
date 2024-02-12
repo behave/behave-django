@@ -12,7 +12,7 @@ Examples:
 .. code-block:: python
 
     # Using Splinter
-    @when(u'I visit "{page}"')
+    @when('I visit "{page}"')
     def visit(context, page):
         context.browser.visit(context.get_url(page))
 

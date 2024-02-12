@@ -9,7 +9,7 @@ it with the related TestCase implementation.  So you can do something like:
 
 .. code-block:: python
 
-    @given(u'user "{username}" exists')
+    @given('user "{username}" exists')
     def create_user(context, username):
         # This won't be here for the next scenario
         User.objects.create_user(username=username, password='correcthorsebatterystaple')

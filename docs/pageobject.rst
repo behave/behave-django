@@ -31,18 +31,18 @@ your code easier to read.
     # FILE: steps/welcome.py
     from pageobjects.pages import About, Welcome
 
-    @given(u'I am on the Welcome page')
+    @given('I am on the Welcome page')
     def step_impl(context):
         context.welcome_page = Welcome(context)
         assert context.welcome_page.response.status_code == 200
 
-    @when(u'I click on the "About" link')
+    @when('I click on the "About" link')
     def step_impl(context):
         context.target_page = \
             context.welcome_page.get_link('about').click()
         assert context.target_page.response.status_code == 200
 
-    @then(u'The About page is loaded')
+    @then('The About page is loaded')
     def step_impl(context):
         assert About(context) == context.target_page
 

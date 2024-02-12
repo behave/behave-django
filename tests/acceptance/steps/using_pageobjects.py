@@ -6,12 +6,12 @@ from bs4.element import Tag
 from pageobjects.pages import About, Welcome
 
 
-@when(u'I instantiate the Welcome page object')
+@when('I instantiate the Welcome page object')
 def new_pageobject(context):
     context.page = Welcome(context)
 
 
-@then(u'it provides a valid Beautiful Soup document')
+@then('it provides a valid Beautiful Soup document')
 def pageobject_works(context):
     assert context.page.response.status_code == HTTPStatus.OK
     assert context.page.request == context.page.response.request
@@ -21,7 +21,7 @@ def pageobject_works(context):
     ), f'unexpected title: {context.page.document.title.string}'
 
 
-@then(u'get_link() returns the link subdocument')
+@then('get_link() returns the link subdocument')
 def getlink_subdocument(context):
     context.about_link = context.page.get_link('about')
     assert isinstance(context.about_link, Tag), (

@@ -7,7 +7,7 @@ You can access the TestCase instance via ``context.test``.
 .. code-block:: python
 
     # Using Django's testing client
-    @when(u'I visit "{url}"')
+    @when('I visit "{url}"')
     def visit(context, url):
         # save response in context for next step
         context.response = context.test.client.get(url)
@@ -31,7 +31,7 @@ Additionally, you can utilize unittest and Django’s assert library.
 
 .. code-block:: python
 
-    @then(u'I should see "{text}"')
+    @then('I should see "{text}"')
     def visit(context, text):
         # compare with response from ``when`` step
         response = context.response
