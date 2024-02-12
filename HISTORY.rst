@@ -6,6 +6,7 @@ Release History
 
 **Features and Improvements**
 
+- Use ruff for linting and code style; reformat code base
 - Migrate packaging from ``setup.py`` to pure ``pyproject.toml``.
 - Add instructions to measure test coverage to the documentation
 - Cover Python 3.9 to 3.12 and Django 3.2, 4.x and 5.0, drop Python 3.5, 3.6 and Django 2.2 and 3.0 support
