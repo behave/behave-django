@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["setuptools>=64"]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
 
 [project]
 name = "behave-django"
@@ -22,15 +22,14 @@ classifiers = [
   "Environment :: Plugins",
   "Environment :: Web Environment",
   "Framework :: Django",
-  "Framework :: Django :: 3.2",
   "Framework :: Django :: 4.2",
   "Framework :: Django :: 5.0",
+  "Framework :: Django :: 5.1",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
@@ -46,10 +45,10 @@ keywords = [
   "django",
   "testing",
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 dependencies = [
-  "behave[toml]@git+http://github.com/behave/behave.git@v1.2.7.dev4",  # behave>=1.2.7.dev3
-  "django>=3.2",
+  "behave[toml]>=1.2.7.dev6",
+  "django>=4.2",
   "beautifulsoup4",
 ]
 
@@ -102,8 +101,8 @@ extend-ignore = ["ANN", "COM812", "D", "FIX", "Q000", "RUF012", "TD"]
 "tests/unit/util.py" = ["S603"]
 "tests/**/*.py" = ["ARG001", "ARG002", "INP001", "PT009", "S101"]
 
-[tool.setuptools.dynamic]
-version = {attr = "behave_django.__version__"}
-
 [tool.setuptools.packages.find]
-namespaces = false
+where = ["."]
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
