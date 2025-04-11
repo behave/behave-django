@@ -1,7 +1,14 @@
 Release History
 ---------------
 
-1.5.0 (unreleased)
+1.6.0 (unreleased)
+++++++++++++++++++
+
+**Features and Improvements**
+
+- Cover Python 3.13 and Django 5.2, drop Python 3.8 (pyproject license field change requires setuptools 77)
+
+1.5.0 (2024-10-03)
 ++++++++++++++++++
 
 **Features and Improvements**
@@ -10,7 +17,7 @@ Release History
 - Migrate packaging from ``setup.py`` to pure ``pyproject.toml``.
 - Add instructions to measure test coverage to the documentation
 - Cover Python 3.9 to 3.12 and Django 3.2, 4.2 and 5.0, drop Python 3.5, 3.6 and Django 2.2 and 3.0 support
-- Bump Behave requirement to 1.2.7.dev3/4/5 (allows TOML support and option to change the Behave TestRunner)
+- Bump Behave requirement to 1.2.7.dev6 (allows TOML support and option to change the Behave TestRunner)
 - New option to change the Django TestRunner
 
 1.4.0 (2020-06-15)

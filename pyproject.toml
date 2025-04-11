@@ -1,13 +1,13 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["setuptools>=64", "setuptools_scm>=8"]
+requires = ["setuptools>=77", "setuptools_scm>=8"]
 
 [project]
 name = "behave-django"
 dynamic = ["version"]
 description = "Behave BDD integration for Django"
 readme = "README.rst"
-license = {file = "LICENSE"}
+license = "MIT"
 authors = [
   {name = "Mitchel Cabuloy", email = "mixxorz@gmail.com"},
   {name = "Peter Bittner", email = "django@bittner.it"},
@@ -25,16 +25,16 @@ classifiers = [
   "Framework :: Django :: 4.2",
   "Framework :: Django :: 5.0",
   "Framework :: Django :: 5.1",
+  "Framework :: Django :: 5.2",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Internet :: WWW/HTTP",
   "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
   "Topic :: Software Development :: Testing",
@@ -45,7 +45,7 @@ keywords = [
   "django",
   "testing",
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 dependencies = [
   "behave[toml]>=1.2.7.dev6",
   "django>=4.2",
@@ -73,9 +73,7 @@ show_missing = true
 
 [tool.pytest.ini_options]
 addopts = "--color=yes --junitxml=tests/unittests-report.xml --verbose"
-testpaths = [
-    "tests/unit",
-]
+testpaths = ["tests/unit"]
 
 [tool.ruff]
 extend-exclude = ["docs/conf.py"]
