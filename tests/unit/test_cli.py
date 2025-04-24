@@ -1,5 +1,6 @@
 import os
 from importlib import reload
+from sys import version_info
 
 import pytest
 
@@ -8,6 +9,13 @@ from .util import DjangoSetupMixin, run_silently, show_run_error
 
 class TestCommandLine(DjangoSetupMixin):
     def test_additional_management_command_options(self):
+        runner_class_option = (
+            # Python 3.13 consolidates arguments, see gh-101599 in changelog
+            '  --behave-r RUNNER_CLASS, --behave-runner RUNNER_CLASS'
+            if version_info < (3, 13)
+            else '  --behave-r, --behave-runner RUNNER_CLASS'
+        )
+
         exit_status, output = run_silently('python tests/manage.py behave --help')
 
         assert exit_status == 0, show_run_error(exit_status, output)
@@ -15,9 +23,7 @@ class TestCommandLine(DjangoSetupMixin):
         assert (os.linesep + '  -k, --keepdb') in output
         assert (os.linesep + '  -S, --simple') in output
         assert (os.linesep + '  --runner ') in output
-        assert (
-            os.linesep + '  --behave-r RUNNER_CLASS, --behave-runner RUNNER_CLASS'
-        ) in output
+        assert (os.linesep + runner_class_option) in output
         assert (os.linesep + '  --noinput, --no-input') in output
         assert (os.linesep + '  --failfast') in output
         assert (os.linesep + '  -r, --reverse') in output
