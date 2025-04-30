@@ -8,6 +8,11 @@ Release History
 
 - Cover Python 3.13 and Django 5.2, drop Python 3.8 (pyproject license field change requires setuptools 77)
 
+**Bugfixes**
+
+- Remediate Django 5.2 TestCase breaking change (TestCase classmethods)
+- Fix test for Python 3.13 breaking change (argparse CLI output)
+
 1.5.0 (2024-10-03)
 ++++++++++++++++++
 
