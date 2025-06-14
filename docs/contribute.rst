@@ -20,6 +20,12 @@ generate the docs:
 
     $ pip install tox
 
+If you use uv, install Tox with the tox-uv plugin:
+
+.. code:: console
+
+    $ uv tool install tox --with tox-uv
+
 Essentials
 ----------
 
