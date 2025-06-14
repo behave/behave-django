@@ -1,5 +1,6 @@
 from copy import copy
 
+import django
 from behave import step_registry as module_step_registry
 from behave.runner import Context, ModelRunner
 from django.shortcuts import resolve_url
@@ -40,9 +41,17 @@ def load_registered_fixtures(context):
     for step in context.scenario.all_steps:
         match = step_registry.find_match(step)
         if match and hasattr(match.func, 'registered_fixtures'):
-            if not context.test.fixtures:
-                context.test.fixtures = []
-            context.test.fixtures.extend(match.func.registered_fixtures)
+            if django.VERSION >= (5, 2):
+                if (
+                    not hasattr(context.test.__class__, 'fixtures')
+                    or not context.test.__class__.fixtures
+                ):
+                    context.test.__class__.fixtures = []
+                context.test.__class__.fixtures.extend(match.func.registered_fixtures)
+            else:
+                if not context.test.fixtures:
+                    context.test.fixtures = []
+                context.test.fixtures.extend(match.func.registered_fixtures)
 
 
 class BehaveHooksMixin:
@@ -76,10 +85,16 @@ class BehaveHooksMixin:
         Sets up fixtures
         """
         if getattr(context, 'fixtures', None):
-            context.test.fixtures = copy(context.fixtures)
+            if django.VERSION >= (5, 2):
+                context.test.__class__.fixtures = copy(context.fixtures)
+            else:
+                context.test.fixtures = copy(context.fixtures)
 
         if getattr(context, 'reset_sequences', None):
-            context.test.reset_sequences = context.reset_sequences
+            if django.VERSION >= (5, 2):
+                context.test.__class__.reset_sequences = context.reset_sequences
+            else:
+                context.test.reset_sequences = context.reset_sequences
 
         if getattr(context, 'databases', None):
             context.test.__class__.databases = context.databases
@@ -94,7 +109,10 @@ class BehaveHooksMixin:
         This method runs the code necessary to create the test database, start
         the live server, etc.
         """
-        context.test._pre_setup(run=True)
+        if django.VERSION >= (5, 2):
+            context.test.__class__._pre_setup(run=True)
+        else:
+            context.test._pre_setup(run=True)
         context.test.setUpClass()
         context.test()
 
