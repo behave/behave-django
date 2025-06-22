@@ -99,6 +99,7 @@ inline-quotes = "single"
 "tests/test_app/*.py" = ["ERA001"]
 "tests/test_app/models.py" = ["DJ008"]
 "tests/test_project/settings.py" = ["S105"]
+"tests/unit/test_cli.py" = ["PLC0415"]
 "tests/unit/util.py" = ["S603"]
 "tests/**/*.py" = ["ARG001", "ARG002", "INP001", "PT009", "S101"]
 

@@ -62,6 +62,10 @@ class PageObject:
             and self.response.status_code == other.response.status_code
         )
 
+    def __hash__(self):
+        """Allow inheriting classes to be hashable. (PLW1641)"""
+        return hash(self.document)
+
     def _get_element_ensure(self, name, ensure):
         """
         Return a subdocument matching the CSS selector of ``elements[name]``
