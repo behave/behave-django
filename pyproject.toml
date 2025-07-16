@@ -47,7 +47,7 @@ keywords = [
 ]
 requires-python = ">=3.9"
 dependencies = [
-  "behave[toml]>=1.2.7.dev6",
+  "behave[toml]>=1.2.7.dev6,!=1.2.7.dev7",
   "django>=4.2",
   "beautifulsoup4",
 ]
