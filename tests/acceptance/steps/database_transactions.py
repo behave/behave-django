@@ -9,4 +9,5 @@ def save_object(context):
 
 @then('I should only have one object')
 def should_have_only_one_object(context):
-    assert BehaveTestModel.objects.count() == 1
+    count = BehaveTestModel.objects.count()
+    assert count == 1, f'Expected 1 object, but found {count}'
