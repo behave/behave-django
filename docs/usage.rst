@@ -5,6 +5,12 @@ If you're new to *Behave* you should start with the `Behave Tutorial`_ and
 its follow-up chapters on the theory and practice of behavior-driven
 development (BDD).
 
+.. tip::
+
+    You can start by working hands-on with the runnable example provided
+    in our repo in the ``tests`` directory, and come back to
+    the `Behave Tutorial`_ after getting the basic example up and running.
+
 Setting up Behave for a Django project is no different than using Behave
 for any other Python project, except that you add *behave-django* to the
 ``INSTALLED_APPS`` in the settings of your Django project and that you run
@@ -30,30 +36,33 @@ in Python.
         environment.py
         your-feature.feature
 
-Alternatively, you can put both the ``features`` and the ``steps`` folder
-in a ``tests`` folder of your project root directory.  This is recommended
-if you want to follow common practices of Python projects.
+However, we'll put both the ``features`` and the ``steps`` folder
+in a ``tests/acceptance`` folder of the project root directory.
+This is recommended if you want to follow common practices of Python projects.
 
 ::
 
     tests/
-        features/
-            example.feature
-        steps/
-            given.py
-            then.py
-            when.py
-        environment.py
+        acceptance/
+            environment.py
+            features/
+                running-tests.feature
+                ...
+            steps/
+                running-tests.py
+                ...
+        manage.py
+        pyproject.toml
 
-Your Behave configuration in ``pyproject.toml`` should then look somewhat
+Your Behave configuration in ``tests/pyproject.toml`` should then look somewhat
 like this:
 
 .. code-block:: toml
 
     [tool.behave]
     junit = true
-    junit_directory = "tests"
-    paths = ["tests"]
+    junit_directory = "acceptance/tests"
+    paths = ["acceptance"]
 
 .. tip::
 
@@ -63,7 +72,8 @@ like this:
 Execute your tests
 ------------------
 
-Run ``python manage.py behave`` to execute your feature tests::
+Change directory to ``tests``
+and run ``python manage.py behave`` to execute your feature tests::
 
     $ python manage.py behave
     Creating test database for alias 'default'...

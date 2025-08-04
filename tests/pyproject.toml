@@ -1,0 +1,4 @@
+[tool.behave]
+junit = true
+junit_directory = "acceptance/tests"
+paths = ["acceptance"]
