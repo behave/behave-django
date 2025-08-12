@@ -6,9 +6,11 @@ its follow-up chapters on the theory and practice of behavior-driven
 development (BDD).
 
 Setting up Behave for a Django project is no different than using Behave
-for any other Python project, except that you add *behave-django* to the
-``INSTALLED_APPS`` in the settings of your Django project and that you run
-Behave via the ``behave`` management command.
+for any other Python project, except that:
+
+#. you add *behave-django* to the ``INSTALLED_APPS`` in the settings of
+   your Django project, and
+#. you run Behave via the ``behave`` management command.
 
 Create a folder structure
 -------------------------
@@ -55,11 +57,6 @@ like this:
     junit_directory = "tests"
     paths = ["tests"]
 
-.. tip::
-
-    You can create a Django starter project with this layout using the
-    `Painless CI/CD Copier template for Django`_.
-
 Execute your tests
 ------------------
 
@@ -94,7 +91,6 @@ folder also for `more useful examples`_.
 
 .. _Behave Tutorial: https://behave.readthedocs.io/en/latest/tutorial/
 .. _Feature Testing Setup: https://behave.readthedocs.io/en/latest/gherkin/
-.. _Painless CI/CD Copier template for Django: https://gitlab.com/painless-software/cicd/app/django
 .. _environment.py: https://github.com/behave/behave-django/blob/main/tests/acceptance/environment.py
 .. _running-tests.feature: https://github.com/behave/behave-django/blob/main/tests/acceptance/features/running-tests.feature
 .. _more useful examples: https://github.com/behave/behave-django/tree/main/tests/acceptance/features

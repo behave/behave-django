@@ -9,6 +9,7 @@ Contents
 
    installation
    usage
+   example
    webbrowser
    testclient
    testcoverage
