@@ -1,8 +1,6 @@
-import inspect
 from copy import copy
 
 import django
-from behave import step_registry as module_step_registry
 from behave.runner import Context, ModelRunner
 from django.shortcuts import resolve_url
 
@@ -29,16 +27,9 @@ def load_registered_fixtures(context):
     """
     Apply fixtures that are registered with the @fixtures decorator.
     """
-    # -- SELECT STEP REGISTRY:
-    # HINT: Newer behave versions use runner.step_registry
-    # to be able to support multiple runners, each with its own step_registry.
-    runner = context._runner
-    step_registry = getattr(runner, 'step_registry', None)
-    if not step_registry:
-        # -- BACKWARD-COMPATIBLE: Use module_step_registry
-        step_registry = module_step_registry.registry
+    step_registry = context._runner.step_registry
 
-    # -- SETUP SCENARIO FIXTURES:
+    # -- SET UP SCENARIO FIXTURES:
     for step in context.scenario.all_steps:
         match = step_registry.find_match(step)
         if match and hasattr(match.func, 'registered_fixtures'):
@@ -107,9 +98,10 @@ class BehaveHooksMixin:
         """
         if django.VERSION >= (5, 2):
             context.test.__class__._pre_setup(run=True)
+            context.test.__class__.setUpClass()
         else:
             context.test._pre_setup(run=True)
-        context.test.setUpClass()
+            context.test.setUpClass()
         context.test()
 
     def teardown_test(self, context):
@@ -125,50 +117,21 @@ def monkey_patch_behave(django_test_runner):
     """
     behave_run_hook = ModelRunner.run_hook
 
-    # Check if the new Behave version uses the updated run_hook signature.
-    # In newer versions, the signature is (self, hook_name, *args) and
-    # context is accessed via `self.context`.
-    # In older versions, it was (self, name, context, *args)
-    sig = inspect.signature(behave_run_hook)
-    param_names = list(sig.parameters.keys())
-    # New version uses 'hook_name', old used 'name'
-    # See https://github.com/behave/behave/commit/f4d5028
-    uses_new_signature = 'hook_name' in param_names
+    def run_hook(self, hook_name, *args):
+        context = self.context
 
-    if uses_new_signature:
-        # New Behave version: context is available as self.context
-        def run_hook(self, hook_name, *args):
-            context = self.context
+        if hook_name == 'before_all':
+            django_test_runner.patch_context(context)
 
-            if hook_name == 'before_all':
-                django_test_runner.patch_context(context)
+        behave_run_hook(self, hook_name, *args)
 
-            behave_run_hook(self, hook_name, *args)
+        if hook_name == 'before_scenario':
+            django_test_runner.setup_testclass(context)
+            django_test_runner.setup_fixtures(context)
+            django_test_runner.setup_test(context)
+            behave_run_hook(self, 'django_ready')
 
-            if hook_name == 'before_scenario':
-                django_test_runner.setup_testclass(context)
-                django_test_runner.setup_fixtures(context)
-                django_test_runner.setup_test(context)
-                # In new Behave version, context is automatically passed by run_hook
-                behave_run_hook(self, 'django_ready')
-
-            if hook_name == 'after_scenario':
-                django_test_runner.teardown_test(context)
-    else:
-        # Old Behave version: context is passed as parameter
-        def run_hook(self, name, context, *args):
-            if name == 'before_all':
-                django_test_runner.patch_context(context)
-
-            behave_run_hook(self, name, context, *args)
-
-            if name == 'before_scenario':
-                django_test_runner.setup_testclass(context)
-                django_test_runner.setup_fixtures(context)
-                django_test_runner.setup_test(context)
-                behave_run_hook(self, 'django_ready', context)
-
-            if name == 'after_scenario':
-                django_test_runner.teardown_test(context)
+        if hook_name == 'after_scenario':
+            django_test_runner.teardown_test(context)
 
     ModelRunner.run_hook = run_hook

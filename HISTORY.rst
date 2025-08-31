@@ -1,6 +1,18 @@
 Release History
 ---------------
 
+1.8.0 (unreleased)
+++++++++++++++++++
+
+**Known issues**
+
+- Allowing the latest Behave pre-release as a dependency will make the
+  feature tests for database transactions fail.
+
+**Features and Improvements**
+
+- Simplified the monkey-patch logic in environment.py again
+
 1.7.0 (2025-07-18)
 ++++++++++++++++++
 
