@@ -209,7 +209,7 @@ class Command(BaseCommand):
         management command that are meant as arguments for running behave.
         """
         parser = BehaveArgsHelper().create_parser('manage.py', 'behave')
-        args, unknown = parser.parse_known_args(argv[2:])
+        _, unknown = parser.parse_known_args(argv[2:])
 
         behave_args = []
         for option in unknown:
