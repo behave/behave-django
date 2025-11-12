@@ -1,17 +1,15 @@
 Release History
 ---------------
 
-1.8.0 (unreleased)
+1.8.0 (2025-11-12)
 ++++++++++++++++++
-
-**Known issues**
-
-- Allowing the latest Behave pre-release as a dependency will make the
-  feature tests for database transactions fail.
 
 **Features and Improvements**
 
-- Simplified the monkey-patch logic in environment.py again
+- Supports Python 3.14 (in combination with Django 5.2)
+- Now depends on behave 1.3.3+
+- Fix database transaction rollback (broken since Behave 1.2.7.dev8)
+- Simplify the monkey-patch logic in environment.py again (removes backward-compatibility code)
 
 1.7.0 (2025-07-18)
 ++++++++++++++++++

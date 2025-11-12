@@ -16,6 +16,7 @@ Contributors
 * `Ivan Rocha <https://github.com/ivancrneto>`_
 * `Jens Engel <https://github.com/jenisys>`_
 * `Jérôme Thiard <https://github.com/jthiard>`_
+* `Juho Rutila <https://github.com/jrutila>`_
 * `Karel Hovorka <https://github.com/hovi>`_
 * `Nate Hill <https://github.com/nhill-cpi>`_
 * `Nik Nyby <https://github.com/nikolas>`_
