@@ -1,7 +1,7 @@
 from copy import copy
 
 import django
-from behave.runner import Context, ModelRunner
+from behave.runner import Context, ModelRunner, Runner
 from django.shortcuts import resolve_url
 
 
@@ -116,6 +116,22 @@ def monkey_patch_behave(django_test_runner):
     Integrate behave_django in behave via before/after scenario hooks.
     """
     behave_run_hook = ModelRunner.run_hook
+    behave_load_hooks = Runner.load_hooks
+
+    def load_hooks(self, filename=None):
+        """
+        Load hooks and ensure before_scenario/after_scenario are registered.
+
+        Behave v1.3+ doesn't call run hooks that aren't defined, so we must
+        do this explicitly to make sure we're called in any case.
+        """
+        behave_load_hooks(self, filename)
+
+        if 'before_scenario' not in self.hooks:
+            self.hooks['before_scenario'] = lambda *_: None
+
+        if 'after_scenario' not in self.hooks:
+            self.hooks['after_scenario'] = lambda *_: None
 
     def run_hook(self, hook_name, *args):
         context = self.context
@@ -134,4 +150,5 @@ def monkey_patch_behave(django_test_runner):
         if hook_name == 'after_scenario':
             django_test_runner.teardown_test(context)
 
+    Runner.load_hooks = load_hooks
     ModelRunner.run_hook = run_hook
