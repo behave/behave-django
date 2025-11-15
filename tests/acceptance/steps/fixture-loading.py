@@ -22,6 +22,11 @@ def check_decorator_multiple(context):
     pass
 
 
+@then('there should be no fixtures loaded')
+def check_no_fixtures(context):
+    context.test.assertEqual(BehaveTestModel.objects.count(), 0)
+
+
 @then('the fixture should be loaded')
 def check_fixtures(context):
     context.test.assertEqual(BehaveTestModel.objects.count(), 1)

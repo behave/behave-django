@@ -72,17 +72,17 @@ class BehaveHooksMixin:
     def setup_fixtures(self, context):
         """Set up fixtures."""
 
-        if getattr(context, 'fixtures', None):
-            if django.VERSION >= (5, 2):
-                context.test.__class__.fixtures = copy(context.fixtures)
-            else:
-                context.test.fixtures = copy(context.fixtures)
+        fixtures = getattr(context, 'fixtures', [])
+        if django.VERSION >= (5, 2):
+            context.test.__class__.fixtures = copy(fixtures)
+        else:
+            context.test.fixtures = copy(fixtures)
 
-        if getattr(context, 'reset_sequences', None):
-            if django.VERSION >= (5, 2):
-                context.test.__class__.reset_sequences = context.reset_sequences
-            else:
-                context.test.reset_sequences = context.reset_sequences
+        reset_sequences = getattr(context, 'reset_sequences', None)
+        if django.VERSION >= (5, 2):
+            context.test.__class__.reset_sequences = reset_sequences
+        else:
+            context.test.reset_sequences = reset_sequences
 
         if getattr(context, 'databases', None):
             context.test.__class__.databases = context.databases
