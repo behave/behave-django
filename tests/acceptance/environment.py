@@ -16,7 +16,8 @@ def before_feature(context, feature):
 
 
 def before_scenario(context, scenario):
-    # Set fixtures for each scenario explicitly since auto-reset happens after each scenario
+    # Set fixtures for each scenario explicitly since auto-reset happens after
+    # each scenario
     if scenario.name == 'Load fixtures':
         context.fixtures = ['behave-fixtures.json']
 
