@@ -1,7 +1,7 @@
 behave-django |latest-version|
 ==============================
 
-|check-status| |test-status| |python-support| |license| |docs-status| |gitter|
+|check-status| |test-status| |python-support| |license| |docs-status| |discussions|
 
 Behave BDD integration for Django
 
@@ -70,6 +70,6 @@ Please, read the `contributing guide`_ in the docs.
 .. |docs-status| image:: https://img.shields.io/readthedocs/behave-django/stable.svg
     :target: https://readthedocs.org/projects/behave-django/
     :alt: Documentation Status
-.. |gitter| image:: https://img.shields.io/gitter/room/behave/behave-django.svg
-    :alt: Gitter chat room
-    :target: https://gitter.im/behave/behave-django
+.. |discussions| image:: https://img.shields.io/github/discussions/behave/behave-django.svg
+    :alt: Discussions
+    :target: https://github.com/behave/behave-django/discussions
