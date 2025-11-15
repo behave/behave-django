@@ -4,8 +4,9 @@ Using Page Objects
 .. warning::
 
     This is an *alpha* feature.  It may be removed or its underlying
-    implementation changed without a deprecation process!  Please follow the
-    discussions in `related issues`_ or on `Gitter`_ if you plan to use it.
+    implementation changed without a deprecation process!  Please follow
+    the discussions in `related issues`_ or on `Discussions`_ if you plan
+    to use it.
 
 With *behave-django* you can use the `Page Object pattern`_ and work on a
 natural abstraction layer for the content or behavior your web application
@@ -94,7 +95,7 @@ Helpers to access your page object's elements:
 
 
 .. _related issues: https://github.com/behave/behave-django/issues
-.. _Gitter: https://gitter.im/behave/behave-django
+.. _Discussions: https://github.com/behave/behave-django/discussions
 .. _Page Object pattern: https://www.martinfowler.com/bliki/PageObject.html
 .. _Beautiful Soup: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 .. _PageObject:

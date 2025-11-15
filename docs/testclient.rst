@@ -12,6 +12,28 @@ You can access the TestCase instance via ``context.test``.
         # save response in context for next step
         context.response = context.test.client.get(url)
 
+Cross-version compatibility features
+------------------------------------
+
+Some properties of Django's test client are set on class-level, and some are
+set on class-level only since Django version 5.2, which is both slightly
+inconvenient if you test across versions or upgrade Django one day.
+
+For this, *behave-django* allows those attributes to be set on the
+``context`` directly:
+
+``databases``
+    Control target databases. See :ref:`Support for multiple databases`.
+
+``fixtures``
+    Load database fixtures. See :ref:`Fixtures in environment.py`.
+
+``reset_sequences``
+    Can be set to ``True`` to always reset sequences. See Django's
+    related `TransactionTestCase`_ documentation.
+
+.. _TransactionTestCase: https://docs.djangoproject.com/en/stable/topics/testing/advanced/#django.test.TransactionTestCase.reset_sequences
+
 Simple testing
 --------------
 

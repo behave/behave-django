@@ -35,6 +35,7 @@ from behave_django import __version__
 
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autosectionlabel',
     'sphinx.ext.viewcode',
 ]
 
