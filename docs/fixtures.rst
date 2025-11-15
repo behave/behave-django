@@ -54,6 +54,14 @@ however you want, it will only be processed upon leaving the
 mind that it does not reset between features or scenarios, unless explicitly
 done so (as shown in the examples above).
 
+.. attention::
+
+    Starting with **behave-django 2.0.0**, the ``context.fixtures`` attribute
+    will be automatically reset after each scenario. This means you will no
+    longer need to explicitly set ``context.fixtures = []`` to reset fixtures
+    between scenarios or features. The automatic reset will make fixture
+    handling more user-friendly and less error-prone.
+
 .. note::
 
     If you provide initial data via Python code `using the ORM`_ you need
