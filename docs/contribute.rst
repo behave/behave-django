@@ -31,7 +31,7 @@ which is handy to help us test against all supported Pythons, e.g.
 
 .. code:: console
 
-    $ uv python install 3.13 --preview --default
+    $ uv python install 3.14 --preview --default
 
 Essentials
 ----------
@@ -44,7 +44,7 @@ section in ``tox.ini`` for details.
 .. code:: console
 
     $ tox list               # show all Tox environments
-    $ tox -e py313-django52  # run just a single environment
+    $ tox -e py314-django52  # run just a single environment
     $ tox                    # run all linting and tests
 
 Getting your hands dirty
@@ -54,7 +54,7 @@ Start your topic branch:
 
 .. code:: console
 
-    $ git checkout -b your-topic-branch
+    $ git switch -c your-topic-branch
 
 Make your changes.  Add tests for your change.  Make the tests pass:
 
