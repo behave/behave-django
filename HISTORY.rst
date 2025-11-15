@@ -1,6 +1,17 @@
 Release History
 ---------------
 
+1.9.0 (2025-11-15)
+++++++++++++++++++
+
+**Features and Improvements**
+
+- Add notice to docs about upcoming automatic fixture reset (planned for v2.0.0)
+
+**Bugfixes**
+
+- Fix fixtures not being reset when set to empty list (Django 5.2+ only)
+
 1.8.0 (2025-11-12)
 ++++++++++++++++++
 
