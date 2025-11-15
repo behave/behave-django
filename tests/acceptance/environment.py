@@ -11,6 +11,12 @@ def before_feature(context, feature):
         # Including empty fixture to test that #92 is fixed
         context.fixtures = ['empty-fixture.json']
 
+    elif feature.name == 'Fixture reset - first feature with fixtures':
+        context.fixtures = ['behave-fixtures.json']
+
+    elif feature.name == 'Fixture reset - second feature with empty fixtures':
+        context.fixtures = []
+
 
 def before_scenario(context, scenario):
     if scenario.name == 'Load fixtures for this scenario and feature':
