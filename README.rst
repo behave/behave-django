@@ -1,7 +1,7 @@
 behave-django |latest-version|
 ==============================
 
-|check-status| |test-status| |python-support| |license| |docs-status| |discussions|
+|check-status| |test-status| |publish-status| |download-stats| |python-support| |docs-status| |discussions| |license|
 
 Behave BDD integration for Django
 
@@ -55,12 +55,18 @@ Please, read the `contributing guide`_ in the docs.
 .. |latest-version| image:: https://img.shields.io/pypi/v/behave-django.svg
     :target: https://pypi.org/project/behave-django/
     :alt: Latest version
+.. |download-stats| image:: https://img.shields.io/pypi/dm/behave-django.svg
+   :alt: Monthly downloads from PyPI
+   :target: https://pypistats.org/packages/behave-django
 .. |check-status| image:: https://github.com/behave/behave-django/actions/workflows/check.yml/badge.svg
     :target: https://github.com/behave/behave-django/actions/workflows/check.yml
     :alt: Code checks status
 .. |test-status| image:: https://github.com/behave/behave-django/actions/workflows/test.yml/badge.svg
     :target: https://github.com/behave/behave-django/actions/workflows/test.yml
     :alt: Test suite status
+.. |publish-status| image:: https://github.com/behave/behave-django/actions/workflows/publish.yml/badge.svg
+    :target: https://github.com/behave/behave-django/actions/workflows/publish.yml
+    :alt: Release status
 .. |python-support| image:: https://img.shields.io/pypi/pyversions/behave-django.svg
     :target: https://pypi.org/project/behave-django/
     :alt: Python versions
