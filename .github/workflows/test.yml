@@ -35,7 +35,7 @@ jobs:
         - { python-version: '3.13', django-version: '4.2' }
         - { python-version: '3.13', django-version: '5.0' }
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python-version }}
@@ -50,7 +50,7 @@ jobs:
     env:
       TOXENV: behave-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: actions/setup-python@v6
       with:
         python-version: '3.13'
