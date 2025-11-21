@@ -1,3 +1,4 @@
+import contextlib
 from copy import copy
 
 import django
@@ -77,6 +78,10 @@ class BehaveHooksMixin:
             context.test.__class__.fixtures = copy(fixtures)
         else:
             context.test.fixtures = copy(fixtures)
+
+        # Auto-reset fixtures for next scenario to avoid carryover
+        with contextlib.suppress(AttributeError):
+            del context.fixtures
 
         reset_sequences = getattr(context, 'reset_sequences', None)
         if django.VERSION >= (5, 2):

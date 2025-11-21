@@ -29,10 +29,6 @@ If you wanted different fixtures for different scenarios:
             context.fixtures = ['user-data.json']
         elif scenario.name == 'Check out cart':
             context.fixtures = ['user-data.json', 'store.json', 'cart.json']
-        else:
-            # Resetting fixtures, otherwise previously set fixtures carry
-            # over to subsequent scenarios.
-            context.fixtures = []
 
 You could also have fixtures per Feature too
 
@@ -43,24 +39,23 @@ You could also have fixtures per Feature too
             context.fixtures = ['user-data.json']
             # This works because behave will use the same context for
             # everything below Feature. (Scenarios, Outlines, Backgrounds)
-        else:
-            # Resetting fixtures, otherwise previously set fixtures carry
-            # over to subsequent features.
-            context.fixtures = []
 
-Of course, since ``context.fixtures`` is really just a list, you can mutate it
-however you want, it will only be processed upon leaving the
-``before_scenario()`` function of your ``environment.py`` file. Just keep in
-mind that it does not reset between features or scenarios, unless explicitly
-done so (as shown in the examples above).
+``context.fixtures`` is processed after the ``before_scenario()`` function of
+your ``environment.py`` file completes, and is automatically reset after each
+scenario to prevent fixtures from carrying over to subsequent scenarios.
 
 .. attention::
 
     Starting with **behave-django 2.0.0**, the ``context.fixtures`` attribute
-    will be automatically reset after each scenario. This means you will no
-    longer need to explicitly set ``context.fixtures = []`` to reset fixtures
-    between scenarios or features. The automatic reset will make fixture
-    handling more user-friendly and less error-prone.
+    is automatically reset after each scenario. You no longer need to
+    explicitly set ``context.fixtures = []`` to reset fixtures between
+    scenarios or features.
+
+    If you are upgrading from an earlier version and were manually resetting
+    fixtures, you can safely remove those reset statements. If your code was
+    appending to ``context.fixtures`` in ``before_scenario()``, you will need
+    to update it to set the complete list of fixtures instead, since the
+    attribute is reset after each scenario.
 
 .. note::
 
