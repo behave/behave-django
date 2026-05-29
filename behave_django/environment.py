@@ -107,6 +107,7 @@ class BehaveHooksMixin:
     def teardown_test(self, context):
         """Tear down the Django test."""
         context.test.tearDownClass()
+        context.test.__class__.doClassCleanups()  # needed for Django 4.1+
         context.test._post_teardown(run=True)
         del context.test
 

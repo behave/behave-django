@@ -1,6 +1,15 @@
 Release History
 ---------------
 
+(unreleased)
+++++++++++++
+
+**Bugfixes**
+
+- Fix ``RecursionError`` on Django 4.1+ without ``--simple``: call
+  ``doClassCleanups()`` after ``tearDownClass()`` to prevent settings
+  overrides from accumulating across scenarios.
+
 1.9.0 (2025-11-15)
 ++++++++++++++++++
 
