@@ -44,7 +44,7 @@ section in ``tox.ini`` for details.
 .. code:: console
 
     $ tox list               # show all Tox environments
-    $ tox -e py314-django52  # run just a single environment
+    $ tox -e py314-django60  # run just a single environment
     $ tox                    # run all linting and tests
 
 Getting your hands dirty
