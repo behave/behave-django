@@ -121,24 +121,46 @@ def monkey_patch_behave(django_test_runner):
 
     def load_hooks(self, filename=None):
         """
-        Load hooks and ensure before_scenario/after_scenario are registered.
+        Load hooks and ensure scope hooks are registered.
 
         Behave v1.3+ doesn't call run hooks that aren't defined, so we must
-        do this explicitly to make sure we're called in any case.
+        do this explicitly to make sure we're called in any case (for the
+        ``before_feature`` / ``before_rule`` snapshot and the
+        ``before_scenario`` / ``after_scenario`` Django test setup).
         """
         behave_load_hooks(self, filename)
 
-        if 'before_scenario' not in self.hooks:
-            self.hooks['before_scenario'] = lambda *_: None
-
-        if 'after_scenario' not in self.hooks:
-            self.hooks['after_scenario'] = lambda *_: None
+        for hook_name in (
+            'before_feature',
+            'before_rule',
+            'before_scenario',
+            'after_scenario',
+        ):
+            if hook_name not in self.hooks:
+                self.hooks[hook_name] = lambda *_: None
 
     def run_hook(self, hook_name, *args):
         context = self.context
 
         if hook_name == 'before_all':
             django_test_runner.patch_context(context)
+
+        if hook_name in (
+            'before_all',
+            'before_feature',
+            'before_rule',
+            'before_scenario',
+        ):
+            # Snapshot any fixture configuration set in a higher scope onto
+            # the current behave layer (test run / feature / rule / scenario).
+            # This confines mutations to the scope where they happen — both
+            # assignment (``context.fixtures = [...]``) and in-place edits
+            # (``context.fixtures.append(...)``) — so they are discarded
+            # when behave pops the layer and never bleed into a sibling
+            # feature, rule, or scenario.  Snapshotting on ``before_all``
+            # also lets users call ``context.fixtures.append(...)`` there
+            # without first assigning a list.
+            context.fixtures = list(getattr(context, 'fixtures', []))
 
         behave_run_hook(self, hook_name, *args)
 
