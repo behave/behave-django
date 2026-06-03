@@ -8,6 +8,11 @@ def without_args(context):
     context.result = context.get_url()
 
 
+@when('I call get_url("") with an empty string')
+def empty_string_arg(context):
+    context.result = context.get_url('')
+
+
 @when('I call get_url("{url_path}") with an absolute path')
 def path_arg(context, url_path):
     context.result = context.get_url(url_path)
@@ -22,6 +27,25 @@ def view_arg(context, view_name):
 def model_arg(context):
     context.model = BehaveTestModel(name='Foo', number=3)
     context.result = context.get_url(context.model)
+
+
+@when('I call get_url("{url}") with a full URL')
+def full_url_arg(context, url):
+    context.result = context.get_url(url)
+
+
+@when('I call get_url(model) with a model whose get_absolute_url returns "{url}"')
+def model_full_url_arg(context, url):
+    class _FullUrlModel:
+        def get_absolute_url(self):
+            return url
+
+    context.result = context.get_url(_FullUrlModel())
+
+
+@then('the result is "{expected}"')
+def result_equals(context, expected):
+    context.test.assertEqual(context.result, expected)
 
 
 @then('it returns the value of base_url')
