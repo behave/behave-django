@@ -4,6 +4,15 @@ Release History
 (unreleased)
 ++++++++++++
 
+**Breaking Changes**
+
+- ``context.fixtures`` is now snapshotted onto every scope behave pushes
+  (feature, rule, scenario), so mutations made inside a scope no longer
+  leak into sibling scopes.  Values set in ``before_all()``,
+  ``before_feature()`` or ``before_rule()`` still propagate inward as a
+  baseline; the manual reset recipe (``context.fixtures = []`` after
+  each scenario or feature) is no longer needed (#179).
+
 **Bugfixes**
 
 - Fix ``RecursionError`` on Django 4.1+ without ``--simple``: call

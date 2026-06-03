@@ -1,7 +1,7 @@
 Fixture Loading
 ===============
 
-behave-django can load your fixtures for you per feature/scenario. There are
+behave-django can load your fixtures for you per scenario. There are
 two approaches to this:
 
 * loading the fixtures in ``environment.py``, or
@@ -11,16 +11,39 @@ two approaches to this:
 Fixtures in environment.py
 --------------------------
 
-In ``environment.py`` we can load our context with the fixtures array.
+You configure fixtures by populating ``context.fixtures`` from one of
+behave's hooks (``before_all``, ``before_feature``, ``before_rule`` or
+``before_scenario``).  behave-django takes a **fresh copy** of
+``context.fixtures`` when each scope starts, so anything you do inside
+that scope — whether you assign (``context.fixtures = [...]``) or mutate
+in place (``context.fixtures.append(...)``) — is confined to that scope
+and is automatically discarded when behave leaves it.
+
+This means:
+
+* Values set in an outer scope (e.g. ``before_all``) flow into inner
+  scopes as a baseline.
+* Mutations in an inner scope (e.g. ``before_scenario``) never leak back
+  out to the outer scope or sideways into sibling scopes.
+* You never need to "reset" ``context.fixtures`` manually between
+  scenarios or features.
+
+Loading the same fixtures for every scenario:
 
 .. code-block:: python
 
     def before_all(context):
         context.fixtures = ['user-data.json']
 
-This fixture would then be loaded before every scenario.
+Loading fixtures for an entire feature:
 
-If you wanted different fixtures for different scenarios:
+.. code-block:: python
+
+    def before_feature(context, feature):
+        if feature.name == 'Login':
+            context.fixtures = ['user-data.json']
+
+Loading or extending fixtures for individual scenarios:
 
 .. code-block:: python
 
@@ -29,38 +52,40 @@ If you wanted different fixtures for different scenarios:
             context.fixtures = ['user-data.json']
         elif scenario.name == 'Check out cart':
             context.fixtures = ['user-data.json', 'store.json', 'cart.json']
-        else:
-            # Resetting fixtures, otherwise previously set fixtures carry
-            # over to subsequent scenarios.
-            context.fixtures = []
 
-You could also have fixtures per Feature too
+Combining a feature-wide baseline with scenario-specific extras:
 
 .. code-block:: python
 
     def before_feature(context, feature):
-        if feature.name == 'Login':
+        if feature.name == 'Shopping':
             context.fixtures = ['user-data.json']
-            # This works because behave will use the same context for
-            # everything below Feature. (Scenarios, Outlines, Backgrounds)
-        else:
-            # Resetting fixtures, otherwise previously set fixtures carry
-            # over to subsequent features.
+
+    def before_scenario(context, scenario):
+        if scenario.name == 'Check out cart':
+            context.fixtures.append('cart.json')
+
+In the example above, the "Shopping" feature's other scenarios still
+receive only ``user-data.json`` — the ``cart.json`` append affects only
+the "Check out cart" scenario.  Other features are not affected at all.
+
+Opting out of inherited fixtures
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To run a scenario (or a whole feature) without the fixtures inherited
+from a parent scope, assign an empty list:
+
+.. code-block:: python
+
+    def before_all(context):
+        context.fixtures = ['user-data.json']
+
+    def before_scenario(context, scenario):
+        if scenario.name == 'Anonymous visitor':
             context.fixtures = []
 
-Of course, since ``context.fixtures`` is really just a list, you can mutate it
-however you want, it will only be processed upon leaving the
-``before_scenario()`` function of your ``environment.py`` file. Just keep in
-mind that it does not reset between features or scenarios, unless explicitly
-done so (as shown in the examples above).
-
-.. attention::
-
-    Starting with **behave-django 2.0.0**, the ``context.fixtures`` attribute
-    will be automatically reset after each scenario. This means you will no
-    longer need to explicitly set ``context.fixtures = []`` to reset fixtures
-    between scenarios or features. The automatic reset will make fixture
-    handling more user-friendly and less error-prone.
+The "Anonymous visitor" scenario runs without any fixtures; every other
+scenario still receives ``user-data.json`` from ``before_all``.
 
 .. note::
 

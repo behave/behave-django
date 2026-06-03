@@ -16,3 +16,6 @@ Feature: Fixture loading
 
     Scenario: Load fixtures with databases option
         Then databases should be set to all database in the Django settings
+
+    Scenario: Override inherited fixtures with empty list
+        Then there should be no fixtures loaded
