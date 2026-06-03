@@ -1,4 +1,5 @@
 from copy import copy
+from urllib.parse import urlparse
 
 import django
 from behave.runner import Context, ModelRunner, Runner
@@ -20,7 +21,22 @@ class PatchedContext(Context):
             raise RuntimeError(msg) from err
 
     def get_url(self, to=None, *args, **kwargs):
-        return self.base_url + (resolve_url(to, *args, **kwargs) if to else '')
+        """Build a URL for the live test server.
+
+        Without an argument (or with a falsy ``to``), return ``base_url``.
+        Otherwise resolve ``to`` via Django's ``resolve_url`` shortcut and
+        prepend ``base_url``.  If the resolved value is already absolute
+        (e.g. a model's ``get_absolute_url()`` returning a full URL, or
+        ``to`` being a full URL string), it is returned as-is to avoid
+        producing a malformed double-host string like
+        ``"http://localhost:8000http://example.com/"``.
+        """
+        if not to:
+            return self.base_url
+        url = resolve_url(to, *args, **kwargs)
+        if urlparse(url).scheme:
+            return url
+        return self.base_url + url
 
 
 def load_registered_fixtures(context):

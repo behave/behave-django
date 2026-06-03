@@ -8,6 +8,10 @@ Feature: URL helpers are available in behave's context
         When I call get_url() without arguments
         Then it returns the value of base_url
 
+    Scenario: get_url("") with an empty string also returns base_url
+        When I call get_url("") with an empty string
+        Then it returns the value of base_url
+
     Scenario: The first argument in get_url() is appended to base_url if it is a path
         When I call get_url("/path/to/page/") with an absolute path
         Then the result is the base_url with "/path/to/page/" appended
@@ -21,3 +25,11 @@ Feature: URL helpers are available in behave's context
         When I call get_url(model) with a model instance
         Then this returns the same result as get_url(model.get_absolute_url())
         And the result is the base_url with model.get_absolute_url() appended
+
+    Scenario: A full URL passed to get_url() is returned as-is, not concatenated to base_url
+        When I call get_url("https://example.com/foo") with a full URL
+        Then the result is "https://example.com/foo"
+
+    Scenario: A model whose get_absolute_url() returns a full URL is not concatenated to base_url
+        When I call get_url(model) with a model whose get_absolute_url returns "https://example.com/bar"
+        Then the result is "https://example.com/bar"
