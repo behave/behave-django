@@ -1,23 +1,31 @@
 Release History
 ---------------
 
-(unreleased)
-++++++++++++
+2.0.0 (2026-06-04)
+++++++++++++++++++
 
 **Breaking Changes**
 
-- ``context.fixtures`` is now snapshotted onto every scope behave pushes
-  (feature, rule, scenario), so mutations made inside a scope no longer
-  leak into sibling scopes.  Values set in ``before_all()``,
-  ``before_feature()`` or ``before_rule()`` still propagate inward as a
-  baseline; the manual reset recipe (``context.fixtures = []`` after
-  each scenario or feature) is no longer needed (#179).
+- ``context.fixtures`` is now automatically isolated per Behave scope
+  (feature, rule, scenario): fixtures loaded in one scenario no longer leak
+  into the next.  Fixtures set in ``before_all()``, ``before_feature()``
+  or ``before_rule()`` still propagate to nested scopes.  The manual
+  ``context.fixtures = []`` reset is no longer needed.
+
+**Features and Improvements**
+
+- Cover Django 6.0, drop Python 3.9 and Django 4.2, 5.0 and 5.1
+- Document how to configure a custom ``LiveServerTestCase`` host for
+  remote browsers
+- Add unit tests for the ``pageobject`` module
 
 **Bugfixes**
 
-- Fix ``RecursionError`` on Django 4.1+ without ``--simple``: call
-  ``doClassCleanups()`` after ``tearDownClass()`` to prevent settings
-  overrides from accumulating across scenarios.
+- Fix ``RecursionError`` on Django 4.1+ without ``--simple``, caused by
+  settings overrides piling up across scenarios
+- Fix double ``base_url`` when ``get_url()`` receives an absolute URL
+- Avoid ``ContextMaskWarning`` by snapshotting ``context.fixtures`` in
+  user mode
 
 1.9.0 (2025-11-15)
 ++++++++++++++++++

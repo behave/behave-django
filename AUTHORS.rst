@@ -22,5 +22,6 @@ Contributors
 * `Nik Nyby <https://github.com/nikolas>`_
 * `Paolo Melchiorre <https://github.com/pauloxnet>`_
 * `Sebastian Manger <https://github.com/sebastianmanger>`_
+* `Stuart Mashaal <https://github.com/smashaal>`_
 * `Tom Mortimer-Jones <https://github.com/morty>`_
 * `Wojciech Banaś <https://github.com/fizista>`_
