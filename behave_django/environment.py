@@ -176,7 +176,11 @@ def monkey_patch_behave(django_test_runner):
             # feature, rule, or scenario.  Snapshotting on ``before_all``
             # also lets users call ``context.fixtures.append(...)`` there
             # without first assigning a list.
-            context.fixtures = list(getattr(context, 'fixtures', []))
+            # Use user mode so behave records the attribute as user-owned;
+            # otherwise reassignment in a user hook (``context.fixtures =
+            # [...]``) would emit a ``ContextMaskWarning``.
+            with context.use_with_user_mode():
+                context.fixtures = list(getattr(context, 'fixtures', []))
 
         behave_run_hook(self, hook_name, *args)
 
